@@ -19,9 +19,10 @@
       todoList.addEventListener('click', function(event) {
 
         var target = event.target;
-        var parent = target.parentNode;
-        todoList.removeChild(parent);
-
+        if (target.tagName === 'BUTTON') {
+          var parent = target.parentNode;
+          todoList.removeChild(parent);
+        }
       });
 
       var addButton = document.getElementById('add-button');
@@ -29,7 +30,6 @@
 
         var textBox = document.getElementById('input-field');
         var task = textBox.value + " ";
-        console.log(task);
         var newLi = document.createElement('li');
         newLi.textContent = task;
         var newRemoveButton = document.createElement('button');
