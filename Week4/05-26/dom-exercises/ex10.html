@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>classList.remove</title>
+  </head>
+  <body>
+    <ul>
+      <li class="item">result one</li>
+      <li class="item selected">result two</li>
+    </ul>
+    <script>
+    /*
+    Remove the class of "selected" from
+    second li.
+    */
+    var target = document.getElementsByClassName('item');
+    console.log(target);
+    target[1].classList.remove('selected');
+    console.log(target);
+    </script>
+  </body>
+</html>

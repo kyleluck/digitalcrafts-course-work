@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Contact Form</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <style>
+    form {
+      max-width: 480px;
+      margin: auto;
+    }
+    </style>
+  </head>
+  <body>
+    <form action="submit.php" method="POST">
+      <label>Your name</label>
+      <input type="text" name="name" class="form-control">
+      <label>Your email</label>
+      <input type="text" name="email" class="form-control">
+      <label>Your message:</label>
+      <textarea name="message" class="form-control" ></textarea>
+      <br>
+      <button type="submit" class="btn btn-default">Send</button>
+    </form>
+  </body>
+</html>

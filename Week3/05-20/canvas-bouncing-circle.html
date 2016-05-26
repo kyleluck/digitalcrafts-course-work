@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Draw a rectangle</title>
+  </head>
+  <body>
+    <canvas id="canvas" height="1000" width="1500">
+    </canvas>
+    <script>
+      var canvas = document.getElementById('canvas');
+      var ctx = canvas.getContext('2d');
+      var x = 400;
+      var y = 400;
+      var position = true;
+      var up = 0;
+      var down = 0;
+      //### ctx.ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle);
+      function main(){
+        ctx.fillStyle = "white";
+        ctx.fillRect(0, 0, 1500, 1000);
+        ctx.beginPath();
+        ctx.fillStyle = 'red';
+        ctx.ellipse(x, y, 350, 350, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.fillStyle = 'white';
+        ctx.ellipse(x, y, 275, 275, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.fillStyle = 'red';
+        ctx.ellipse(x, y, 200, 200, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.fillStyle = 'white';
+        ctx.ellipse(x, y, 125, 125, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.fillStyle = 'red';
+        ctx.ellipse(x, y, 50, 50, 0, 0, Math.PI * 2);
+        ctx.fill();
+        x+=5;
+        if (position && up <= 1000){
+          y+=5;
+          position = false;
+          up++;
+          if (up === 1000) {
+            up = 0;
+          }
+        }else if (down <= 1000) {
+          y-=5;
+          position = true;
+          down++;
+          if (down == 1000) {
+            down = 0;
+          }
+        }
+        requestAnimationFrame(main);
+      }
+        main();
+    </script>
+  </body>
+</html>

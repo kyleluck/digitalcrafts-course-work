@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>node.appendChild(), document.createElement(), node.textContent</title>
+  </head>
+  <body>
+    <ul id="list">
+      <li>One</li>
+      <li>two</li>
+    </ul>
+    <script>
+    /*
+    Find the ul with id of "list" and append a new li element with the text content of "Three" to it.
+    You will need to use the APIs:
+
+    * document.createElement() - to create a new DOM element
+    * node.textContent - to set the text value of the created element
+    * document.getElementById() - to find the #list element
+    * node.appendChild() - to add the new element to the #list element
+    */
+    var list = document.getElementById('list');
+    var newLi = document.createElement('li');
+    newLi.textContent = 'Three';
+    list.appendChild(newLi);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>addEventListener, event.target </title>
+  </head>
+  <body>
+    <button>Click me</button>
+    <button>Click me</button>
+    <button>Click me</button>
+    <script>
+    /*
+    When any button is clicked, change the
+    text on the clicked button to
+    "You clicked".
+
+    Hint: Use event.target - event is the first parameter in the event handler
+    function to addEventListener.
+    */
+    var buttons = document.querySelectorAll('button');
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].addEventListener('click', function(event) {
+        var target = event.target;
+        target.textContent = 'You clicked.';
+      });
+    }
+    </script>
+  </body>
+</html>

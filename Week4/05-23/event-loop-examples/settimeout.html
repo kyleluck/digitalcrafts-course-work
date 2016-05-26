@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>SetTimeout</title>
+  </head>
+  <body>
+    <script>
+    console.log('Start timer: ', new Date());
+    setTimeout(function() {
+      console.log('Timer done: ', new Date());
+    }, 1000);
+
+    /*
+    // Guess what would happen
+    // setTimeout(..., 0); ?
+    var startTime = new Date();
+    console.log('Start loop: ', startTime);
+    while ((new Date() - startTime) < 5000) {
+      // do nothing
+    }
+    console.log('End loop: ', new Date());
+    */
+    </script>
+  </body>
+</html>

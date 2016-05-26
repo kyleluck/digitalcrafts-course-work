@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Rectangle</title>
+  </head>
+  <body>
+    <canvas id="canvas" width="400" height="400"></canvas>
+    <script>
+    var circleX = 100;
+    var circleY = 100;
+    var speed = 5;
+    window.addEventListener('keydown', function(e) {
+      var key = e.keyCode;
+      if (key === 37) { // left
+        circleX -= speed;
+      }
+      if (key === 39) { // right
+        circleX += speed;
+      }
+      if (key === 38) { // up
+        circleY -= speed;
+      }
+      if (key === 40) { // down
+        circleY += speed;
+      }
+    });
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
+    function main() {
+      ctx.fillStyle = 'white';
+      ctx.fillRect(0, 0, 400, 400);
+      ctx.fillStyle = 'red';
+      ctx.beginPath();
+      ctx.ellipse(circleX, circleY, 50, 50, 0, 0, Math.PI * 2);
+      ctx.fill();
+      requestAnimationFrame(main);
+    }
+    main();
+    </script>
+  </body>
+</html>

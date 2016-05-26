@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>document.querySelectorAll()</title>
+  </head>
+  <body>
+    <ul>
+      <li>one</li>
+      <li>two</li>
+    </ul>
+    <ul class="results">
+      <li>Result one</li>
+      <li>Result two</li>
+    </ul>
+    <script>
+    /*
+    Use a CSS selector to select all li elements within the ul with
+    the class of "results"
+    */
+    var liElements = document.querySelectorAll('.results li');
+    for (var i = 0; i < liElements.length; i++) {
+      console.log(liElements[i]);
+    }
+    </script>
+  </body>
+</html>

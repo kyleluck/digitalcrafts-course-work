@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Repaint Blocking</title>
+    <link href="repaint.css" rel="stylesheet">
+    <script src="jquery.js"></script>
+    <script>
+    $(function () {
+      $('button').click(function() {
+        console.log('Start processing');
+        var startTime = new Date();
+        while ((new Date() - startTime) < 2000) {
+
+        }
+        console.log('Done processing');
+      });
+    });
+    </script>
+  </head>
+  <body>
+    <div id="container">
+      <button>Click me!</button>
+    </div>
+  </body>
+</html>

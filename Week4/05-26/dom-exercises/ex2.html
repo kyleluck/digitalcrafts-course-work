@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>document.getElementsByClassName()</title>
+  </head>
+  <body>
+    <a class="link" href="http://google.com">Google</a>
+    <a class="link" href="http://bing.com">Bing</a>
+    <script>
+    /*
+    Write code to find all elements with the class of "link"
+    Use console.log to print each result. Hint: the return value
+    of document.getElementsByClassName is a nodeList and can
+    be accessed like an array.
+    */
+    console.log(document.getElementsByClassName('link'));
+    var links = document.getElementsByClassName('link');
+    for (var i = 0; i < links.length; i++) {
+      console.log(links[i]);
+    }
+    </script>
+  </body>
+</html>

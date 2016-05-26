@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Facebook</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <style media="screen">
+      body {
+        background: #ccc;
+      }
+      .logo {
+        width:25px;
+        height:25px;
+        margin: 12px 0 10px 100px;
+      }
+      .navbar-brand {
+        padding: 0;
+      }
+      .navbar, .navbar-default {
+        background: #3b5998;
+        color: white;
+      }
+      @media (min-width: 768px) {
+        .navbar-form .form-control {
+          width: 500px;
+        }
+      }
+      .navbar-default .navbar-nav>li>a {
+        color: white;
+      }
+      li {
+        list-style: none;
+      }
+      ul {
+        padding: 0;
+      }
+      .friendspost {
+        text-align: right;
+      }
+      .smallImg {
+        height: 25px;
+        width: 25px;
+        margin-right: 5px;
+      }
+      .toby, .shawn {
+        height: 75px;
+        width: 75px;
+        margin-right: 10px;
+      }
+      .boldblue {
+        color: #3b5998;
+        font-weight: bold;
+      }
+      .blue {
+        color: #3b5998;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"><img src="fb-logo.jpg" alt="Facebook" class="logo"></a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <form class="navbar-form navbar-left" role="search">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Search">
+            </div>
+            <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></button>
+          </form>
+          <ul class="nav navbar-nav">
+            <li><a href="#">Toby</a></li>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Find Friends</a></li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+
+    <div class="container">
+      <div class="row">
+        <div class="col col-md-3">
+          <ul>
+            <li>Toby Ho</li>
+            <li>Edit Profile</li>
+          </ul>
+          <h6>FAVORITES</h6>
+          <ul>
+            <li><strong>News Feed</strong></li>
+            <li>Messages</li>
+            <li>Events</li>
+            <li>Sale Groups</li>
+          </ul>
+          <h6>GROUPS</h6>
+          <ul>
+            <li>PODD &amp; Angelma...</li>
+            <li>ASF Communicati...</li>
+            <li>Angelman, Literac...</li>
+            <li>AAC Through Moti...</li>
+            <li>karson-toby</li>
+            <li>Create Group</li>
+            <li>Discover Groups</li>
+          </ul>
+        </div>
+        <div class="col col-md-6">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <img src="pen.png" class="smallImg">Update Status | <img src="addphoto.png" class="smallImg"><span class="boldblue">Add Photos/Videos</span> | <img src="createalbum.png" class="smallImg"><span class="boldblue">Create Photo Album</span>
+              <hr>
+              <p><img src="toby.png" class="toby">What's on your mind?<p>
+              <hr>
+              <!-- Single button -->
+              <div class="friendspost">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="glyphicon glyphicon-user"></span><strong> Friends</strong> <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                  </ul>
+                </div>
+                <button type="button" name="button" class="btn btn-primary">Post</button>
+              </div> <!-- / friends drop down -->
+            </div> <!-- / panel body -->
+          </div> <!-- / panel -->
+
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <img src="shawn.png" class="shawn"><span class="boldblue">Shawn C. Reed</span>
+            </div> <!-- / panel body -->
+          </div> <!-- / panel -->
+        </div> <!-- / end of middle column -->
+        <div class="col col-md-3">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <h6>TRENDING</h6>
+              <hr>
+              <p><span class="boldblue">World Naked Gardening Day</span>: Annual Holiday Celebrating Nudism in Nature Takes Place Saturday</p>
+              <p><span class="boldblue">Emma Watson</span>: Actress Wears Dress Made of Recycled Plastic Bottles to Met Gala in New York</p>
+              <p><span class="boldblue">Mount St. Helens</span>: Earthquake Swarm Detected Below Washington Volcano, Report Says</p>
+              <span class="caret"></span><a href="#">See More</a>
+            </div> <!-- / panel body -->
+          </div> <!-- / panel -->
+        </div>
+      </div>
+    </div> <!-- /.container -->
+
+
+    <script src="jquery.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  </body>
+</html>

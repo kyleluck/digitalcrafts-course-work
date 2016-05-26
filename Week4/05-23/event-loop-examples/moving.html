@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Moving</title>
+    <script src="jquery.js"></script>
+    <script>
+    $(function() {
+      move();
+    });
+
+    var left = 0;
+    function move() {
+      $('h1').css({
+        left: left + 'px'
+      });
+      left += 5;
+
+      // try requestAnimationFrame
+      setTimeout(move, 15);
+    }
+    </script>
+    <style>
+    h1 {
+      position: absolute;
+    }
+    </style>
+  </head>
+  <body>
+    <h1>Hello, World!</h1>
+  </body>
+</html>

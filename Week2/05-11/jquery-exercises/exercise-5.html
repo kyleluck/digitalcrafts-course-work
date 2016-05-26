@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>jQuery Exercise</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <script src="jquery.js"></script>
+    <script>
+    /*
+    Make it so that after entering the task description, in the text field and clicking the "Add Task" button, a new task appears inside the element with the id todo-list.
+
+    If you are done early, try to make this into a full-fledged todo list. Some features you can implement are:
+
+    1. the ability to remove tasks (add an x button)
+    2. the ability to check off tasks - strikes them out wo removing (add a checkbox)
+
+    */
+    $(function() {
+      //first option
+      /*
+      $('#description').focus();
+      $('#add-button').click(function() {
+        var newTask = $('#description').val();
+        var deleteButton = $('<button class="deleteItem">X</button>');
+        $(deleteButton).click(function() {
+           $(this).parent().remove();
+        });
+        var li = $('<li>' + newTask + '</li>');
+        li.append(deleteButton);
+        $('#todo-list').append(li);
+        $('#description').val('').focus();
+      });
+      */
+
+
+      //THIS WON'T WORK ON DYNAMICALLY CREATED ELEMENTS
+      // $('.deleteItem').click(function() {
+      //   $(this).parent().remove();
+      // });
+
+      //second option
+      $('#description').focus();
+      $('#add-button').click(function() {
+        var newTask = $('#description').val();
+        var deleteButton = $('<button class="deleteItem">X</button>');
+        var strikeCheckbox = $('<button class="strike">-</button>');
+        var li = $('<li>' + newTask + '</li>');
+        li.append(deleteButton);
+        li.prepend(strikeCheckbox);
+        $('#todo-list').append(li);
+        $('#description').val('').focus();
+      });
+
+      //bind click events to delete an li when the corresponding X button is clicked
+      $('#todo-list').on('click', '.deleteItem', function() {
+        $(this).parent().remove();
+      });
+      $('#todo-list').on('click', '.strike', function() {
+        $(this).parent().css("text-decoration", "line-through");
+      });
+    });
+    </script>
+    <style>
+    body {
+      margin-top: 20px;
+    }
+    #description, #search, #todo-list, #add-button {
+      font-size: 1.5em;
+    }
+    #todo-list {
+      list-style: none;
+    }
+    .col {
+      text-align: center;
+    }
+    ul {
+      padding: 10px 0;
+      margin: 0 auto;
+      width: 50%;
+    }
+    li {
+      margin: 10px auto;
+      text-align: left;
+      width: 50%;
+    }
+    .deleteItem, .strike {
+      margin: 0 10px;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col col-xs-12">
+          <input id="description" type="text" name="description">
+          <button id="add-button">Add Task</button>
+          <ul id="todo-list">
+            <li><button class="strike">-</button>Feed the cat<button class="deleteItem">X</button></li>
+          </ul>
+        </div>
+      </div> <!-- end row -->
+    </div> <!-- end container -->
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  </body>
+</html>
+
+<!--
+Steps:
+1. Wait for document to be ready: $(function() { ... });
+  2. Add a click event handler for the "Add Task" button #add-button
+    3. Get the value using .val() method from the text input #description and store it in a variable, say `description`
+    4. Append a new li element to the todo list #todo-list using .append('<li>' + descripton + '</li>')
+
+Methods Needed:
+
+* http://api.jquery.com/jQuery/
+* http://api.jquery.com/val/
+* http://api.jquery.com/click/
+* http://api.jquery.com/ready/
+* http://api.jquery.com/append/
+* http://api.jquery.com/val/
+-->

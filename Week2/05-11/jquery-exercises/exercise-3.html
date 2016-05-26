@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="jquery.js"></script>
+    <script>
+    /*
+    When the button is clicked, change the text of the paragraph #the-message to "Ahhhhhh", and the text of the button #the-button to "Click again?".
+    */
+    $(function() {
+      $('#the-button').click(function() {
+        $('#the-message').text('Ahhhhh');
+        $('#the-button').text('Click again?');
+      });
+    });
+    </script>
+  </head>
+  <body>
+    <p id="the-message">Pardon me, would you please</p>
+    <button id="the-button">Click me?</button>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+Steps:
+
+1. Wait for the document to be ready
+  2. Find the button in the element by calling `$()` function with an appropriate CSS selector
+  3. Add a click event handler for the button
+    4. when button is clicked, use console.log to print the message
+
+Methods Needed:
+
+* http://api.jquery.com/ready/
+* http://api.jquery.com/jQuery/
+* http://api.jquery.com/click/
+-->

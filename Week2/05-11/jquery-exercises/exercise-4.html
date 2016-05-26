@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="jquery.js"></script>
+    <script>
+    /*When the clear button is clicked, clear the text field.
+    When the save button is clicked, take the text value inside the text field, and append it to the log.*/
+    $(function() {
+      $('#clear-button').click(function() {
+        $('#text-field').val('');
+      });
+      $('#save-button').click(function() {
+        var newMessage = $('#text-field').val();
+        var currentLog = $('#log').text();
+        var messageToAppend = currentLog + " " + newMessage;
+        $('#log').text(messageToAppend);
+        $('#text-field').val('').focus();
+      });
+    });
+    </script>
+  </head>
+  <body>
+    <input id="text-field" type="text" name="text">
+    <button id="clear-button">Clear</button>
+    <button id="save-button">Save</button>
+    <pre id="log"></pre>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+Steps:
+
+1. Wait for document to be ready
+  2. Add click event handler to #clear-button, when it's clicked
+    1. Set the text value of #text-field to the empty string "", using .val("")
+  3. Add click event handler to #save-button, when it's clicked
+    1. Save the text value of #text-field to a variable, say call it message, using .val()
+    2. Get the existing text of the #log element using .text(), and save it to a variable, say messages
+    3. Add the new message to messages, by string concatenation (+)
+    3. Update the text of the #log element using .text(message)
+-->

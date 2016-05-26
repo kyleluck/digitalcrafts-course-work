@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Ajax Example</title>
+    <script src="jquery.js"></script>
+    <script>
+    function getData(callback) {
+      $.ajax({
+        method: 'GET',
+        headers: {
+          "Authorization": "Basic a3lsZWx1Y2s6Y29kaW5nTUFOMzQz"
+        },
+        url: 'https://api.github.com/users/kyleluck/events',
+        success: function(data) {
+          callback(data);
+        }
+      });
+    }
+    $(function() {
+      getData(function(result) {
+        var ul = "<ul>";
+        result.forEach(function(obj) {
+          console.log("ID: " + obj.id);
+          console.log("Type: " + obj.type);
+          console.log("Repo: " + obj.repo.name);
+          if (obj.payload.hasOwnProperty("commits")) {
+            console.log("Commit message: " + obj.payload.commits[0].message);
+            ul += "<li>" + obj.payload.commits[0].message + " - by " + obj.payload.commits[0].author.name + " created at: " + obj.created_at + "</li>";
+          }
+        });
+        ul += "</ul>";
+        $('.container').append(ul);
+      });
+    });
+    </script>
+  </head>
+  <body>
+    <div class="container">
+
+    </div>
+  </body>
+</html>
