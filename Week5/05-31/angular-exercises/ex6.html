@@ -25,10 +25,52 @@ The app should have
     <title>Making Change</title>
     <script src="angular.js"></script>
     <script>
-    <!-- write JS in here -->
+    var app = angular.module('my-app', []);
+    app.controller('MainController', function($scope) {
+      $scope.showChange = false;
+      $scope.quarters = 0;
+      $scope.dimes = 0;
+      $scope.nickels = 0;
+      $scope.pennies = 0;
+
+      $scope.calculateChange = function() {
+        var difference = ($scope.amount - $scope.bill).toFixed(2);
+        while (difference != 0.00) {
+          if (difference >= .25) {
+            $scope.quarters++;
+            difference = (difference - .25).toFixed(2);
+          } else if (difference >= .1) {
+            $scope.dimes++;
+            difference = (difference - .1).toFixed(2);
+          } else if (difference >= .05) {
+            $scope.nickels++;
+            difference = (difference - .05).toFixed(2);
+          } else if (difference >= .01) {
+            $scope.pennies++;
+            difference = (difference - .01).toFixed(2);
+          }
+        }
+        $scope.showChange = true;
+      };
+    });
     </script>
   </head>
   <body>
     <!-- write template code in here -->
+    <div ng-app="my-app" ng-controller="MainController">
+      <form ng-submit="calculateChange()">
+        <label>Amount of bill:</label>
+        <input type="number" step="any" ng-model="bill"><br>
+        <label>Given amount:</label>
+        <input type="number" step="any" ng-model="amount">
+        <button>Make change!</button>
+      </form>
+      <div ng-show="showChange">
+        <p>{{ quarters }} quarters<p>
+        <p>{{ dimes }} dimes</p>
+        <p>{{ nickels }} nickels</p>
+        <p>{{ pennies }} pennies</p>
+      </div>
+    </div>
   </body>
 </html>
