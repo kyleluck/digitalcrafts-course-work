@@ -16,10 +16,11 @@ Hints at the bottom of this file.
     var app = angular.module('my-app', []);
     app.controller('MainController', function($scope) {
 
-      $scope.items = [{task: 'Buy Milk'}, {task: 'Learn Angular'}, {task: 'Buy Track Insurance'}];
+      $scope.items = [{description: 'Buy Milk'}, {description: 'Learn Angular'}, {description: 'Buy Track Insurance'}];
 
-      $scope.addItem = function(item) {
-        $scope.items.push(item);
+      $scope.addItem = function() {
+        var task = {description: $scope.newItem};
+        $scope.items.push(task);
       };
 
       $scope.removeTask = function(item) {
@@ -52,7 +53,7 @@ Hints at the bottom of this file.
 
     <!-- write template code in here -->
     <div ng-app='my-app' ng-controller="MainController" class="container">
-      <form ng-submit="addItem({task: newItem})">
+      <form ng-submit="addItem()">
         <input type="text" ng-model="newItem">
         <button>Add</button>
       </form>
@@ -60,22 +61,13 @@ Hints at the bottom of this file.
         <li ng-repeat="item in items" ng-class="done ? 'done' : ''">
           <input type="checkbox" ng-model="done">
           <button ng-click="removeTask(item)">Remove</button>
-          {{item.task}}
+          {{item.description}}
         </li>
       </ul>
     </div>
 
   </body>
 </html>
-
-
-
-
-
-
-
-
-
 
 <!--
 Hints / Detailed steps
