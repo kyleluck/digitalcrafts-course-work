@@ -16,10 +16,10 @@ Hints at the bottom of this file.
     var app = angular.module('my-app', []);
     app.controller('MainController', function($scope) {
 
-      $scope.items = [{description: 'Buy Milk'}, {description: 'Learn Angular'}, {description: 'Buy Track Insurance'}];
+      $scope.items = [{description: 'Buy Milk', done: false}, {description: 'Learn Angular', done: false}, {description: 'Buy Track Insurance', done: false}];
 
       $scope.addItem = function() {
-        var task = {description: $scope.newItem};
+        var task = {description: $scope.newItem, done: false};
         $scope.items.push(task);
       };
 
@@ -58,8 +58,8 @@ Hints at the bottom of this file.
         <button>Add</button>
       </form>
       <ul>
-        <li ng-repeat="item in items" ng-class="done ? 'done' : ''">
-          <input type="checkbox" ng-model="done">
+        <li ng-repeat="item in items" ng-class="item.done ? 'done' : ''">
+          <input type="checkbox" ng-model="item.done">
           <button ng-click="removeTask(item)">Remove</button>
           {{item.description}}
         </li>
