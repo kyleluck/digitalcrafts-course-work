@@ -19,9 +19,53 @@ Hints at the bottom of this file.
   <head>
     <meta charset="utf-8">
     <title>Fight or Flight</title>
-  </head>
-  <body>
+    <script src="angular.js"></script>
+    <script>
+      var app = angular.module('my-app', []);
+      app.controller('MainController', function($scope) {
+        $scope.gameOver = false;
+        $scope.dragonHealth = 20;
+        $scope.heroHealth = 10;
+        $scope.fight = function() {
+          var random = Math.floor(Math.random() * 2) + 1;
+          if (random % 2 === 0) {
+            $scope.dragonHealth -= 5;
+          } else {
+            $scope.heroHealth -=5;
+          }
+          checkForWinner()
+        };
+        $scope.flight = function() {
+          $scope.heroHealth += 2;
+        };
+        $scope.playAgain = function () {
+          $scope.dragonHealth = 20;
+          $scope.heroHealth = 10;
+          $scope.gameOver = false;
+          $scope.message = null;
+        };
 
+        function checkForWinner() {
+          if ($scope.dragonHealth <= 0) {
+            $scope.message = 'You Win!';
+            $scope.gameOver = true;
+          } else if ($scope.heroHealth <= 0) {
+            $scope.message = 'You Lose!';
+            $scope.gameOver = true;
+          }
+        }
+      });
+    </script>
+  </head>
+  <body ng-app="my-app" ng-controller="MainController">
+    <p>Dragon health is {{dragonHealth}}</p>
+    <p>Hero health is {{heroHealth}}</p>
+    <p>{{ message }}</p>
+    <p ng-show="gameOver"><button ng-click="playAgain()">Play Again</button></p>
+    <div>
+      <button ng-click="fight()" ng-show="!gameOver">Fight!</button>
+      <button ng-click="flight()" ng-show="!gameOver">Flight</button>
+    </div>
   </body>
 </html>
 
