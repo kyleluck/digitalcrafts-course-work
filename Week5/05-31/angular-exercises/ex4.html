@@ -27,8 +27,8 @@ Hints at the bottom of this file.
         $scope.dragonHealth = 20;
         $scope.heroHealth = 10;
         $scope.fight = function() {
-          var random = Math.floor(Math.random() * 2) + 1;
-          if (random % 2 === 0) {
+          var random = Math.random();
+          if (random > 0.5) {
             $scope.dragonHealth -= 5;
           } else {
             $scope.heroHealth -=5;
@@ -68,11 +68,6 @@ Hints at the bottom of this file.
     </div>
   </body>
 </html>
-
-
-
-
-
 
 
 <!--
