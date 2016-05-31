@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Controllers</title>
+    <script src="angular.js"></script>
+    <script>
+    // create an AngularJS module called my-app
+    var app = angular.module('my-app', []);
+    // create a controller called MainController
+    app.controller('MainController', function($scope) {
+      // Create a sayGreeting method which sets the
+      // message property to a greeting based on the name property.
+      $scope.sayGreeting = function() {
+        $scope.message = 'Hello, ' + $scope.name + '!';
+      };
+    });
+    </script>
+  </head>
+  <body>
+    <!--
+    1. initialize the AngularJS app
+    2. attach to the my-app module
+    3. attach to the MainController controller
+    -->
+    <div ng-app="my-app" ng-controller="MainController">
+      What's your name?<br>
+      <!-- a form, which when submitted, calls the sayGreeting()
+      method -->
+      <form ng-submit="sayGreeting()">
+        <!-- a text input that binds to the name property -->
+        <input type="text" ng-model="name">
+        <!-- a normal submit button for the form -->
+        <button>Submit</button><br>
+        <!-- display the message - if any - using an expression -->
+        {{message}}
+      </form>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,48 @@
+<!--
+Make a todo list app 1.
+
+1. make a list with predefined tasks and display them
+2. make a form with a text input and allow adding new tasks
+
+Hints at the bottom of this file.
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Todo List</title>
+    <script src="angular.js"></script>
+    <script>
+    <!-- write JS in here -->
+    </script>
+  </head>
+  <body>
+    <!-- write template code in here -->
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+<!--
+Hints / Detailed steps
+
+1. Make an AngularJS module
+2. In that module, make a controller
+3. Attach template code to the module
+4. Attach template code to the controller
+5. Create a tasks property on $scope and set it to an array of objects representing tasks, each one containing a "description" property.
+6. Make a ul
+7. Within the ul, make an li, add an ng-repeat attribute to the li to repeat it for each task in the tasks array - `ng-repeat="task in tasks"`. Display the description of each task using the `{{task.description}}` expression. See angular-examples/8-coins.html for an example of ng-repeat usage.
+8. Make a form above the ul
+9. Inside the form, make a text input: `<input type="text">`
+10. Inside the form, make a button: `<button>Add</button>`
+11. Add an ng-submit directive to the form to call a method `addTask()`
+12. Create an addTask method in the $scope which creates an object representing a task and pushes it onto the $scope.tasks array.
+-->

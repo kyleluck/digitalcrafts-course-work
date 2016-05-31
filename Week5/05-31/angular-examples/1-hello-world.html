@@ -1,0 +1,30 @@
+<!--
+This app dynamically links the value of a text input to the text
+in a label. Watch what happens when you change the value in
+the text input!
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Angular Hello World</title>
+    <!-- include the angular.js file -->
+    <script src="angular.js"></script>
+  </head>
+  <body>
+    <!--
+    1. initialize the div as an AngularJs app
+    2. initialize the name property in the scope to 'world'
+    -->
+    <div ng-app ng-init="name = 'Mary';">
+      What's your name?<br>
+      <!-- Create a text input and bind its value to the name
+      property in the scope by using the ng-model directive -->
+      <input type="text" ng-model="name"><br>
+      <!-- display text here, substituting in the name property
+      using an expression
+      -->
+      <label>Hello, {{name}}!</label>
+    </div>
+  </body>
+</html>

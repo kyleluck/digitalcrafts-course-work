@@ -1,0 +1,96 @@
+<!--
+Write an app that asks the user to input his age in a number input.
+Then when he clicks a "Submit" button, it displays the year they were born. Hints at the bottom of this file.
+
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>What Year Were You Born?</title>
+    <script src="angular.js"></script>
+  </head>
+  <body>
+    <!-- write AngularJS template code here -->
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+## Hint
+
+Look at angular-examples/3-controller.html for an example of how to do form submissions. If you need more instruction, read on for the detailed steps.
+
+## Detailed Steps
+
+2. make an AngularJS module, call it "my-app":
+
+```
+//don't forget the empty array as the second argument!
+var app = angular.module('my-app', []);
+```
+
+3. make a controller in that module:
+
+```
+app.controller('MainController', function($scope) {
+
+});
+```
+
+4. make a div
+5. connect that div to the module using ng-app="my-app"
+6. connect that div to the controller. You should have
+
+```
+<div ng-app="my-app" ng-controller="MainController">
+</div>
+```
+
+7. Use an expression to display the message property: `{{message}}`
+
+8. Make a form inside the div
+
+9. Make a number input inside the form, and connect it to the "age" property using the ng-model attribute:
+
+```
+<input type="number" ng-model="age">
+```
+
+10. Make a button inside the form.
+
+11. Add a ng-submit directive to the form and have it call the displayYear() method. Your form should look like:
+
+```
+<form ng-submit="displayYear()">
+  <input type="number" ng-model="name">
+  <button>Submit</button>
+</form>
+```
+
+12. Inside the controller, add a displayYear() method to `$scope`, it will set the message property in the scope to tell the year the user was born. The current year can be gotten by:
+`var currentYear = new Date().getFullYear();`
+
+```
+$scope.displayYear = function() {
+  var currentYear = new Date().getFullYear();
+  var yearBorn = currentYear - $scope.age;
+  $scope.message = 'You were born in ' + yearBorn;
+};
+```
+
+-->

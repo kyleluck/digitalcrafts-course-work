@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Coins</title>
+    <script src="angular.js"></script>
+    <style>
+    .coins img {
+      float: left;
+    }
+    .total {
+      clear: left;
+    }
+    </style>
+    <script>
+    function Quarter() {
+      this.value = 25;
+    }
+    Quarter.prototype.imageUrl = 'quarter-front.png';
+
+    function Dime() {
+      this.value = 10;
+    }
+    Dime.prototype.imageUrl = 'dime-front.png';
+
+    function Nickel() {
+      this.value = 5;
+    }
+    Nickel.prototype.imageUrl = 'nickle-front.png';
+
+    function Penny() {
+      this.value = 1;
+    }
+    Penny.prototype.imageUrl = 'penny-front.png';
+
+    var app = angular.module('coins', []);
+    app.controller('CoinController', function($scope) {
+      $scope.coins = [];
+      $scope.total = 0;
+
+      $scope.addQuarter = function() {
+        $scope.coins.push(new Quarter());
+        $scope.calculateTotal();
+      };
+
+      $scope.addDime = function() {
+        $scope.coins.push(new Dime());
+        $scope.calculateTotal();
+      };
+
+      $scope.addNickel = function() {
+        $scope.coins.push(new Nickel());
+        $scope.calculateTotal();
+      };
+
+      $scope.addPenny = function() {
+        $scope.coins.push(new Penny());
+        $scope.calculateTotal();
+      };
+
+      $scope.calculateTotal = function() {
+        var sum = 0;
+        for (var i = 0; i < $scope.coins.length; i++) {
+          sum += $scope.coins[i].value;
+        }
+        $scope.total = sum / 100;
+      };
+
+    });
+    </script>
+  </head>
+  <body>
+    <div ng-app="coins" ng-controller="CoinController">
+      <button ng-click="addQuarter()">Add Quarter</button>
+      <button ng-click="addDime()">Add Dime</button>
+      <button ng-click="addNickel()">Add Nickel</button>
+      <button ng-click="addPenny()">Add Penny</button>
+      <div class="coins">
+        <img ng-src="{{coin.imageUrl}}" ng-repeat="coin in coins">
+      </div>
+      <div class="total">
+        <label>Total: </label>${{total || currency}}
+      </div>
+    </div>
+  </body>
+</html>

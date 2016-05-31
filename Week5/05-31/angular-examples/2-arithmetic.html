@@ -1,0 +1,44 @@
+<!--
+This app demonstrates AngularJS' data-binding and expressions.
+
+You can edit any of the input fields and the results of the calculations update immediately to reflect the changes.
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Arithmetic</title>
+    <!-- include AngularJS -->
+    <script src="angular.js"></script>
+  </head>
+  <body>
+    <!--
+    1. Set up this div as an AngularJS app.
+    2. Initialize the values of some variables in the scope.
+    -->
+    <div ng-app ng-init="a = 3; b = 5; c = 4; d = 7; e = 8; f = 1; g = 2; h = 1;">
+      <!-- create 2 number inputs, one binds to the variable a the other to b using the `ng-model` directive.
+      -->
+      <input type="number" ng-model="a"> +
+      <input type="number" ng-model="b"> =
+      <!-- calculate and display the result of a + b using an
+      AngularJS expression -->
+      {{a + b}}
+      <br>
+      <!-- 2 more number inputs binding to c and d. -->
+      <input type="number" ng-model="c"> *
+      <input type="number" ng-model="d"> =
+      <!-- calculate and display the result of c * d -->
+      {{c * d}}
+      <br>
+      <!-- more of the same -->
+      <input type="number" ng-model="e"> -
+      <input type="number" ng-model="f"> =
+      {{e - f}}
+      <br>
+      <input type="number" ng-model="g"> /
+      <input type="number" ng-model="h"> =
+      {{g / h}}
+    </div>
+  </body>
+</html>

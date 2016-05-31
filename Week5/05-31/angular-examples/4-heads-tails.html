@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Heads or Tails</title>
+    <script src="angular.js"></script>
+    <script>
+    var app = angular.module('heads-or-tails', []);
+    app.controller('HeadsTailsController', function($scope) {
+      $scope.guess = null;
+      $scope.result = null;
+
+      $scope.heads = function() {
+        $scope.guess = 'heads';
+        $scope.flip();
+      };
+
+      $scope.tails = function() {
+        $scope.guess = 'tails';
+        $scope.flip();
+      };
+
+      $scope.flip = function() {
+        var num = Math.random();
+        if (num > 0.5) {
+          $scope.result = 'heads';
+          $scope.imgUrl = 'quarter-front.png';
+        } else {
+          $scope.result = 'tails';
+          $scope.imgUrl = 'quarter-back.png';
+        }
+        if ($scope.guess === $scope.result) {
+          $scope.message = 'You won!';
+        } else {
+          $scope.message = 'You lose!';
+        }
+      };
+
+      $scope.startGame = function() {
+        $scope.guess = null;
+        $scope.result = null;
+      };
+
+      $scope.startGame();
+
+    });
+    </script>
+  </head>
+  <body>
+    <div ng-app="heads-or-tails" ng-controller="HeadsTailsController">
+      <div ng-show="!guess">
+        Heads or tails?
+        <button ng-click="heads()">Heads</button>
+        <button ng-click="tails()">Tails</button>
+      </div>
+      <div ng-show="guess">
+        <img ng-src="{{imgUrl}}">
+        {{message}}
+        <button ng-click="startGame()">Play again</button>
+      </div>
+    </div>
+  </body>
+</html>
