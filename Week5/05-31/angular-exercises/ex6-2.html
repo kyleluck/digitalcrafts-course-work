@@ -36,6 +36,11 @@ The app should have
       ];
 
       $scope.calculateChange = function() {
+        //clear number array on each submit so that
+        //we don't show coins from previous calculation
+        angular.forEach($scope.change, function(value, key) {
+          value.number = [];
+        });
         var difference = ($scope.amount - $scope.bill).toFixed(2);
         while (difference != 0.00) {
           if (difference >= .25) {
