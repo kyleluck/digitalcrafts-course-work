@@ -45,7 +45,6 @@ app.controller('MemoryGameController', function($scope, $timeout) {
     }
     else {
       $timeout(function() {
-        console.log(arrayTemp)
         $scope.grid[arrayTemp[0]].hide = true;
         $scope.grid[arrayTemp[1]].hide = true;
         arrayTemp = [];
