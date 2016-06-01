@@ -8,8 +8,9 @@
   <body ng-app="memory-game" ng-controller="MemoryGameController">
     <div ng-show="gameOver">You Win! <button ng-click="resetGame()">Play Again</button></div>
     <div id="grid">
-      <div ng-repeat="tile in grid" class="tile" ng-click="showTile(tile)">
-        <img ng-class="tile.hide ? 'hide' : ''" ng-src="{{tile.url}}">
+      <div ng-repeat="tile in grid" class="tile " ng-click="showTile(tile)">
+        <img ng-class="tile.hide ? 'hide' : 'show'" ng-src="{{tile.url}}">
+        <div ng-class="tile.hide ? 'show' : 'hide'" class="back"></div>
       </div>
     </div>
     <script src="angular.js"></script>
