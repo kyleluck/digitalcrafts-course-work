@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Tic Tac Toe - AngularJS</title>
+    <script src="angular.js"></script>
+    <script src="tic-tac-toe.js"></script>
+    <link href="style.css" rel="stylesheet">
+  </head>
+  <body ng-app="tic-tac-toe" ng-controller="TicTacToeController">
+    <div ng-show="winner">
+      {{message}}
+      <button ng-click='resetGame()'>Reset</button>
+    </div>
+    <table>
+      <tr ng-repeat="row in squares">
+        <td ng-repeat="square in row">
+          <button ng-click="showSquare(square)" ng-disabled="square.state" class="square">{{square.state}}</button>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
