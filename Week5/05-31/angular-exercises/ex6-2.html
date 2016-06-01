@@ -1,0 +1,81 @@
+<!--
+Instructor Toby used to work at a super market as a cashier. His work experience there has made him an expert in making change.
+
+Write an app to make the change needed - in quarters, dimes, nickels, and pennies - given the bill amount, and the given amount.
+
+The app should have
+
+1. A number input to enter the bill amount.
+2. A number input to enter the given amount.
+3. A "Make change!" button
+4. When the "Make change!" button is clicked, it should display the number of coins for each coin type that are needed. For example:
+
+  * 4 quarters
+  * 3 dimes
+  * 0 nickels
+  * 2 pennies
+
+5. Bonus, display the coin image next to the number
+5. Extra super bonus: write this same app using jQuery or nothing but the DOM native API. Compare and contrast.
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Making Change</title>
+    <script src="angular.js"></script>
+    <script>
+    var app = angular.module('my-app', []);
+    app.controller('MainController', function($scope) {
+      $scope.showChange = false;
+      $scope.quarters = 0;
+      $scope.dimes = 0;
+      $scope.nickels = 0;
+      $scope.pennies = 0;
+      $scope.change = [
+        {name: 'quarter', number: [], img: 'quarter-front.png'},
+        {name: 'dime', number: [], img: 'dime-front.png'},
+        {name: 'nickel', number: [], img: 'nickel-front.png'},
+        {name: 'pennie', number: [], img: 'penny-front.png'},
+      ];
+
+      $scope.calculateChange = function() {
+        var difference = ($scope.amount - $scope.bill).toFixed(2);
+        while (difference != 0.00) {
+          if (difference >= .25) {
+            $scope.change[0].number.push({});
+            difference = (difference - .25).toFixed(2);
+          } else if (difference >= .1) {
+            $scope.change[1].number.push({});
+            difference = (difference - .1).toFixed(2);
+          } else if (difference >= .05) {
+            $scope.change[2].number.push({});
+            difference = (difference - .05).toFixed(2);
+          } else if (difference >= .01) {
+            $scope.change[3].number.push({});
+            difference = (difference - .01).toFixed(2);
+          }
+        }
+        $scope.showChange = true;
+      };
+    });
+    </script>
+  </head>
+  <body>
+    <!-- write template code in here -->
+    <div ng-app="my-app" ng-controller="MainController">
+      <form ng-submit="calculateChange()">
+        <label>Amount of bill:</label>
+        <input type="number" step="any" ng-model="bill"><br>
+        <label>Given amount:</label>
+        <input type="number" step="any" ng-model="amount">
+        <button>Make change!</button>
+      </form>
+      <div ng-show="showChange">
+        <p ng-repeat="coin in change">
+          <img ng-repeat="num in coin.number" ng-src="{{ coin.img }}">
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
