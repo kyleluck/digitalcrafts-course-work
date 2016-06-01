@@ -1,7 +1,7 @@
 var app = angular.module('memory-game', []);
 app.controller('MemoryGameController', function($scope, $timeout) {
 
-  var arrayTemp = [];
+  var compareTiles = [];
   var state = "first";
 
   $scope.gameOver = false;
@@ -39,15 +39,15 @@ app.controller('MemoryGameController', function($scope, $timeout) {
   }
 
   $scope.match = function () {
-    if ($scope.grid[arrayTemp[0]].url === $scope.grid[arrayTemp[1]].url) {
+    if ($scope.grid[compareTiles[0]].url === $scope.grid[compareTiles[1]].url) {
       checkIfGameOver();
-      arrayTemp = [];
+      compareTiles = [];
     }
     else {
       $timeout(function() {
-        $scope.grid[arrayTemp[0]].hide = true;
-        $scope.grid[arrayTemp[1]].hide = true;
-        arrayTemp = [];
+        $scope.grid[compareTiles[0]].hide = true;
+        $scope.grid[compareTiles[1]].hide = true;
+        compareTiles = [];
       }, 500);
     }
   }
@@ -55,7 +55,7 @@ app.controller('MemoryGameController', function($scope, $timeout) {
   $scope.showTile = function(tile) {
     tile.hide = false;
     var index = $scope.grid.indexOf(tile);
-    arrayTemp.push(index);
+    compareTiles.push(index);
     if (state === "first") {
       state = "second";
     }
