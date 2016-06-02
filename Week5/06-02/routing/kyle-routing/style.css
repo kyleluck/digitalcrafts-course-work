@@ -25,14 +25,8 @@ a:active {
   font-size: 2em;
   height: 300px;
   width: 10%;
-}
-.previous {
   float: left;
-  /*top: 40%;
-  left: 2%;*/
 }
-.next {
-  float: left;
-  /*top: 40%;
-  right: 2%;*/
+.container {
+  margin-top: 10px;
 }
