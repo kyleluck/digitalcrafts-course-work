@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Functional Programming</title>
+  </head>
+  <body>
+    <script>
+    /*
+    # Functional Programming Style Array Exercises
+
+    Implement all following problems without writing a single loop.
+
+    ## Odd Numbers
+
+    Write a function which takes an array of numbers as input and returns a new array containing only the odd numbers in the given array.
+    */
+    function oddNumbers(array, index) {
+      if (index >= array.length) {
+        return;
+      } else if (array[index] % 2 !== 0) {
+        oddNumArr.push(array[index]);
+      }
+      index++;
+      oddNumbers(array, index);
+    }
+    var oddNumArr = [];
+    oddNumbers([2, 4, 3, 5], 0);
+    console.log(oddNumArr);
+
+    /*
+    ## Double the Numbers
+
+    Write a function which takes an array of numbers as input and returns a new array containing result of multiplying each of the numbers in the given array by two. Example: `doubleTheNumbers([1, 2, 3])` should give `[2, 4, 6]`.
+    */
+
+    function doubleTheNumbers(array) {
+      if (i >= array.length) {
+        return;
+      }
+      doubledArray.push(array[i] * 2);
+      i++;
+      doubleTheNumbers(array);
+    }
+    var i = 0;
+    var doubledArray = [];
+    doubleTheNumbers([1, 2, 3]);
+    console.log(doubledArray);
+    </script>
+  </body>
+</html>
