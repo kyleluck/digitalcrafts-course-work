@@ -21,9 +21,10 @@ a:active {
   background-color: orange;
 }
 .previous, .next {
+  margin-top: 20%;
   background-color: transparent;
   font-size: 2em;
-  height: 300px;
+  height: 100px;
   width: 10%;
   float: left;
 }
