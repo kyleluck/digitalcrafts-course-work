@@ -1,0 +1,31 @@
+body {
+  text-align: center;
+}
+img {
+  display: block;
+  margin: 15px auto;
+  box-shadow: 0 10px 6px -6px #777;
+  width: 100%;
+}
+a {
+  text-decoration: none;
+  color: black;
+  padding: 5px;
+  background-color: #ccc;
+}
+a:active {
+  background-color: orange;
+}
+.previous, .next {
+  position: absolute;
+  background-color: transparent;
+  font-size: 2em;
+}
+.previous {
+  top: 40%;
+  left: 2%;
+}
+.next {
+  top: 40%;
+  right: 2%;
+}
