@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Router Example</title>
+    <style>
+    body {
+      text-align: center;
+    }
+    </style>
+    <script src="angular.js"></script>
+    <!-- you need to include the angular-route.js script as well -->
+    <script src="angular-route.js"></script>
+    <script>
+    var app = angular.module('my-app', ['ngRoute']);
+    // Use the config method with the $routeProvider
+    // to configure the URLs/routes
+    app.config(function($routeProvider) {
+      $routeProvider
+        .when('/page-1', {
+          templateUrl: 'page-1.html'
+        })
+        .when('/page-2', {
+          templateUrl: 'page-2.html'
+        })
+        .when('/page-3', {
+          templateUrl: 'page-3.html'
+        })
+        .otherwise({
+          redirectTo: '/page-1'
+        });
+    });
+    </script>
+  </head>
+  <body ng-app="my-app">
+    <a href="#/page-1">Page 1</a>
+    <a href="#/page-2">Page 2</a>
+    <a href="#/page-3">Page 3</a>
+    <!-- ng-view element is where the current page
+    determined by the router will display -->
+    <ng-view></ng-view>
+  </body>
+</html>

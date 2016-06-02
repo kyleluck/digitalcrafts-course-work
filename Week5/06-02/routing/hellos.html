@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Router Example</title>
+    <script src="angular.js"></script>
+    <!-- you need to include the angular-route.js script as well -->
+    <script src="angular-route.js"></script>
+    <script>
+    var app = angular.module('my-app', ['ngRoute']);
+    app.config(function($routeProvider) {
+      $routeProvider
+        .when('/', {
+          templateUrl: 'main.html'
+        })
+        .when('/:name', {
+          controller: 'HelloController',
+          templateUrl: 'hello.html'
+        })
+    });
+
+    app.controller('HelloController', function($scope, $routeParams) {
+      $scope.name = $routeParams.name;
+    });
+    </script>
+  </head>
+  <body ng-app="my-app">
+    <ng-view></ng-view>
+  </body>
+</html>

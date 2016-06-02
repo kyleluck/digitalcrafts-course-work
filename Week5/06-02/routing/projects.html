@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Student Projects</title>
+    <script src="angular.js"></script>
+    <script src="angular-route.js"></script>
+    <script>
+    var app = angular.module('projects', ['ngRoute']);
+    app.config(function($routeProvider) {
+      $routeProvider
+        .when('/', {
+          controller: 'MainController',
+          templateUrl: 'projects-list.html'
+        })
+        .when('/:name', {
+          controller: 'ProjectController',
+          templateUrl: 'project.html'
+        })
+    });
+
+    app.controller('MainController', function($scope, $http) {
+      $http.get('students/students.json').success(function(data) {
+        console.log(data);
+        $scope.students = data;
+      });
+    });
+
+    app.controller('ProjectController', function($scope, $http, $routeParams) {
+      $http.get('students/' + $routeParams.name + '.json')
+        .success(function(data) {
+          $scope.info = data;
+        });
+    });
+    </script>
+  </head>
+  <body ng-app="projects">
+    <ng-view></ng-view>
+  </body>
+</html>
