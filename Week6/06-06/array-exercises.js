@@ -42,10 +42,15 @@ var people = [
   'Regan',
   'Matt',
   'Andrew'
-];
-people.forEach(function(val) {
-  console.log('Good Job, ' + val + "!");
+ ];
+// people.forEach(function(val) {
+//   console.log('Good Job, ' + val + "!");
+// });
+var peopleSentences = people.map(function(n) {
+  return 'Good Job, ' + n + "!";
 });
+var peopleJoined = peopleSentences.join('\n');
+console.log(peopleJoined);
 
 /*
 ## All A names
