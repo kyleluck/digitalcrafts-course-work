@@ -206,7 +206,62 @@ var pgNames = players.filter(function(player) {
 console.log('PG names are ', pgNames);
 
 //6. Write a function that takes the players array and returns the sum of the avgPoints for each player.
-var avgPointsSum = players.reduce(function(sum, element) {
-  return sum + element.avgPoints;
+var avgPointsSum = players.reduce(function(sum, player) {
+  return sum + player.avgPoints;
 }, 0);
-console.log('Average Points Sum :', avgPointsSum);
+console.log('Average Points Sum :', avgPointsSum.toFixed(2));
+
+//7. Write a function that takes the players array and returns the sum of the avgPoints of the starters.
+var avgPointsStarters = players.reduce(function(sum, player) {
+  if (player.starter === true) {
+    return sum + player.avgPoints;
+  } else {
+    return sum;
+  }
+}, 0);
+console.log('Average Points for Starters is: ', avgPointsStarters.toFixed(2));
+
+/*
+8. Write a function that takes the players array and returns true if each player gets at least 10 minutes of average playing time, and returns false otherwise
+*/
+function gets10Minutes(element, index, array) {
+  return element.avgMinutesPlayed >= 10;
+}
+var playersGet10 = players.every(gets10Minutes);
+console.log(playersGet10);
+
+/*
+9. Write a function that takes the players array and returns true if each starter gets at least 30 minutes of average playing time, and returns false otherwise
+*/
+var starters = players.filter(function(player) {
+  return player.starter;
+});
+function gets30Minutes(element, index, array) {
+  return element.avgMinutesPlayed >= 30;
+}
+var startersGet30 = starters.every(gets30Minutes);
+console.log(startersGet30);
+
+/*
+10. Write a function that takes the players array and returns a tally object. The tally object should count the number of players in each position. It should look like:
+
+        {
+          PG: 2,
+          SG: 4,
+          PF: 3,
+          SF: 3,
+          C: 1
+        }
+*/
+function tallyPlayersPositions(player) {
+  tally[player.position]++;
+}
+var tally = {
+  PG: 0,
+  SG: 0,
+  PF: 0,
+  SF: 0,
+  C: 0
+};
+var buildTally = players.map(tallyPlayersPositions);
+console.log(tally);
