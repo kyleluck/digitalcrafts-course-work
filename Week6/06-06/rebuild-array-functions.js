@@ -33,6 +33,18 @@ MyArray.prototype.myReduce = function(func, startingValue) {
   }
   return startingValue;
 };
+MyArray.prototype.myReduceUsingFilter = function(func, startingValue) {
+
+};
+MyArray.prototype.myEvery = function(func) {
+  for (var i = 0; i < this.arr.length; i++) {
+    if (!func(this.arr[i])) {
+      return false;
+    }
+  }
+  return true;
+};
+
 
 /* test myMap rewrite */
 var newArr = new MyArray([1,-2,3]);
@@ -56,3 +68,10 @@ var reduceToSum = arr4.myReduce(function(sum, n) {
   return sum + n;
 }, 0);
 console.log(reduceToSum);
+
+/* test myEvery */
+var arr5 = new MyArray([1, 3, 5]);
+var allPositive = arr5.myEvery(function(n) {
+  return n > 0;
+});
+console.log(allPositive);
