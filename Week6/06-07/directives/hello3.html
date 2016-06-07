@@ -1,0 +1,35 @@
+<!--
+This example demonstrates that we can use an external template for
+a directive.
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Directives Hello</title>
+    <script src="angular.js"></script>
+    <script>
+    var app = angular.module('app', []);
+
+
+    app.controller('MyController', function($scope) {
+      $scope.name = 'Toby';
+    });
+
+    app.directive('helloWorld', function() {
+      return {
+        scope: {
+          subject: '='
+        },
+        // uses a URL to find the template file to use for this
+        // directive
+        templateUrl: 'hello-world.html'
+      }
+    });
+    </script>
+  </head>
+  <body ng-app="app" ng-controller="MyController">
+    <hello-world subject="'Annie'"></hello-world>
+    <hello-world subject="name"></hello-world>
+  </body>
+</html>

@@ -1,0 +1,40 @@
+<!--
+An example of how we can create a bt-button directive to
+remove some of the repetitive markup of writing out
+bootstrap buttons.
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Bootstrap</title>
+    <link href="bootstrap.css" rel="stylesheet">
+    <script src="angular.js"></script>
+    <script>
+    var app = angular.module('app', []);
+
+    // create a the btButton directive
+    app.directive('btButton', function() {
+      return {
+        // the scope definition will create a private
+        // scope for the directive, and
+        // ignore the scope of the surrounding controller
+        scope: {
+          // defines a "text" property on the scope of
+          // this directive
+          text: '='
+        },
+        // the template of the button,
+        // using the "text" scope property
+        template: '<button class="btn btn-default">{{text}}</button>'
+      }
+    });
+    </script>
+  </head>
+  <body ng-app="app">
+    <!-- use bt-button directive to mark up a button -->
+    <bt-button text="'Ok'"></bt-button>
+    <!-- use bt-button directive to mark up a button -->
+    <bt-button text="'Cancel'"></bt-button>
+  </body>
+</html>

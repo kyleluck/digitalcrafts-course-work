@@ -1,0 +1,52 @@
+<!--
+Demonstrates using the link function for a directive to do
+fine-grained DOM manipulation.
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Clock Directive</title>
+    <style>
+    clock {
+      display: block;
+    }
+    </style>
+    <script src="angular.js"></script>
+    <script>
+    var app = angular.module('app', []);
+
+    app.controller('MainController', function($scope) {
+      // make multiple clocks using ng-repeat
+      $scope.clocks = [
+        { name: 'Clock 1' },
+        { name: 'Clock 2' }
+      ];
+    });
+
+    app.directive('clock', function($interval, dateFilter) {
+      return {
+        // link - "links" an Angular directive with some
+        // DOM manipulation behaviour.
+        // This link function will update the text of the element
+        // with the clock display value every second
+        link: function(scope, element, attr) {
+          // updates the text on the element to the time
+          function update() {
+            var dateStr = dateFilter(new Date(), 'h:mm:ss');
+            element.text(dateStr);
+          }
+          // make the font bigger
+          element.css('font-size', '4em');
+          update();
+          $interval(update, 1000);
+        }
+      };
+    });
+    </script>
+  </head>
+  <body ng-app="app" ng-controller="MainController">
+    <!-- make multiple clocks using ng-repeat -->
+    <clock ng-repeat="clock in clocks"></clock>
+  </body>
+</html>

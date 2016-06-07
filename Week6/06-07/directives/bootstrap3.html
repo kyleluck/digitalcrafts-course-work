@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Bootstrap</title>
+    <link href="bootstrap.css" rel="stylesheet">
+    <script src="angular.js"></script>
+    <script>
+    var app = angular.module('app', []);
+    app.directive('btButton', function() {
+      return {
+        scope: {
+          text: '=',
+          primary: '=?'
+        },
+        transclude: true,
+        controller: function($scope) {
+          $scope.classes = ['btn'];
+          if ($scope.primary) {
+            $scope.classes.push('btn-primary');
+          } else {
+            $scope.classes.push('btn-default');
+          }
+        },
+        template: '<button ng-class="classes" ng-transclude>{{text}}</button>'
+      }
+    });
+
+    app.directive('btPanel', function() {
+      return {
+        scope: {
+          headingText: '=',
+          footerText: '='
+        },
+        transclude: true,
+        templateUrl: 'bt-panel.html'
+      }
+    });
+    </script>
+  </head>
+  <body ng-app="app">
+    <bt-panel
+      heading-text="'You like directives?'"
+      footer-text="'Have a nice day.'">
+      <p>Write yourself a directive.</p>
+      <bt-button primary="true">Ok</bt-button>
+      <bt-button>Cancel</bt-button>
+    </bt-panel>
+    <bt-panel
+      heading-text="'Panel 2'"
+      footer-text="'Have a nice day.'">
+      <p>Content for panel 2.</p>
+    </bt-panel>
+    <bt-panel
+      heading-text="'Panel 3'"
+      footer-text="'Have a nice day.'">
+      <p>Content for panel 3.</p>
+    </bt-panel>
+  </body>
+</html>

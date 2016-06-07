@@ -1,0 +1,41 @@
+<!--
+This example demonstrates the use of local scope in a directive.
+Values can be passed into a directive using attributes in the markup.
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Directives Hello</title>
+    <script src="angular.js"></script>
+    <script>
+    var app = angular.module('app', []);
+
+    app.controller('MyController', function($scope) {
+      $scope.name = 'Toby';
+    });
+
+    app.directive('helloWorld', function() {
+      return {
+        // the definition of scope here will
+        // separate/isolate the scope of the directive from
+        // the controller
+        scope: {
+          // defines a "subject" property in the scope
+          // of the directive
+          // '=' means the property name that is passed in
+          // is the same as the one used within the directive
+          subject: '='
+        },
+        // the template makes use of the "subject" property
+        template: '<h1>Hello, {{subject}}!</h1>'
+      }
+    });
+    </script>
+  </head>
+  <body ng-app="app" ng-controller="MyController">
+    <!-- pass in a literal value for "subject" -->
+    <hello-world subject="name"></hello-world>
+    <hello-world subject="'Annie'"></hello-world>
+  </body>
+</html>
