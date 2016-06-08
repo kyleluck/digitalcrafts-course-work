@@ -3,10 +3,33 @@
   <head>
     <meta charset="utf-8">
     <title>Todo List - Angular Directive</title>
+    <style>
+      .container {
+        width: 500px;
+        margin: auto;
+      }
+      .container input, .container button {
+        padding: 5px;
+        font-size: 1.1em;
+      }
+      .container ul {
+        list-style: none;
+        font-size: 1.4em;
+      }
+      ul input {
+        padding: 3px;
+        background: white;
+      }
+      ul li {
+        margin: 5px;
+      }
+    </style>
   </head>
   <body ng-app="myapp">
 
-    <todo-list></todo-list>
+    <div class="container">
+      <todo-list></todo-list>
+    </div>
 
     <script src="angular.js"></script>
     <script>
