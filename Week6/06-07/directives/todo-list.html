@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Todo List - Angular Directive</title>
+  </head>
+  <body ng-app="myapp">
+
+    <todo-list></todo-list>
+
+    <script src="angular.js"></script>
+    <script>
+      var app = angular.module('myapp', []);
+      app.directive('todoList', function() {
+        return {
+          scope: {
+            name: '='
+          },
+          controller: function($scope) {
+            $scope.items = [];
+
+            $scope.addItem = function() {
+              var item = {"task": $scope.item};
+              $scope.items.push(item);
+              $scope.item = '';
+              console.log('items: ', $scope.items);
+            };
+
+            $scope.deleteItem = function(item) {
+              var indexOfItem = $scope.items.indexOf(item);
+              $scope.items.splice(indexOfItem, 1);
+              //console.log('item', item, ' is at ', indexOfItem);
+            };
+
+          },
+          templateUrl: 'todolisthtml.html'
+        };
+      });
+    </script>
+  </body>
+</html>

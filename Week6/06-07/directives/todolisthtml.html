@@ -1,0 +1,7 @@
+<form ng-submit="addItem()">
+  <input type="text" id="item" ng-model="item">
+  <button type="submit" name="button">Add</button>
+</form>
+<ul id="todo-list">
+  <li ng-repeat="item in items">{{ item.task }} <input type="button" ng-click="deleteItem(item)" value="Delete"></li>
+</ul>

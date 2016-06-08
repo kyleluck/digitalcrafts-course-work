@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Good Job - Angular Directive</title>
+  </head>
+  <body ng-app="myapp">
+
+    <good-job name="'Amjad'"></good-job>
+
+    <script src="angular.js"></script>
+    <script>
+    /*
+    2. Make a "Good Job" Directive. Used like this: `<good-job name="'Amjad'"></good-job>`. Which displays "Good job, Amjad!". You can optionally use a scope property instead of a string literal to set the name. Hint: use hello2.html as an example.
+    */
+      var app = angular.module('myapp', []);
+      app.directive('goodJob', function() {
+        return {
+          scope: {
+            name: "="
+          },
+          template: '<h1>Good Job {{ name }}</h1>'
+        };
+      });
+    </script>
+  </body>
+</html>
