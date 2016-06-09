@@ -10,9 +10,9 @@
 
     app.controller('MainController', function($scope, weather) {
       $scope.showWeather = function() {
-        weather.getWeather($scope.cityName, function(data) {
-          console.log(data);
-          $scope.data = data.data;
+        weather.getWeather($scope.cityName, function(response) {
+          console.log(response);
+          $scope.data = response.data;
         });
       };
     });
