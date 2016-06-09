@@ -1,0 +1,48 @@
+<!--
+A example of building custom AngularJS filters.
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Angular Filters</title>
+    <script src="../angular.js"></script>
+    <script>
+    var app = angular.module('app', []);
+
+    app.controller('Controller', function($scope) {
+      $scope.studentList = [
+        { name: 'Allen' },
+        { name: 'Carolyn' },
+        { name: 'DeeAnn' },
+        { name: 'Andrew' },
+        { name: 'Matt' },
+        { name: 'Dave' },
+        { name: 'Sandhya' },
+        { name: 'Tim' },
+        { name: 'Shanda' },
+        { name: 'Anthony' },
+        { name: 'Kyle' },
+        { name: 'Regan' },
+        { name: 'Cody' }
+      ];
+    });
+
+    // This defines a filter which takes a string
+    // and returns the string in ALL CAPS
+    app.filter('allCaps', function() {
+      return function(input) {
+        return input.toUpperCase();
+      };
+    })
+    </script>
+  </head>
+  <body ng-app="app" ng-controller="Controller">
+    <ul>
+      <li ng-repeat="aStudent in studentList">
+        <!-- using the allCaps filter -->
+        {{ aStudent.name | allCaps }}
+      </li>
+    </ul>
+  </body>
+</html>

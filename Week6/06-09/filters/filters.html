@@ -1,0 +1,67 @@
+<!--
+A showcase of the commonly used filters:
+
+* number - https://docs.angularjs.org/api/ng/filter/number
+* currency
+* date - https://docs.angularjs.org/api/ng/filter/date
+* filter
+
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Angular Filters</title>
+    <script src="../angular.js"></script>
+    <script>
+    var app = angular.module('app', []);
+
+    app.controller('Controller', function($scope) {
+      $scope.now  = new Date();
+      $scope.studentList = [
+        { name: 'Allen' },
+        { name: 'Carolyn' },
+        { name: 'DeeAnn' },
+        { name: 'Andrew' },
+        { name: 'Matt' },
+        { name: 'Dave' },
+        { name: 'Sandhya' },
+        { name: 'Tim' },
+        { name: 'Shanda' },
+        { name: 'Anthony' },
+        { name: 'Kyle' },
+        { name: 'Regan' },
+        { name: 'Cody' }
+      ];
+    });
+    </script>
+  </head>
+  <body ng-app="app" ng-controller="Controller">
+    <!-- number formatter -->
+    A number: {{ 1.484384838 | number: 5 }}<br>
+
+    <!-- currency formatter -->
+    Total cost: {{ 1.339484 | currency }}<br>
+
+    <!-- date formatter -->
+    The time now: {{ now }}<br>
+    The time now formatted: {{ now | date: 'MM-dd-yyyy' }}<br>
+    <!-- you can also input time as a number in
+    milliseconds -->
+    Time in milliseconds: {{ 1451624400000 | date: 'MM-dd-yyyy' }}<br>
+    <h3>Students</h3>
+
+    <!-- filter to filter the strings in an array
+    of objects -->
+    <label>Filter: </label>
+    <input type="text" placeholder="Filter students" ng-model="studentFilter">
+    <ul>
+      <!-- the filter can be hard coded or linked
+      to a property on the scope
+      -->
+      <li ng-repeat="aStudent in studentList | filter: studentFilter">
+        {{aStudent.name}}
+      </li>
+    </ul>
+  </body>
+</html>
