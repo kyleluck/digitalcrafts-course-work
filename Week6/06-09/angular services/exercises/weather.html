@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Factory</title>
+    <script src="angular.js"></script>
+    <script>
+    var app = angular.module('app', []);
+
+    app.controller('MainController', function($scope, weather) {
+      $scope.showWeather = function() {
+        weather.getWeather($scope.cityName, function(data) {
+          console.log(data);
+          $scope.data = data.data;
+        });
+      };
+    });
+
+    app.factory('weather', function($http) {
+      return {
+        getWeather: function(cityName, callback) {
+          $http({
+            url: 'http://api.openweathermap.org/data/2.5/weather',
+            params: {
+              q: cityName,
+              units: 'imperial',
+              APPID: 'eac2948bfca65b78a8c5564ecf91d00e'
+            }
+          }).then(callback);
+        }
+      };
+    });
+    </script>
+  </head>
+  <body ng-app="app" ng-controller="MainController">
+    <form ng-submit="showWeather()">
+      <input type="text" ng-model="cityName">
+      <button type="submit">Submit</button>
+    </form>
+    <p ng-show="data">
+      City: {{data.name}}<br>
+      Weather: {{data.weather[0].description}}<br>
+      Latitude: {{data.coord.lat}}°<br>
+      Longitude: {{data.coord.lon}}°<br>
+      Temperature: {{data.main.temp}}°<br>
+      Humidity: {{data.main.humidity}}<br>
+      Pressure: {{data.main.pressure}}<br>
+    </p>
+  </body>
+</html>

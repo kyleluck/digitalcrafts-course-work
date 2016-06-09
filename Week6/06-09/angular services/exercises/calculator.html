@@ -13,16 +13,15 @@
       // while formula is a service
 
       //$scope.d = $scope.a + $scope.b - $scope.c;
-      $scope.e = 'well, hi!';
-      $scope.go = function() {
+      $scope.calc = function() {
         $scope.d = formula.calculate($scope.a, $scope.b, $scope.c);
       };
+      $scope.formula = formula.calculate;
 
     });
     app.factory('formula', function() {
       return {
         calculate: function(a, b, c) {
-          console.log(a+b-c);
           return a + b - c;
         }
       };
@@ -30,14 +29,14 @@
     </script>
   </head>
   <body ng-app="app" ng-controller="Controller">
-    <input type="text" ng-model="a">
+    <input type="number" ng-model="a">
     +
-    <input type="text" ng-model="b">
+    <input type="number" ng-model="b">
     -
-    <input type="text" ng-model="c">
+    <input type="number" ng-model="c">
     =
-    <input type="text" ng-model="d">
-    <p>{{ e }}</p>
-    <button type="button" name="button" ng-click="go()">calculate</button>
+    <input type="number" ng-model="d">
+    <p>{{ formula(a, b, c) }}</p>
+    <button type="button" name="button" ng-click="calc()">calculate</button>
   </body>
 </html>
