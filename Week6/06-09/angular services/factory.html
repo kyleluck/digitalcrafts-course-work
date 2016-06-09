@@ -1,0 +1,43 @@
+<!--
+This example demonstrates an AngularJS factory.
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Factory</title>
+    <script src="../angular.js"></script>
+    <script>
+    var app = angular.module('app', []);
+
+    // This defines a hello service
+    // which contains one method: greet(subject)
+    // which pops up an alert box with a greeting.
+    app.factory('hello', function() {
+      return {
+        greet: function(subject) {
+          if (!subject) {
+            subject = 'world';
+          }
+          alert('Hello, ' + subject + '!');
+        }
+      };
+    });
+
+    // the MainController has a dependency on the hello
+    // service, and uses it to pop up a greeting when
+    // sayHello() is called.
+    app.controller('MainController', function($scope, hello) {
+      $scope.name = 'world';
+      $scope.sayHello = function() {
+        hello.greet($scope.name);
+      };
+    });
+
+    </script>
+  </head>
+  <body ng-app="app" ng-controller="MainController">
+    <input type="text" ng-model="name">
+    <button ng-click="sayHello()">Submit</button>
+  </body>
+</html>

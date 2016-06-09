@@ -1,0 +1,42 @@
+<!--
+This example demonstrates an AngularJS factory.
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Factory</title>
+    <script src="../angular.js"></script>
+    <script>
+    var app = angular.module('app', []);
+
+    // This is a constructor called Hello
+    // and it has a greet(subject) method defined.
+    function Hello() {
+    }
+    Hello.prototype.greet = function(subject) {
+      if (!subject) {
+        subject = 'world';
+      }
+      alert('Hello, ' + subject + '!');
+    };
+
+    // a constructor that takes no arguments
+    // can readily be used to define a service.
+    app.service('hello', Hello);
+
+    // The "hello" service can now be injected into a
+    // controller, and be accessed.
+    app.controller('MainController', function($scope, hello) {
+      $scope.name = 'world';
+      $scope.sayHello = function() {
+        hello.greet($scope.name);
+      };
+    });
+    </script>
+  </head>
+  <body ng-app="app" ng-controller="MainController">
+    <input type="text" ng-model="name">
+    <button ng-click="sayHello()">Submit</button>
+  </body>
+</html>
