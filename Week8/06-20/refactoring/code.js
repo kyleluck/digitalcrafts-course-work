@@ -154,29 +154,14 @@ Hint/Option 1: Extract a function, perhaps called getHitPoints that takes in a c
 Hint/Option 2: Instead of option 1, extract a function, perhaps called attack, which both calculates the hit points and induces the damage on the other character.
 */
 function fight(human, goblin) {
-  // // human attacks goblin
-  // var goblinHitPoints = human.power;
-  // // 50% chance of double points
-  // if (Math.random() > 0.5) {
-  //   goblinHitPoints = goblinHitPoints * 2;
-  // }
-  // induce damage to goblin
   goblin.health -= getHitPoints(human, 0.5);
-
-  // // goblin attacks human
-  // var humanHitPoints = goblin.power;
-  // // 20% chance of double points
-  // if (Math.random() > 0.2) {
-  //   humanHitPoints = humanHitPoints * 2;
-  // }
-  // induce damage to human
   human.health -= getHitPoints(goblin, 0.2);
 }
 
 function getHitPoints(character, percent) {
   var hitPoints = character.power;
   if (Math.random() > percent) {
-    return hitPoints * 2;
+    hitPoints = hitPoints * 2;
   }
   return hitPoints;
 }
@@ -198,7 +183,7 @@ Hint 2: do you even need to call the beats function twice? You can use an else s
 */
 function roshambo(player1, player2) {
   var winner = beats(player1, player2);
-  if (winner === 'draw') {
+  if (player1 === player2) {
     return 'draw';
   } else if (winner){
     return 'player 1';
@@ -212,18 +197,12 @@ function beats(player1, player2) {
     return true;
   } else if (player1 === 'rock' && player2 === 'paper') {
     return false;
-  } else if (player1 === 'rock' && player2 === 'rock') {
-    return 'draw';
   } else if (player1 === 'sissors' && player2 === 'rock') {
     return false;
-  } else if (player1 === 'sissors' && player2 === 'sissors') {
-    return 'draw';
   } else if (player1 === 'sissors' && player2 === 'paper') {
     return true;
   } else if (player1 === 'paper' && player2 === 'rock') {
     return true;
-  } else if (player1 === 'paper' && player2 === 'paper') {
-    return 'draw';
   } else if (player1 === 'paper' && player2 === 'sissors') {
     return false;
   }
@@ -260,6 +239,7 @@ Un-suck this code.
 */
 
 function ticTacToe(board) {
+
   var xHortizontal = checkHorizontal('X', board);
   var oHortizontal = checkHorizontal('O', board);
   var xVertical = checkVertical('X', board);
