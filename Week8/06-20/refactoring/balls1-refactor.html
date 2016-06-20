@@ -1,0 +1,70 @@
+<!--
+# Data Clumps
+
+Refactor the following code to remove code duplication and to
+make adding additonal balls easy.
+
+1. Extract a function to draw a ball of a given position, color, and size
+2. Use objects to group related variables and turn them into
+properties of objects, update the draw-a-ball function to take the object as argument
+3. Use an array to hold all objects that represent balls.
+4. Instead of using object literals, create a Ball type, and use the `new` statement to create new balls.
+5. Put 10 balls on the canvas.
+
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Balls</title>
+    <style>#canvas { border: 2px solid black; } body { text-align: center; }</style>
+  </head>
+  <body>
+    <canvas id="canvas" width="500" height="500"></canvas>
+    <script>
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
+
+    function Ball(x, y, radius, color) {
+      this.x = x;
+      this.y = y;
+      this.radius = radius;
+      this.color = color;
+    }
+
+    var balls = [
+      new Ball(100, 100, 10, 'red'),
+      new Ball(300, 400, 30, 'green'),
+      new Ball(400, 100, 40, 'blue'),
+      new Ball(500, 400, 50, 'purple'),
+      new Ball(200, 200, 60, 'grey'),
+      new Ball(200, 400, 70, 'black'),
+      new Ball(100, 400, 80, 'yellow'),
+      new Ball(300, 400, 90, 'red'),
+      new Ball(300, 500, 20, 'green'),
+      new Ball(200, 600, 40, 'blue')
+    ];
+
+
+    function main() {
+
+      balls.forEach(function(ball) {
+        drawBall(ball);
+      });
+
+      // continue the loop
+      requestAnimationFrame(main);
+    }
+
+    function drawBall(ball) {
+      // draw ball 1
+      ctx.beginPath();
+      ctx.fillStyle = ball.color;
+      ctx.ellipse(ball.x, ball.y, ball.radius, ball.radius, 0, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    main();
+    </script>
+  </body>
+</html>
