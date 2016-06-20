@@ -195,15 +195,11 @@ function roshambo(player1, player2) {
 function beats(player1, player2) {
   if (player1 === 'rock' && player2 === 'sissors') {
     return true;
-  } else if (player1 === 'rock' && player2 === 'paper') {
-    return false;
-  } else if (player1 === 'sissors' && player2 === 'rock') {
-    return false;
   } else if (player1 === 'sissors' && player2 === 'paper') {
     return true;
   } else if (player1 === 'paper' && player2 === 'rock') {
     return true;
-  } else if (player1 === 'paper' && player2 === 'sissors') {
+  } else {
     return false;
   }
 }
