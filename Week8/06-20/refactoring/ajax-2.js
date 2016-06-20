@@ -9,32 +9,40 @@ function main() {
   getCityData(function(cities) {
     cities.forEach(function(city) {
       geocoder.geocode({ address: city.name }, function(data) {
-        var latLng = data[0].geometry.location;
-        var marker = new google.maps.Marker({
-          position: latLng,
-          map: map
-        });
-        showMarker(marker, city);
+        createMarker(data, city, map);
       });
     });
   });
 }
 
+function createMarker(data, city, map) {
+  var latLng = data[0].geometry.location;
+  var marker = new google.maps.Marker({
+    position: latLng,
+    map: map
+  });
+  showMarker(marker, city);
+}
+
 function showMarker(marker, city) {
   marker.addListener('click', function () {
     getCityWeather(city, function(data) {
-      var content = '<h1>' + data.name + '</h1>' +
-        'Temperature: ' + data.main.temp + '°<br>' +
-        'Hi: ' + data.main.temp_max + '°<br>' +
-        'Lo: ' + data.main.temp_min + '°<br>' +
-        data.weather[0].description + '<br>' +
-        '<img src="http://openweathermap.org/img/w/' + data.weather[0].icon + '.png">';
+      var content = generateContent(data);
       var infoWindow = new google.maps.InfoWindow({
         content: content
       });
       infoWindow.open(map, marker);
     });
   });
+}
+
+function generateContent(data) {
+  return '<h1>' + data.name + '</h1>' +
+          'Temperature: ' + data.main.temp + '°<br>' +
+          'Hi: ' + data.main.temp_max + '°<br>' +
+          'Lo: ' + data.main.temp_min + '°<br>' +
+          data.weather[0].description + '<br>' +
+          '<img src="http://openweathermap.org/img/w/' + data.weather[0].icon + '.png">';
 }
 
 function getCityWeather(city, callback) {
