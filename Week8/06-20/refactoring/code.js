@@ -6,20 +6,10 @@ Hint 1: combine multiple conditionals into a compound conditional
 Hint 2: test for a range of numbers
 */
 function workOrSleepIn(day) {
-  if (day === 0) {
+  if (day === 0 || day === 6) {
     return 'Sleep In';
-  } else if (day === 1) {
+  } else if (day >= 1 && day <= 5) {
     return 'Work';
-  } else if (day === 2) {
-    return 'Work';
-  } else if (day === 3) {
-    return 'Work';
-  } else if (day === 4) {
-    return 'Work';
-  } else if (day === 5) {
-    return 'Work';
-  } else if (day === 6) {
-    return 'Sleep In';
   } else {
     throw new Error('Invalid day: ' + day);
   }
@@ -32,33 +22,38 @@ Hint 1: merge multiple conditions using the || operator
 Hint 2: cover rest of the cases using an else clause
 */
 function daysInMonth(month) {
-  if (month === 1) {
+
+  switch (month) {
+    case 1:
+    case 3:
+    case 5:
+    case 7:
+    case 8:
+    case 10:
+    case 12:
+      return 31;
+    case 2:
+      return 28;
+    case 4:
+    case 6:
+    case 9:
+    case 11:
+      return 30;
+    default:
+      throw new Error('Invalid month: ' + month);
+  }
+
+  /* OR
+  if (month === 1 || month === 3 || month === 5 || month === 7 || month === 8 || month === 10 || month === 12) {
     return 31;
   } else if (month === 2) {
     return 28;
-  } else if (month === 3) {
-    return 31;
-  } else if (month === 4) {
+  } else if (month === 4 || month === 6 || month === 9 || month === 11) {
     return 30;
-  } else if (month === 5) {
-    return 31;
-  } else if (month === 6) {
-    return 30;
-  } else if (month === 7) {
-    return 31;
-  } else if (month === 8) {
-    return 31;
-  } else if (month === 9) {
-    return 30;
-  } else if (month === 10) {
-    return 31;
-  } else if (month === 11) {
-    return 30;
-  } else if (month === 12) {
-    return 31;
   } else {
     throw new Error('Invalid month: ' + month);
-  }
+  } */
+
 }
 
 /*
@@ -70,15 +65,14 @@ Hint 3: would changing the order of the if clauses reduce the amount of code nec
 Hint 4: Is there unnecesary code in this function?
 */
 function getIcon(place) {
-  var theIcon = 'images/bathroomsymbolsmall.png';
-  if (place.avgRating >= 2 && place.avgRating < 4) {
-    theIcon = 'images/orange.png';
-  } else if (place.avgRating >= 4) {
-    theIcon = 'images/green.png';
-  } else if (place.avgRating < 2) {
-    theIcon = 'images/red.png';
+  var avgRating = place.avgRating;
+  if (avgRating >= 4) {
+    return 'images/green.png';
+  } else if (avgRating < 2) {
+    return 'images/red.png';
+  } else {
+    return 'images/orange.png';
   }
-  return theIcon;
 }
 
 /*
@@ -95,20 +89,43 @@ function tallyGrades(students) {
     D: 0,
     F: 0
   };
-  for (var i = 0; i < students.length; i++) {
-    if (students[i].grade >= 90) {
+  return students.reduce(function(tally, student) {
+    var grade = student.grade;
+    if (grade >= 90) {
       tally.A++;
-    } else if (students[i].grade >= 80) {
+    } else if (grade >= 80) {
       tally.B++;
-    } else if (students[i].grade >= 70) {
+    } else if (grade >= 70) {
       tally.C++;
-    } else if (students[i].grade >= 60) {
+    } else if (grade >= 60) {
       tally.D++;
     } else {
       tally.F++;
     }
-  }
-  return tally;
+    return tally;
+  }, {
+    A: 0,
+    B: 0,
+    C: 0,
+    D: 0,
+    F: 0
+  });
+
+  // for (var i = 0; i < students.length; i++) {
+  //   var grade = students[i].grade;
+  //   if (grade >= 90) {
+  //     tally.A++;
+  //   } else if (grade >= 80) {
+  //     tally.B++;
+  //   } else if (grade >= 70) {
+  //     tally.C++;
+  //   } else if (grade >= 60) {
+  //     tally.D++;
+  //   } else {
+  //     tally.F++;
+  //   }
+  // }
+  // return tally;
 }
 
 /*
@@ -119,10 +136,15 @@ Hint 2: In the calculation for squareOfDifference, extract a variable diff.
 */
 function distance(point1, point2) {
   var distance = Math.sqrt(
-    (point1.x - point2.x) * (point1.x - point2.x) +
-    (point1.y - point2.y) * (point1.y - point2.y)
+    squareOfDifference(point1.x, point2.x) +
+    squareOfDifference(point1.y, point2.y)
   );
   return distance;
+}
+
+function squareOfDifference(point1, point2) {
+  var diff = point1 - point2;
+  return diff * diff;
 }
 
 /*
@@ -132,24 +154,33 @@ Hint/Option 1: Extract a function, perhaps called getHitPoints that takes in a c
 Hint/Option 2: Instead of option 1, extract a function, perhaps called attack, which both calculates the hit points and induces the damage on the other character.
 */
 function fight(human, goblin) {
-  // human attacks goblin
-  var goblinHitPoints = human.power;
-  // 50% chance of double points
-  if (Math.random() > 0.5) {
-    goblinHitPoints = goblinHitPoints * 2;
-  }
+  // // human attacks goblin
+  // var goblinHitPoints = human.power;
+  // // 50% chance of double points
+  // if (Math.random() > 0.5) {
+  //   goblinHitPoints = goblinHitPoints * 2;
+  // }
   // induce damage to goblin
-  goblin.health -= goblinHitPoints;
+  goblin.health -= getHitPoints(human, 0.5);
 
-  // goblin attacks human
-  var humanHitPoints = goblin.power;
-  // 20% chance of double points
-  if (Math.random() > 0.2) {
-    humanHitPoints = humanHitPoints * 2;
-  }
+  // // goblin attacks human
+  // var humanHitPoints = goblin.power;
+  // // 20% chance of double points
+  // if (Math.random() > 0.2) {
+  //   humanHitPoints = humanHitPoints * 2;
+  // }
   // induce damage to human
-  human.health -= humanHitPoints;
+  human.health -= getHitPoints(goblin, 0.2);
 }
+
+function getHitPoints(character, percent) {
+  var hitPoints = character.power;
+  if (Math.random() > percent) {
+    return hitPoints * 2;
+  }
+  return hitPoints;
+}
+
 
 /*
 This function determines the winner of a roshambo game, a.k.a
@@ -166,26 +197,38 @@ Hint 1: the logic for whether one player beats another player can be reused. Wri
 Hint 2: do you even need to call the beats function twice? You can use an else statement to cover the rest of the cases.
 */
 function roshambo(player1, player2) {
-  if (player1 === 'rock' && player2 === 'sissors') {
-    return 'player 1';
-  } else if (player1 === 'rock' && player2 === 'paper') {
-    return 'player 2';
-  } else if (player1 === 'rock' && player2 === 'rock') {
+  var winner = beats(player1, player2);
+  if (winner === 'draw') {
     return 'draw';
-  } else if (player1 === 'sissors' && player2 === 'rock') {
-    return 'player 2';
-  } else if (player1 === 'sissors' && player2 === 'sissors') {
-    return 'draw';
-  } else if (player1 === 'sissors' && player2 === 'paper') {
+  } else if (winner){
     return 'player 1';
-  } else if (player1 === 'paper' && player2 === 'rock') {
-    return 'player 1';
-  } else if (player1 === 'paper' && player2 === 'paper') {
-    return 'draw';
-  } else if (player1 === 'paper' && player2 === 'sissors') {
+  } else {
     return 'player 2';
   }
 }
+
+function beats(player1, player2) {
+  if (player1 === 'rock' && player2 === 'sissors') {
+    return true;
+  } else if (player1 === 'rock' && player2 === 'paper') {
+    return false;
+  } else if (player1 === 'rock' && player2 === 'rock') {
+    return 'draw';
+  } else if (player1 === 'sissors' && player2 === 'rock') {
+    return false;
+  } else if (player1 === 'sissors' && player2 === 'sissors') {
+    return 'draw';
+  } else if (player1 === 'sissors' && player2 === 'paper') {
+    return true;
+  } else if (player1 === 'paper' && player2 === 'rock') {
+    return true;
+  } else if (player1 === 'paper' && player2 === 'paper') {
+    return 'draw';
+  } else if (player1 === 'paper' && player2 === 'sissors') {
+    return false;
+  }
+}
+
 
 /*
 1. Instead of using object literals to create objects inside
@@ -194,18 +237,21 @@ and suit as parameters. Use the new statement to instantiate
 the card objects in the for loop.
 */
 
-
 function newDeck() {
   var deck = [];
   for (var i = 1; i <= 13; i++) {
-    deck.push({ point: i, suit: 'spades' });
-    deck.push({ point: i, suit: 'hearts' });
-    deck.push({ point: i, suit: 'clubs' });
-    deck.push({ point: i, suit: 'diamonds' });
+    deck.push(new Card(i, 'spades'));
+    deck.push(new Card(i, 'hearts'));
+    deck.push(new Card(i, 'clubs'));
+    deck.push(new Card(i, 'diamonds'));
   }
   return deck;
 }
 
+function Card(point, suit) {
+  this.point = point;
+  this.suit = suit;
+}
 
 /*
 Bonus Challenge: Tic Tac Toe
@@ -214,60 +260,114 @@ Un-suck this code.
 */
 
 function ticTacToe(board) {
-  // horizontal rows
-  if (board[0][0] === 'O' && board[0][1] === 'O' && board[0][2] === 'O') {
-    return 'O';
-  }
-  if (board[1][0] === 'O' && board[1][1] === 'O' && board[1][2] === 'O') {
-    return 'O';
-  }
-  if (board[2][0] === 'O' && board[2][1] === 'O' && board[2][2] === 'O') {
-    return 'O';
-  }
-  if (board[0][0] === 'X' && board[0][1] === 'X' && board[0][2] === 'X') {
-    return 'X';
-  }
-  if (board[1][0] === 'X' && board[1][1] === 'X' && board[1][2] === 'X') {
-    return 'X';
-  }
-  if (board[2][0] === 'X' && board[2][1] === 'X' && board[2][2] === 'X') {
-    return 'X';
-  }
+  var xHortizontal = checkHorizontal('X', board);
+  var oHortizontal = checkHorizontal('O', board);
+  var xVertical = checkVertical('X', board);
+  var oVertical = checkVertical('O', board);
+  var xDiagonal = checkDiagonal('X', board);
+  var oDiagonal = checkDiagonal('O', board);
 
-  // vertical rows
-  if (board[0][0] === 'O' && board[1][0] === 'O' && board[2][0] === 'O') {
-    return 'O';
-  }
-  if (board[0][1] === 'O' && board[1][1] === 'O' && board[2][1] === 'O') {
-    return 'O';
-  }
-  if (board[0][2] === 'O' && board[1][2] === 'O' && board[2][2] === 'O') {
-    return 'O';
-  }
-  if (board[0][0] === 'X' && board[1][0] === 'X' && board[2][0] === 'X') {
+  if (xHortizontal || xVertical || xDiagonal) {
     return 'X';
-  }
-  if (board[0][1] === 'X' && board[1][1] === 'X' && board[2][1] === 'X') {
-    return 'X';
-  }
-  if (board[0][2] === 'X' && board[1][2] === 'X' && board[2][2] === 'X') {
-    return 'X';
-  }
-
-  // diagnals
-  if (board[0][0] === 'O' && board[1][1] === 'O' && board[2][2] === 'O') {
+  } else if (oHortizontal || oVertical || oDiagonal) {
     return 'O';
+  } else {
+    // no winner
+    return null;
   }
-  if (board[0][2] === 'O' && board[1][1] === 'O' && board[2][0] === 'O') {
-    return 'O';
-  }
-  if (board[0][0] === 'X' && board[1][1] === 'X' && board[2][2] === 'X') {
-    return 'X';
-  }
-  if (board[0][2] === 'X' && board[1][1] === 'X' && board[2][0] === 'X') {
-    return 'X';
-  }
-
-  // no winner
-  return null;
 }
+
+function checkHorizontal(xOrO, board) {
+  // horizontal rows
+  if (board[0][0] === xOrO && board[0][1] === xOrO && board[0][2] === xOrO) {
+    return true;
+  }
+  if (board[1][0] === xOrO && board[1][1] === xOrO && board[1][2] === xOrO) {
+    return true;
+  }
+  if (board[2][0] === xOrO && board[2][1] === xOrO && board[2][2] === xOrO) {
+    return true;
+  }
+  return false;
+}
+function checkVertical(xOrO, board) {
+  // vertical rows
+  if (board[0][0] === xOrO && board[1][0] === xOrO && board[2][0] === xOrO) {
+    return true;
+  }
+  if (board[0][1] === xOrO && board[1][1] === xOrO && board[2][1] === xOrO) {
+    return true;
+  }
+  if (board[0][2] === xOrO && board[1][2] === xOrO && board[2][2] === xOrO) {
+    return true;
+  }
+  return false;
+}
+function checkDiagonal(xOrO, board) {
+  // diagnals
+  if (board[0][0] === xOrO && board[1][1] === xOrO && board[2][2] === xOrO) {
+    return true;
+  }
+  if (board[0][2] === xOrO && board[1][1] === xOrO && board[2][0] === xOrO) {
+    return true;
+  }
+  return false;
+}
+// function ticTacToe(board) {
+//   // horizontal rows
+//   if (board[0][0] === 'O' && board[0][1] === 'O' && board[0][2] === 'O') {
+//     return 'O';
+//   }
+//   if (board[1][0] === 'O' && board[1][1] === 'O' && board[1][2] === 'O') {
+//     return 'O';
+//   }
+//   if (board[2][0] === 'O' && board[2][1] === 'O' && board[2][2] === 'O') {
+//     return 'O';
+//   }
+//   if (board[0][0] === 'X' && board[0][1] === 'X' && board[0][2] === 'X') {
+//     return 'X';
+//   }
+//   if (board[1][0] === 'X' && board[1][1] === 'X' && board[1][2] === 'X') {
+//     return 'X';
+//   }
+//   if (board[2][0] === 'X' && board[2][1] === 'X' && board[2][2] === 'X') {
+//     return 'X';
+//   }
+//
+//   // vertical rows
+//   if (board[0][0] === 'O' && board[1][0] === 'O' && board[2][0] === 'O') {
+//     return 'O';
+//   }
+//   if (board[0][1] === 'O' && board[1][1] === 'O' && board[2][1] === 'O') {
+//     return 'O';
+//   }
+//   if (board[0][2] === 'O' && board[1][2] === 'O' && board[2][2] === 'O') {
+//     return 'O';
+//   }
+//   if (board[0][0] === 'X' && board[1][0] === 'X' && board[2][0] === 'X') {
+//     return 'X';
+//   }
+//   if (board[0][1] === 'X' && board[1][1] === 'X' && board[2][1] === 'X') {
+//     return 'X';
+//   }
+//   if (board[0][2] === 'X' && board[1][2] === 'X' && board[2][2] === 'X') {
+//     return 'X';
+//   }
+//
+//   // diagnals
+//   if (board[0][0] === 'O' && board[1][1] === 'O' && board[2][2] === 'O') {
+//     return 'O';
+//   }
+//   if (board[0][2] === 'O' && board[1][1] === 'O' && board[2][0] === 'O') {
+//     return 'O';
+//   }
+//   if (board[0][0] === 'X' && board[1][1] === 'X' && board[2][2] === 'X') {
+//     return 'X';
+//   }
+//   if (board[0][2] === 'X' && board[1][1] === 'X' && board[2][0] === 'X') {
+//     return 'X';
+//   }
+//
+//   // no winner
+//   return null;
+//}
