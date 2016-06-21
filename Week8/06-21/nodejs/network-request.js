@@ -8,3 +8,8 @@ Example output:
 $ node request.js http://hellohappy.org
 ...lots of HTML output...
 */
+var request = require('request');
+var url = process.argv[2];
+request(url, function(err, response, body) {
+  console.log(body);
+});
