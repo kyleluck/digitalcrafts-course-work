@@ -1,15 +1,19 @@
 /*
-## Making a network request
-
-Write a program that takes in an URL from the command line, makes a request to it, and prints the response to the terminal. You will use the request module to do it: https://www.npmjs.com/package/request
-
-Example output:
-
-$ node request.js http://hellohappy.org
-...lots of HTML output...
+get weather and temperature for a city passed in from the CLI
 */
+
 var request = require('request');
-var url = process.argv[2];
-request(url, function(err, response, body) {
-  console.log(body);
+var city = process.argv[2];
+
+request({
+  url: 'http://api.openweathermap.org/data/2.5/weather',
+  qs: {
+    q: city,
+    units: 'imperial',
+    APPID: 'eac2948bfca65b78a8c5564ecf91d00e'
+  }
+}, function(err, response, body) {
+  var data = JSON.parse(body);
+  console.log('Weather: ' + data.weather[0].description);
+  console.log('Temperature: ' + data.main.temp);
 });
