@@ -4,49 +4,61 @@
 Make a server that returns "Hello, world!" to the web browser.
 */
 var http = require('http');
-var url = require('url');
+var request = require('request');
 
 const PORT = 3000;
 
-var title = 'Node Says Hello';
-var html = `
-<html>
-  <head>
-    <title>${title}</title>
-    <script src='script.js'></script>
-    <link rel='stylesheet' href='style.css'>
-  </head>
-  <body>
-    <h1>Hello Kyle. ${title}</h1>
-    <h5>Node is freaking awesome</h5>
-  </body>
-</html>`;
+function getHTML(data) {
+  var html = `
+  <html>
+    <head>
+      <title>${data.name}</title>
+    </head>
+    <body>
+      <h1 id='title'>${data.name}</h1>
+      <h5>Node is freaking awesome</h5>
+      <p>
+        Temperature: ${data.main.temp}<br>
+        Weather: ${data.weather[0].description}
+      </p>
+    </body>
+  </html>`;
+  return html;
+}
 
-var css = `
-body {
-  background: yellow;
-}`;
 
-var js = `
-alert('Hahahahaha');
-`;
 
 var server = http.createServer(function(request, response) {
   var url = request.url;
-  if (url === '/') {
+  var city = url.substring(1);
+  getWeather(city, function(err, data) {
+    var html = getHTML(data);
     response.write(html);
-  } else if (url === '/script.js') {
-    response.write(js);
-  } else if (url === '/style.css') {
-    response.write(css);
-  }
-  
-  //var queryObject = url.parse(request.url, true).query;
-  //console.log(queryObject);
-
-  response.end();
+    response.end();
+  });
 });
 
 server.listen(PORT, function() {
   console.log("Server is listening on http://localhost:" + PORT);
 });
+
+function getWeather(city, callback) {
+  request({
+    url: 'http://api.openweathermap.org/data/2.5/weather',
+    qs: {
+      q: city,
+      units: 'imperial',
+      APPID: 'eac2948bfca65b78a8c5564ecf91d00e'
+    }
+  }, function(err, response, body) {
+    if (err) {
+      // call the callback
+      callback(err);
+      return;
+    }
+    // convert the body in JSON format to a JS object
+    var data = JSON.parse(body);
+    // call the callback, passing null for err to signal success
+    callback(null, data);
+  });
+}
