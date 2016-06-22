@@ -1,8 +1,6 @@
+// require the http module
 var http = require('http');
 var request = require('request');
-
-//what port we want our server to listen on
-const PORT = 3000;
 
 function getErrorPageHTML(city, err) {
   return `
@@ -11,34 +9,41 @@ function getErrorPageHTML(city, err) {
   `;
 }
 
-//return HTML data dynamically based on getWeather response
 function getHTML(data) {
   var html = `
   <html>
     <head>
+      <meta charset="utf8">
       <title>${data.name}</title>
     </head>
     <body>
-      <h1 id='title'>${data.name}</h1>
+      <h1>${data.name}</h1>
       <p>
-        Temperature: ${data.main.temp}<br>
+        Temperature: ${data.main.temp}°<br>
         Weather: ${data.weather[0].description}
       </p>
     </body>
-  </html>`;
+  </html>
+  `;
   return html;
 }
 
-//create http server, call getWeather for city in URL
+// create an http server passing it a request/response handler
+// function. The function will be invoked for each incoming
+// request, and will respond to the request accordingly via
+// the response object.
 var server = http.createServer(function(request, response) {
   var url = request.url;
   var city = url.substring(1);
+  console.log('city', city);
   getWeather(city, function(err, data) {
     var html;
     if (err) {
+      console.log('ERROR');
       html = getErrorPageHTML(city, err);
       response.write(html);
     } else {
+      console.log('NO ERROR');
       html = getHTML(data);
       response.write(html);
     }
@@ -46,12 +51,12 @@ var server = http.createServer(function(request, response) {
   });
 });
 
-//listen on PORT
-server.listen(PORT, function() {
-  console.log("Server is listening on http://localhost:" + PORT);
+// Start listening to incoming requests
+server.listen(8000, function() {
+  console.log('Listening on port 8000');
 });
 
-//function to get weather for a specific city
+// extract my own asynchronous function
 function getWeather(city, callback) {
   request({
     url: 'http://api.openweathermap.org/data/2.5/weather',
