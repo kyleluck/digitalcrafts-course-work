@@ -30,9 +30,23 @@ var cities = [
 
 // in parallel
 async.map(cities, getWeather, function(err, results) {
+
+  //print temp for each city
   results.map(function(result) {
     console.log('Temperature for ' + result.name + ' is: ' + result.main.temp);
   });
+
+  //calculate average temp
+  var temps = results.map(function(result) {
+    return Number(result.main.temp);
+  });
+  var sum = temps.reduce(function(a, b) {
+    return a + b;
+  }, 0);
+  console.log('Average temperature is: ' + sum / temps.length);
+
+  var maxTemp = Math.max.apply(Math, temps);
+  console.log('Max Temp is: ' + maxTemp);
 });
 
 // serially
