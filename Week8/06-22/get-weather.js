@@ -51,19 +51,11 @@ async.map(cities, getWeather, function(err, results) {
 
 
 // serially
+/*
 console.log('Running serially.....');
-async.series([
-  function(getWeather) {
-    getWeather(cities[0], function(result) {
-      console.log(cities[0] + " " + result);
-    });
-  },
-  function(getWeather) {
-    getWeather(cities[1]);
-  },
-  function(getWeather) {
-    getWeather(cities[2]);
-  }
-], function(err, results) {
-  console.log(results);
+cities.forEach(function(city) {
+  getWeather(city, function(err, data) {
+    console.log(data.name + ' temperature: ' + data.main.temp);
+  });
 });
+*/
