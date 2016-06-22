@@ -1,13 +1,10 @@
-/*
-## Make your own HTTP server
-
-Make a server that returns "Hello, world!" to the web browser.
-*/
 var http = require('http');
 var request = require('request');
 
+//what port we want our server to listen on
 const PORT = 3000;
 
+//return HTML data dynamically based on getWeather response
 function getHTML(data) {
   var html = `
   <html>
@@ -16,7 +13,6 @@ function getHTML(data) {
     </head>
     <body>
       <h1 id='title'>${data.name}</h1>
-      <h5>Node is freaking awesome</h5>
       <p>
         Temperature: ${data.main.temp}<br>
         Weather: ${data.weather[0].description}
@@ -26,8 +22,7 @@ function getHTML(data) {
   return html;
 }
 
-
-
+//create http server, call getWeather for city in URL
 var server = http.createServer(function(request, response) {
   var url = request.url;
   var city = url.substring(1);
@@ -38,10 +33,12 @@ var server = http.createServer(function(request, response) {
   });
 });
 
+//listen on PORT
 server.listen(PORT, function() {
   console.log("Server is listening on http://localhost:" + PORT);
 });
 
+//function to get weather for a specific city
 function getWeather(city, callback) {
   request({
     url: 'http://api.openweathermap.org/data/2.5/weather',
