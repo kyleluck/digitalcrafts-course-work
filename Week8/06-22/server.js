@@ -6,12 +6,10 @@ Make a server that returns "Hello, world!" to the web browser.
 var http = require('http');
 const PORT = 3000;
 
-function handleRequest(request, response) {
-  console.log(request);
-  response.end('Hello World!!');
-}
-
-var server = http.createServer(handleRequest);
+var server = http.createServer(function(request, response) {
+  response.write('Hello World!');
+  response.end();
+});
 
 server.listen(PORT, function() {
   console.log("Server is listening on http://localhost:" + PORT);
