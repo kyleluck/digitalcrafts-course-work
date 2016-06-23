@@ -1,0 +1,11 @@
+{
+  "name": "file-summary-kyle",
+  "version": "1.0.0",
+  "description": "returns an object with lineCount and charCount",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kyle Luck",
+  "license": "ISC"
+}
