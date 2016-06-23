@@ -35,13 +35,14 @@ module.exports = function(fileName, callback) {
   fs.readFile(fileName, 'utf8', function(err, data) {
     if (err) {
       callback('Error: ' + err);
+      return;
     }
 
-    // find and print number of lines
+    // find number of lines
     var fileLinesInArray = data.split('\n');
     var numberOfLines = fileLinesInArray.length - 1;
 
-    // find and print number of characters
+    // find number of characters
     var characters = data.split('');
     var numberOfCharacters = characters.length;
 
