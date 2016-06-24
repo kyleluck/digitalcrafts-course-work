@@ -41,9 +41,21 @@ app.get('/:pageName', function(req, res) {
 
 app.get('/:pageName/edit', function(req, res) {
   var pageName = req.params.pageName;
-  res.render('edit', {
-    pageName: pageName
+  var pageFileLocation = 'pages/' + pageName + '.txt';
+  var currentContent;
+
+  fs.readFile(pageFileLocation, function(err, data) {
+    if (err) {
+      currentContent = '';
+    } else {
+      currentContent = data.toString();
+    }
+    res.render('edit', {
+      pageName: pageName,
+      currentContent: currentContent
+    });
   });
+
 });
 
 app.post('/:pageName/save', function(req, res) {
