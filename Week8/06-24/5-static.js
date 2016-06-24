@@ -5,9 +5,11 @@ app.set('view engine', 'hbs');
 app.use(express.static('public'));
 
 app.get('/', function (req, res) {
+  var name = req.query.name;
   res.render('hello', {
     title: 'Hello',
-    content: 'Hello, world!'
+    content: 'Hello, world!',
+    name: name
   });
 });
 
