@@ -5,7 +5,7 @@ var fs = require('fs');
 
 
 app.set('view engine', 'hbs');
-app.use(express.static('public'));
+app.use('/static', express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/', function(req, res) {
