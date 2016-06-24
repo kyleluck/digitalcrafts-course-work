@@ -20,6 +20,7 @@ app.get('/form', function(request, response) {
 app.post('/submit', function(request, response) {
   var data = request.body;
   console.log(data);
+  response.send('ok');
 });
 
 app.listen(3000, function () {

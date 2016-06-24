@@ -7,7 +7,7 @@ app.use(express.static('public'));
 app.get('/', function (req, res) {
   var name = req.query.name;
   res.render('hello', {
-    title: 'Hello',
+    title: 'Using Express...',
     content: 'Hello, world!',
     name: name
   });
