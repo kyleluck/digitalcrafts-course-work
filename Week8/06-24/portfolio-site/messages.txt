@@ -1,8 +1,9 @@
-From: Kyle
-Message: Hello from kyle!
-From: John Smith
+From: John
+Message: Can you teach me Express?
+_____________________
+From: Susan
 Message: I love your portfolio!
-From: Johnny Boy
-Message: Yo
-From: Sam
-Message: Can you teach me about Express?
+_____________________
+From: Tim
+Message: Contact me about AlchemyAPI please @ tim@gmail.com
+_____________________

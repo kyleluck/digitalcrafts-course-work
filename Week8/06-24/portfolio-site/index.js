@@ -35,7 +35,7 @@ app.post('/submit', function(req, res) {
   var requestBody = req.body;
   var name = requestBody.name;
   var message = requestBody.message;
-  var saveMessage = "From: " + name + "\n" + "Message: " + message + "\n";
+  var saveMessage = "From: " + name + "\n" + "Message: " + message + "\n" + "_____________________" + "\n";
 
   fs.appendFile('messages.txt', saveMessage, function(err) {
     if (err) {
