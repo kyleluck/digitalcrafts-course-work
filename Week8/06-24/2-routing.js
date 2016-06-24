@@ -9,6 +9,11 @@ app.get('/about', function(request, response) {
   response.send('This is just an example app demonstrating simple routing in express.');
 });
 
+/*
+Nested Example:
+app.get('/organization/:orgId/client/:clientId/project/:projectId'...)
+*/
+
 app.get('/:pageName', function(request, response) {
   var pageName = request.params.pageName;
   response.send('Hi, I will tell you everything I know about ' + pageName + '.');
