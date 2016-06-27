@@ -21,6 +21,7 @@ app.get('/AllPages', function(req, res) {
       return console.log('Error reading pages directory: ', err);
     }
 
+    //change files to remove extension and create link
     files = files.map(function(file) {
       var fileName = file.slice(0, -3);
       return '<a href="/' + fileName + '">' + fileName + '</a>';
