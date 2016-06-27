@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var fs = require('fs');
+var wikiLinkify = require('wiki-linkify');
 
 var app = express();
 
@@ -40,11 +41,12 @@ app.get('/:pageName', function(req, res) {
       }
 
       pageContent = data.toString();
+      var wikiContent = wikiLinkify(pageContent);
 
       res.render('page', {
         title: pageName,
         pageName: pageName,
-        content: pageContent
+        content: wikiContent
       });
     });
 
