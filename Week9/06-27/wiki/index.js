@@ -1,7 +1,8 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var fs = require('fs');
-var wikiLinkify = require('wiki-linkify');
+var wikiLinkify = require('wiki-linkify'); //module to autolink CamelCased words
+var marked = require('marked'); //module to parse markdown format
 
 var app = express();
 
@@ -13,10 +14,30 @@ app.get('/', function(req, res) {
   res.redirect('/HomePage');
 });
 
+//display all pages created at /AllPages
+app.get('/AllPages', function(req, res) {
+  fs.readdir('pages', function(err, files) {
+    if (err) {
+      return console.log('Error reading pages directory: ', err);
+    }
+
+    files = files.map(function(file) {
+      var fileName = file.slice(0, -3);
+      return '<a href="/' + fileName + '">' + fileName + '</a>';
+    });
+
+    res.render('allpages', {
+      title: 'AllPages',
+      pageName: 'AllPages',
+      files: files
+    });
+  });
+});
+
 app.get('/:pageName', function(req, res) {
   var pageName = req.params.pageName,
       pageContent,
-      pageFileLocation = 'pages/' + pageName + '.txt';
+      pageFileLocation = 'pages/' + pageName + '.md';
 
   //just return if the request is for a dumb favicon
   if (pageName === 'favicon.ico') {
@@ -41,6 +62,9 @@ app.get('/:pageName', function(req, res) {
       }
 
       pageContent = data.toString();
+      //convert markdown to html
+      pageContent = marked(pageContent);
+      //wikiLinkify any CamelCased words
       var wikiContent = wikiLinkify(pageContent);
 
       res.render('page', {
@@ -55,7 +79,7 @@ app.get('/:pageName', function(req, res) {
 
 app.get('/:pageName/edit', function(req, res) {
   var pageName = req.params.pageName;
-  var pageFileLocation = 'pages/' + pageName + '.txt';
+  var pageFileLocation = 'pages/' + pageName + '.md';
   var currentContent;
 
   fs.readFile(pageFileLocation, function(err, data) {
@@ -76,7 +100,7 @@ app.get('/:pageName/edit', function(req, res) {
 app.post('/:pageName/save', function(req, res) {
   var pageContent = req.body.pageContent;
   var thisPage = req.params.pageName;
-  var pageLocation = 'pages/' + thisPage + '.txt';
+  var pageLocation = 'pages/' + thisPage + '.md';
 
   fs.writeFile(pageLocation, pageContent, function(err) {
     if (err) {

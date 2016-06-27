@@ -1,0 +1,1 @@
+#### DigitalCrafts is a 16-week bootcamp teaching the __MEAN__ and __LAMP__ stacks.
