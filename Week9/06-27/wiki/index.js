@@ -3,12 +3,25 @@ var bodyParser = require('body-parser');
 var fs = require('fs');
 var wikiLinkify = require('wiki-linkify'); //module to autolink CamelCased words
 var marked = require('marked'); //module to parse markdown format
+var session = require('express-session');
 
 var app = express();
 
 app.set('view engine', 'hbs');
 app.use('/static', express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: false }));
+
+// log all requests
+app.use(function(request, response, next) {
+  var logItem = request.method + ' ' + request.url + '\n\n';
+  fs.appendFile('requests.log', logItem, function(err) {
+    if (err) {
+      return console.log('Error writing to log file:', err);
+    }
+  });
+  console.log(request.method + ' ' + request.url);
+  next();
+});
 
 app.get('/', function(req, res) {
   res.redirect('/HomePage');
@@ -78,7 +91,7 @@ app.get('/:pageName', function(req, res) {
   });
 });
 
-app.get('/:pageName/edit', function(req, res) {
+app.get('/:pageName/edit', authRequired, function(req, res) {
   var pageName = req.params.pageName;
   var pageFileLocation = 'pages/' + pageName + '.md';
   var currentContent;
@@ -98,7 +111,7 @@ app.get('/:pageName/edit', function(req, res) {
 
 });
 
-app.post('/:pageName/save', function(req, res) {
+app.post('/:pageName/save', authRequired, function(req, res) {
   var pageContent = req.body.pageContent;
   var thisPage = req.params.pageName;
   var pageLocation = 'pages/' + thisPage + '.md';
@@ -113,6 +126,16 @@ app.post('/:pageName/save', function(req, res) {
   res.redirect('/' + thisPage);
 });
 
+//function to see if user is logged in
+function authRequired(request, response, next) {
+  if (!request.session.user) {
+    res.redirect('/login');
+    return;
+  }
+  next();
+}
+
+//listen on port 3000
 app.listen('3000', function() {
   console.log('Listening on port 3000');
 });
