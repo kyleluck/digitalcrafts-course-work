@@ -23,7 +23,6 @@ app.get('/:pageName', function(req, res) {
   fs.readFile(pageFileLocation, function(err, data) {
     if (err) {
       res.render('placeholder', {
-        title: pageName,
         pageName: pageName,
       });
       return;
@@ -31,7 +30,6 @@ app.get('/:pageName', function(req, res) {
     pageContent = data.toString();
 
     res.render('page', {
-      title: pageName,
       pageName: pageName,
       content: pageContent
     });
