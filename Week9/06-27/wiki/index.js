@@ -7,9 +7,12 @@ var session = require('express-session');
 
 var app = express();
 
-app.set('view engine', 'hbs');
-app.use('/static', express.static(__dirname + '/public'));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.set('view engine', 'hbs'); //hbs view engine
+app.use('/static', express.static(__dirname + '/public')); //serve public directory
+app.use(session({ secret: '90s&wiki$secret', cookie: {
+  maxAge: 1000000
+}})); //use express session for user authentication
+app.use(bodyParser.urlencoded({ extended: false })); //use body parser for requests
 
 // log all requests
 app.use(function(request, response, next) {
@@ -46,6 +49,11 @@ app.get('/AllPages', function(req, res) {
       files: files
     });
   });
+});
+
+//display login page
+app.get('/login', function(req, res) {
+  res.render('login');
 });
 
 app.get('/:pageName', function(req, res) {
@@ -126,9 +134,25 @@ app.post('/:pageName/save', authRequired, function(req, res) {
   res.redirect('/' + thisPage);
 });
 
+//handle login request
+app.post('/login-submit', function(req, res) {
+  var username = req.body.username;
+  var password = req.body.password;
+
+  //hard code because this is just an exercise:
+  if ((username === 'kyle' && password === 'thepassword') || username === 'admin' && password === 'letmein') {
+    //user authenticated
+    req.session.user = username; //assign username to session object
+    res.redirect(req.session.requestUrl);
+  } else {
+    res.redirect('/login');
+  }
+});
+
 //function to see if user is logged in
-function authRequired(request, response, next) {
-  if (!request.session.user) {
+function authRequired(req, res, next) {
+  if (!req.session.user) {
+    req.session.requestUrl = req.url; //assign requestURL to session object
     res.redirect('/login');
     return;
   }
@@ -139,11 +163,3 @@ function authRequired(request, response, next) {
 app.listen('3000', function() {
   console.log('Listening on port 3000');
 });
-
-
-/*
-* / will redirect to /HomePage
-* /:pageName will render the contents of the specified pageName, if the page doesn't exist, it will display the place holder page, giving users a link to create that page
-* /:pageName/edit will display a form for the user to edit the specified page
-* /:pageName/save is the URL where the edit form will send a POST request to save the new version of the page
-*/
