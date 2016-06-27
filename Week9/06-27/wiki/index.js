@@ -1,8 +1,8 @@
 var express = require('express');
-var app = express();
 var bodyParser = require('body-parser');
 var fs = require('fs');
 
+var app = express();
 
 app.set('view engine', 'hbs');
 app.use('/static', express.static(__dirname + '/public'));
@@ -17,10 +17,14 @@ app.get('/:pageName', function(req, res) {
       pageContent,
       pageFileLocation = 'pages/' + pageName + '.txt';
 
+  //just return if the request is for a dumb favicon
   if (pageName === 'favicon.ico') {
     return;
   }
-  fs.readFile(pageFileLocation, function(err, data) {
+
+  //check to see if file exists
+  fs.access(pageFileLocation, function(err) {
+    //if file doesn't exist, render placeholder page
     if (err) {
       res.render('placeholder', {
         title: pageName,
@@ -28,12 +32,20 @@ app.get('/:pageName', function(req, res) {
       });
       return;
     }
-    pageContent = data.toString();
 
-    res.render('page', {
-      title: pageName,
-      pageName: pageName,
-      content: pageContent
+    //if file exists, read file contents and render page
+    fs.readFile(pageFileLocation, function(err, data) {
+      if (err) {
+        return console.log('There was an error reading the file: ', err);
+      }
+
+      pageContent = data.toString();
+
+      res.render('page', {
+        title: pageName,
+        pageName: pageName,
+        content: pageContent
+      });
     });
 
   });
@@ -60,8 +72,7 @@ app.get('/:pageName/edit', function(req, res) {
 });
 
 app.post('/:pageName/save', function(req, res) {
-  var requestBody = req.body;
-  var pageContent = requestBody.pageContent;
+  var pageContent = req.body.pageContent;
   var thisPage = req.params.pageName;
   var pageLocation = 'pages/' + thisPage + '.txt';
 
