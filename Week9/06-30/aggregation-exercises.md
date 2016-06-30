@@ -38,5 +38,5 @@ mongoimport --db population --collection zipcodes --file zips.json
 1. Write a query to get the average city population for each state.
 2. What are the top 3 states in terms of average city population?
   1. DC
-  2. California
-  3. Florida
+  2. RI
+  3. DE
