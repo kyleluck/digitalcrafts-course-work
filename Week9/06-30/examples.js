@@ -7,9 +7,8 @@ Alternatively, you can run this code inside RoboMongo.
 
 
 
-
-
 // INSERTING DOCUMENTS
+// alternatively db.getCollection('students')
 
 db.students.insert({
   name: 'DeeAnn',
@@ -128,13 +127,13 @@ db.students.find({ points: { $gt: 10 }})
 db.students.find({ points: { $lt: 5 }})
 
 // And and Or conditional logic
-db.students.find({ $and: [{ $gt: 5 }, { $lt: 10 }]})
+db.students.find({ $and: [ { points: { $gt: 5 } }, { points: { $lt: 10 } }]})
 
 // Find by matching nested property
 db.students.find({ 'links.website': 'http://kyleluck.com/' })
 
 // You can even match by values in an array
-db.students.find({ projects: 'Rate the Throne'})
+db.students.find({ projects: 'Rate the Throne' })
 
 
 
