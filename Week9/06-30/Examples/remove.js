@@ -1,0 +1,1 @@
+db.albums.remove( { $and: [{released: { $gt: 1979 }}, {released: { $lt: 1990 }}] } )
