@@ -16,13 +16,22 @@ mongoimport --db population --collection zipcodes --file zips.json
 1. use aggregate to calculate the total population for each state
 2. sort the results by population, highest first
 3. limit the results to just the first 3 results. What are the top 3 states in population?
+  1: CA
+  2: NY
+  3: TX
 
 ## Populations by City
 
 1. use aggregate to calculate the total population for each city (you have to use city/state combination). You can use a combination for the _id of the $group: { city: '$city', state: '$state' }
 2. sort the results by population, higest first
 3. limit the results to just the first 3 results. What are the top 3 cities in population?
+  1. Chicago
+  2. Brooklyn
+  3. Los Angeles
 4. What are the top 3 cities in population in Texas?
+  1. Houston
+  2. Dallas
+  3. San Antonio
 
 ## Bonus
 

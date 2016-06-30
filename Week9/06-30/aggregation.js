@@ -8,7 +8,7 @@ MongoDB Aggregation Framework
 
 
 // Count the number of male students vs female students
-
+// Takes a collection of documents and returns a new collection of documents
 db.students.aggregate([
   { $group: { _id: '$gender', total: { $sum: 1 }}}
 ])
