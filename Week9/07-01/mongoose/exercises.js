@@ -157,21 +157,22 @@ Student.findOne({ name: 'Kyle' }, function(err, student) {
   });
 });
 
-/* try to save object with validation errors
+/* try to save object with validation errors */
 var toby = new Student({
   name: 'Toby',
   links: {
-    website: 'http://anthonythompson.com',
-    github: 'https://github.com/anthonythompson'
+    website: 'http://tobyho.com',
+    github: 'https://github.com/airportyh'
   },
-  gender: 'notagender',
+  gender: 'male',
   points: 100,
-  projects: ['SentiMotion', 'Memory Game']
 });
+
+// save toby, he doesn't have a projects property, but there will be one
+// created because it's defined in the model
 toby.save(function(err) {
   if (err) {
     return console.error(err); //we get a validation error here
   }
   console.log('toby saved!');
 });
- */
