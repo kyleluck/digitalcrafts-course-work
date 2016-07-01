@@ -82,5 +82,10 @@ Student.findById('57764e7823858fb580a5e1bd', function(err, student) {
     console.error(err.message);
     return;
   }
-  console.log('Found sttudent by ID:', student);
+  if (!student) {
+    //did not find the student
+  } else {
+    //found a student
+  }
+  console.log('Found student by ID:', student);
 });

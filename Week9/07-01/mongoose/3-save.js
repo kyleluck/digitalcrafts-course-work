@@ -22,8 +22,11 @@ var matt = new Student({
 matt.save(function(err) {
   if (err) {
     console.error(err.message);
+    //console.error(err.errors); //err.errors provides additional details about why the save failed
     return;
   }
   console.log('Saved matt!', matt);
   process.exit();
-})
+});
+
+//saving again would update, not create a duplicate
