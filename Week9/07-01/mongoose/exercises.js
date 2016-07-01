@@ -50,15 +50,6 @@ var Jazz = mongoose.model('Jazz', {
   styles: [String]
 });
 
-// Zipcode model
-var Zipcode = mongoose.model('Zipcode', {
-  _id: { type: String, required: true },
-  city: { type: String, required: true },
-  loc: { type: [Number], required: true },
-  pop: { type: Number, required: true },
-  state: { type: String, required: true }
-});
-
 // create a student:
 var kyle = new Student({
   name: 'Kyle',
@@ -91,48 +82,41 @@ var anthony = new Student({
 // });
 
 //save anthony to mongodb
-anthony.save(function(err) {
-  if (err) {
-    return console.error(err.errors);
-  }
-  console.log('Saved Anthony!', anthony);
-});
+// anthony.save(function(err) {
+//   if (err) {
+//     return console.error(err.errors);
+//   }
+//   console.log('Saved Anthony!', anthony);
+// });
 
 //find all students
-Student.find(function(err, students) {
-  if (err) {
-    return console.error(err.errors);
-  }
-  console.log('Found students: ', students);
-});
+// Student.find(function(err, students) {
+//   if (err) {
+//     return console.error(err.errors);
+//   }
+//   console.log('Found students: ', students);
+// });
 
 //find kyle
-Student.find({ name: 'Kyle' }, function(err, student) {
-  if (err) {
-    return console.error(err.errors);
-  }
-  if (!student) {
-    console.log('No student was found');
-  } else {
-    // student.points++;
-    // student.save(function(err) {
-    //   if (err) {
-    //     return console.error(err.errors);
-    //   }
-    //   console.log('Kyle updated!');
-    // });
-    console.log('Found Kyle: ', student);
-  }
-});
+// Student.find({ name: 'Kyle' }, function(err, student) {
+//   if (err) {
+//     return console.error(err.errors);
+//   }
+//   if (!student) {
+//     console.log('No student was found');
+//   } else {
+//     console.log('Found Kyle: ', student);
+//   }
+// });
 
 //update kyle points to 15
-kyle.points = 15;
-kyle.save(function(err) {
-  if (err) {
-    return console.error(err);
-  }
-  console.log('Kyle updated');
-});
+// kyle.points = 15;
+// kyle.save(function(err) {
+//   if (err) {
+//     return console.error(err);
+//   }
+//   console.log('Kyle updated');
+// });
 
 /* instead of creating an object with new and then saving it to the db
   alternatively you can do Student.create()
@@ -158,3 +142,36 @@ Student.findOne({ name: 'Anthony' }, function(err, student) {
     // );
   }
 });
+
+/* increment kyle's points by 1 */
+Student.findOne({ name: 'Kyle' }, function(err, student) {
+  if (err) {
+    return console.error(err);
+  }
+  student.points++;
+  student.save(function(err) {
+    if (err) {
+      return console.error(err);
+    }
+    console.log('Kyle points updated');
+  });
+});
+
+/* try to save object with validation errors
+var toby = new Student({
+  name: 'Toby',
+  links: {
+    website: 'http://anthonythompson.com',
+    github: 'https://github.com/anthonythompson'
+  },
+  gender: 'notagender',
+  points: 100,
+  projects: ['SentiMotion', 'Memory Game']
+});
+toby.save(function(err) {
+  if (err) {
+    return console.error(err); //we get a validation error here
+  }
+  console.log('toby saved!');
+});
+ */
