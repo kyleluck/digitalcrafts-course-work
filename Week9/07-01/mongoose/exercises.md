@@ -43,8 +43,9 @@
 1. Using the student model you made in the previous section, write a Node program to create a student in the DB.
 2. Write a program to find all students in the collection.
 3. Write a program to find the student you created by name.
-4. Write a program to increment that student's points value by 1.
+4. Write a program to update a student's point value to 15.
 5. Write a program to first find that student, retrieve his ID, then remove that student in the DB by id.
+6. Write a program to increment a students points by 1.
 
 ## Validation
 

@@ -1,41 +1,4 @@
 /*
-## Basic Schema
-
-1. Construct a Mongoose model for the student structure that we used yesterday. Example document:
-
-{
-  name: 'DeeAnn',
-  links: {
-    website: 'http://www.deeannkendrick.com/',
-    github: 'https://github.com/dkendrick25'
-  },
-  gender: 'female',
-  projects: ['Rate the Throne', 'Draw Together', 'Tic Tac Toe', 'Movie App'],
-  points: 7
-}
-
-2. Construct a Mongoose model for the Jazz database we used yesterday. Example document:
-
-{
-  name: 'Lee Konitz/Bob Brookmeyer in Paris',
-  artist: 'Lee Konitz',
-  released: 1960,
-  duration: 56,
-  styles: ['Cool', 'Bop']
-}
-
-3. Construct a Mongoose model for the Zip code database used yesterday. Example document:
-
-{
-    "_id" : "01007",
-    "city" : "BELCHERTOWN",
-    "loc" : [
-        -72.410953,
-        42.275103
-    ],
-    "pop" : 10579,
-    "state" : "MA"
-}
 
 ## Basic CRUD (Create, Retrieve, Update, Delete)
 
@@ -79,11 +42,119 @@ var Student = mongoose.model('Student', {
 });
 
 // Jazz model
-
 var Jazz = mongoose.model('Jazz', {
   name: { type: String, required: true },
   artist: { type: String, required: true },
   released: Number,
   duration: Number,
   styles: [String]
+});
+
+// Zipcode model
+var Zipcode = mongoose.model('Zipcode', {
+  _id: { type: String, required: true },
+  city: { type: String, required: true },
+  loc: { type: [Number], required: true },
+  pop: { type: Number, required: true },
+  state: { type: String, required: true }
+});
+
+// create a student:
+var kyle = new Student({
+  name: 'Kyle',
+  links: {
+    website: 'http://kyleluck.com',
+    github: 'https://github.com/kyleluck'
+  },
+  gender: 'male',
+  points: 100,
+  projects: ['SentiMotion', 'Draw Together', 'Memory Game', 'Blackjack']
+});
+
+var anthony = new Student({
+  name: 'Anthony',
+  links: {
+    website: 'http://anthonythompson.com',
+    github: 'https://github.com/anthonythompson'
+  },
+  gender: 'male',
+  points: 100,
+  projects: ['SentiMotion', 'Memory Game']
+});
+
+//save kyle to mongodb
+// kyle.save(function(err) {
+//   if (err) {
+//     return console.error(err.errors);
+//   }
+//   console.log('Saved kyle!', kyle);
+// });
+
+//save anthony to mongodb
+anthony.save(function(err) {
+  if (err) {
+    return console.error(err.errors);
+  }
+  console.log('Saved Anthony!', anthony);
+});
+
+//find all students
+Student.find(function(err, students) {
+  if (err) {
+    return console.error(err.errors);
+  }
+  console.log('Found students: ', students);
+});
+
+//find kyle
+Student.find({ name: 'Kyle' }, function(err, student) {
+  if (err) {
+    return console.error(err.errors);
+  }
+  if (!student) {
+    console.log('No student was found');
+  } else {
+    // student.points++;
+    // student.save(function(err) {
+    //   if (err) {
+    //     return console.error(err.errors);
+    //   }
+    //   console.log('Kyle updated!');
+    // });
+    console.log('Found Kyle: ', student);
+  }
+});
+
+//update kyle points to 15
+kyle.points = 15;
+kyle.save(function(err) {
+  if (err) {
+    return console.error(err);
+  }
+  console.log('Kyle updated');
+});
+
+/* instead of creating an object with new and then saving it to the db
+  alternatively you can do Student.create()
+*/
+
+/* Write a program to first find that student, retrieve his ID, then remove that student in the DB by id. */
+Student.findOne({ name: 'Anthony' }, function(err, student) {
+  if (err) {
+    return console.error(err.errors);
+  }
+  if (!student) {
+    console.log('No student was found');
+  } else {
+    var id = student._id;
+    // student.remove(
+    //   { _id: id }, //selector
+    //   function(err, response) {
+    //     if (err) {
+    //       return console.error(err);
+    //     }
+    //     console.log('Successfully removed Anthony', response);
+    //   }
+    // );
+  }
 });
