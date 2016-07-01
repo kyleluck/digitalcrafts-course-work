@@ -73,6 +73,8 @@ var anthony = new Student({
   projects: ['SentiMotion', 'Memory Game']
 });
 
+/* OPTION 1 IS TO USE NEW AND THEN SAVE */
+
 //save kyle to mongodb
 // kyle.save(function(err) {
 //   if (err) {
@@ -88,6 +90,24 @@ var anthony = new Student({
 //   }
 //   console.log('Saved Anthony!', anthony);
 // });
+
+/* OPTION TWO IS TO USE CREATE */
+// Student.create({
+//   name: 'Anthony',
+//   links: {
+//     website: 'http://anthonythompson.com',
+//     github: 'https://github.com/anthonythompson'
+//   },
+//   gender: 'male',
+//   points: 100,
+//   projects: ['SentiMotion', 'Memory Game']
+// }, function(err, res) {
+//   if (err) {
+//     return console.error(err.message);
+//   }
+//   console.log('Save succeeded');
+// });
+
 
 //find all students
 // Student.find(function(err, students) {
