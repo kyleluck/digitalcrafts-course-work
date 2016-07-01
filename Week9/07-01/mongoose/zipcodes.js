@@ -14,10 +14,16 @@ var Zipcode = mongoose.model('Zipcode', {
   state: { type: String, required: true }
 });
 
-var myZip = new Zipcode({
-  _id: '30338',
-  city: 'Atlanta',
-  loc: [1, 2],
-  pop: 20000,
-  state: 'GA'
-});
+Zipcode.aggregate(
+  [
+    { $group: { _id: { city: '$city', state: '$state' }, pop: { $sum: '$pop' } } },
+    { $sort: { pop: -1 } },
+    { $limit: 3 }
+  ],
+  function(err, response) {
+    if (err) {
+      return console.error(err);
+    }
+    console.log(response);
+  }
+);
