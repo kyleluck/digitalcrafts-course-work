@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Charge Me</title>
+    <script src="jquery.js"></script>
+    <script src="https://checkout.stripe.com/checkout.js"></script>
+  </head>
+  <body>
+    <button onclick="pay()">Pay</button>
+    <script>
+      function pay() {
+        // Creates a CC handler which could be reused.
+        var amount = 999;
+        var handler = StripeCheckout.configure({
+          // my testing public publishable key
+          key: 'pk_test_gueNUYd91f9K8pegsWsTk0gb',
+          locale: 'auto',
+          // once the credit card is validated, this function will be called
+          token: function(token) {
+            // Make the request to the backend to actually make a charge
+            // This is the token representing the validated credit card
+            var tokenId = token.id;
+            $.ajax({
+              url: '/charge',
+              method: 'POST',
+              data: {
+                amount: amount,
+                token: tokenId
+              }
+            }).then(function(data) {
+              console.log('Charge:', data);
+              alert('You were charged $' + (data.charge.amount / 100));
+            });
+          }
+        });
+        // open the handler - this will open a dialog
+        // with a form with it to prompt for credit card
+        // information from the user
+        handler.open({
+          name: 'Debugschool',
+          description: '2 widgets',
+          amount: amount
+        });
+      }
+
+    </script>
+  </body>
+</html>

@@ -75,7 +75,11 @@ The user has two choices, the individual pack or the family pack. Depending on w
 
 Then, the user should be redirected to the delivery page after the submission. How do you perform the redirect? Use $location.path(theURLToRedirectTo) - you will need to add $location a parameter of your controller function, i.e. dependency injection. See detailed documentation: https://docs.angularjs.org/guide/$location
 
+////////////////////////////////////
+####################################
 Bonus: in a separate form/section, allow the user to enter exactly how much coffee in pounds he wants.
+#####################################
+////////////////////////////////////
 
 ## The Delivery Page
 
