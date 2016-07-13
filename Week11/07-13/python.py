@@ -183,6 +183,10 @@ TypeError: add() takes exactly 2 arguments (0 given)
 >>> ten
 10
 
+# swapping values of two Variables
+>>> x, y = y, x
+
+
 # Looping over lists
 
 >>> for num in num_list:
