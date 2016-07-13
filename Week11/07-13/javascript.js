@@ -14,7 +14,8 @@
 1
 > Math.pow(2, 2)
 4
-
+> 3 / 2
+1.5
 
 
 
@@ -59,12 +60,14 @@ false
 'abc'
 > 'abc'.indexOf('b')
 1
-> 'abc'.charAt(1)
+> 'abc'.charAt(1) // or 'abc'[1]
 'b'
 > 'a' > 'b'
 false
 > 'a' < 'b'
 true
+> 'a' === 'b'
+false
 > subject = 'world'
 'world'
 > 'hello, ' + subject
@@ -73,6 +76,12 @@ true
 [ 'abc', 'def', 'ghi' ]
 > 'abcdefghijklmnopqrstuvwxyz'.substring(5, 8)
 'fgh'
+> `
+Line one
+Line two
+Line three
+`;
+
 
 // Variables
 > var n = 4;
@@ -110,6 +119,12 @@ NaN
   }
   console.log('Open');
 }
+
+
+
+
+
+
 
 // Spread: apply a list as argument list
 > add.apply(null, [1, 2])

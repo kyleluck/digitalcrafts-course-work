@@ -14,7 +14,10 @@
 1
 >>> pow(2, 2)
 4
-
+>>> 3 / 2
+1
+>>> 3.0 / 2.0 #or 2 actually
+1.5
 
 
 
@@ -64,6 +67,8 @@ False
 False
 >>> 'a' < 'b'
 True
+>>> 'a' == 'b'
+False
 >>> subject = 'world'
 >>> 'hello, ' + subject
 'hello, world'
@@ -73,6 +78,12 @@ True
 ['abc', 'def', 'ghi']
 >>> 'abcdefghijklmnopqrstuvwxyz'[5:8]
 'fgh'
+>>> '''
+Line one
+Line two
+Line three
+'''
+
 
 # Variables
 >>> n = 4;
