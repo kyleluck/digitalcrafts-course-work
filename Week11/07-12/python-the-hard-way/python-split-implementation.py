@@ -31,7 +31,7 @@ def splitString(string, delim):
         print "part is: ", part
         result.append(part)
         print "result is: ", result
-        startInd = endInd + 1 #len(delim)
+        startInd = endInd + len(delim)
         print "startInd is now: ", startInd
         string = string[startInd:]
         print "string is now: ", string
