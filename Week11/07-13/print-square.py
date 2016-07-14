@@ -13,5 +13,5 @@
 print "Enter a number to print a square:"
 n = int(raw_input("> "))
 
-for x in range(1, n):
-    print '*' * 5
+for x in xrange(1, n):
+    print '*' * n
