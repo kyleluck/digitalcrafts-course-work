@@ -66,8 +66,6 @@ def move_task(moves):
     # move positions in list
     contents.insert(move_to, contents.pop(task_to_move))
 
-    #contents[task_to_move], contents[move_to] = contents[move_to], contents[task_to_move]
-    print "contents are now: ", contents
     # rewrite file with new order
     for task in contents:
         list_file.write(task + '\n')
