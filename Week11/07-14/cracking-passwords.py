@@ -27,6 +27,13 @@ common_words = common_file.read().split('\n')
 account_file = open('accounts.json', 'r')
 accounts = json.loads(account_file.read())
 
+# create dictionary of encrypted encrypted
+encrypted_passwords = {}
+for common_word in common_words:
+    encrypted_word = get_hash(common_word)
+    encrypted_passwords[encrypted_word] = common_word
+
+
 cracked_passwords = 0
 uncracked_passwords = 0
 times_run = 0
@@ -46,20 +53,19 @@ for account in accounts:
     # loop through account dictionaries
     username = account['username']
     password = account['password']
-    # for each account, loop through common words
-    for word in common_words:
-        if get_hash(word) == password:
-            #print "Cracked %s's password! It's %s" % (username, word)
-            cracked_passwords += 1
-        else:
-            #print "Couldn't crack %s's password" % username
-            uncracked_passwords += 1
 
-print "Finished"
-print "Cracked %d passwords" % cracked_passwords
+    if password in encrypted_passwords:
+        #CRACKED!
+        cracked_passwords += 1
+    else:
+        uncracked_passwords += 1
+
+
+print "\nCracked %d passwords" % cracked_passwords
 print "Couldn't crack %d passwords" % uncracked_passwords
-success_rate = cracked_passwords / (cracked_passwords + uncracked_passwords) * 100
-print "%d success rate" % success_rate
+print total_accounts
+success_rate = float(cracked_passwords / total_accounts * 100)
+print "Success rate:", success_rate
 
 
 common_file.close()
