@@ -46,11 +46,17 @@ def remove_task(task_to_delete):
     # variable to see if task was indeed removed
     removed = False
 
-    for task in tasks:
-        if task != task_to_delete:
-            list_file.write(task + '\n')
+    for i in range(0, len(tasks)):
+        if i != task_to_delete:
+            list_file.write(tasks[i - 1] + '\n')
         else:
             removed = True
+
+    # for task in tasks:
+    #     if task != task_to_delete:
+    #         list_file.write(task + '\n')
+    #     else:
+    #         removed = True
 
     list_file.close()
     if removed:
@@ -106,8 +112,8 @@ def complete_action(response):
         print "Task has been added!"
         start()
     elif response == 3:
-        print "Please type the task number you want to remove:"
-        task_to_remove = raw_input("> ")
+        print "Please type the task number you want to remove (ie: 3):"
+        task_to_remove = int(raw_input("> "))
         removed = remove_task(task_to_remove)
         if removed:
             print "Task has been removed."
