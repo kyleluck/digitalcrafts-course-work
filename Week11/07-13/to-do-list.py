@@ -8,22 +8,21 @@
 # 4. move - move a task up or down
 
 
-# print the contents of the file
 def read_contents():
-    # read the file and return its contents
+    "read the file and return its contents after removing empty elements from the list"
     list_file = open('tasks.txt', 'r')
     list_file.seek(0)
     contents = list_file.read()
     tasks = contents.split('\n')
 
+    # remove any empty elements
+    while '' in tasks: tasks.remove('')
     list_file.close()
 
     return tasks
 
 def format_tasks(tasks):
-    # remove any empty elements
-    while '' in tasks: tasks.remove('')
-
+    "format the tasks as a string. tasks is passed in as a list"
     for x in range(0, len(tasks)):
         tasknumber = x + 1
         tasks[x] = str(tasknumber) + ' ' + tasks[x]
@@ -32,7 +31,7 @@ def format_tasks(tasks):
     return formatted_tasks
 
 def add_task(task):
-    # append the task to the file
+    "append the task to the file"
     list_file = open('tasks.txt', 'a')
     task = task + '\n'
     list_file.write(task)
@@ -40,7 +39,7 @@ def add_task(task):
     return
 
 def remove_task(task_to_delete):
-    # rewrite the file, except for the task to be deleted
+    "rewrite the file, except for the task to be deleted"
     tasks = read_contents()
     list_file = open('tasks.txt', 'w')
 
@@ -52,6 +51,8 @@ def remove_task(task_to_delete):
     return
 
 def move_task(moves):
+    "move a task in the list by deleting and inserting at proper position"
+    # some error handling for user input
     if len(moves) > 2:
         print "Please enter moves like: 1 3"
         return
@@ -59,8 +60,6 @@ def move_task(moves):
     move_to = int(moves[1]) - 1
     contents = read_contents()
 
-    # remove any empty elements
-    while '' in contents: contents.remove('')
     list_file = open('tasks.txt', 'w')
 
     # move positions in list
@@ -74,6 +73,7 @@ def move_task(moves):
     return
 
 def start():
+    "prompt the user for what they want to do"
     print '''
     What would you like to do?
     1. List the tasks
@@ -86,6 +86,7 @@ def start():
     complete_action(response)
 
 def complete_action(response):
+    "execute action depending on user input"
     if response == 1:
         tasks = read_contents()
         print format_tasks(tasks)
@@ -115,16 +116,5 @@ def complete_action(response):
         print "Please select a valid option."
 
 
-##############################################
-
-#add_task('Test adding task TWO')
-# file_contents = read_contents()
-# print file_contents
-#
-# print "removing pickup tie-downs:"
-# remove_task("Pickup tie-downs")
-# print read_contents()
-
-
-# prompt the user for an action
+# start the program
 start()
