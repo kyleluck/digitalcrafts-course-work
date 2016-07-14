@@ -1,0 +1,1 @@
+You will write a program to read in a .txt file full of text and report the word summary of that program. The program will prompt the user to enter the name of the file. Your program will list the top 10 most frequently used words in that file and the count of how many times they were used.
