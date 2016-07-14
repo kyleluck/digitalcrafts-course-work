@@ -52,12 +52,6 @@ def remove_task(task_to_delete):
         else:
             removed = True
 
-    # for task in tasks:
-    #     if task != task_to_delete:
-    #         list_file.write(task + '\n')
-    #     else:
-    #         removed = True
-
     list_file.close()
     if removed:
         return True
