@@ -10,6 +10,7 @@
 
 import md5
 import json
+import sys
 
 def get_hash(word):
     plaintext_password = word
@@ -26,15 +27,39 @@ common_words = common_file.read().split('\n')
 account_file = open('accounts.json', 'r')
 accounts = json.loads(account_file.read())
 
+cracked_passwords = 0
+uncracked_passwords = 0
+times_run = 0
+total_accounts = len(accounts)
+point = total_accounts / 100
+increment = total_accounts / 20
+
 # loop through list of accounts
 for account in accounts:
+
+    # progress bar indicator
+    times_run += 1
+    if(times_run % (point) == 0):
+        sys.stdout.write("\r[" + "=" * (times_run / increment) +  " " * ((total_accounts - times_run) / increment) + "]" +  str(times_run / point) + "%")
+        sys.stdout.flush()
+
     # loop through account dictionaries
     username = account['username']
     password = account['password']
     # for each account, loop through common words
     for word in common_words:
         if get_hash(word) == password:
-            print "Cracked %s's password! It's %s" % (username, word)
+            #print "Cracked %s's password! It's %s" % (username, word)
+            cracked_passwords += 1
+        else:
+            #print "Couldn't crack %s's password" % username
+            uncracked_passwords += 1
+
+print "Finished"
+print "Cracked %d passwords" % cracked_passwords
+print "Couldn't crack %d passwords" % uncracked_passwords
+success_rate = cracked_passwords / (cracked_passwords + uncracked_passwords) * 100
+print "%d success rate" % success_rate
 
 
 common_file.close()
