@@ -50,7 +50,6 @@ for account in accounts:
         sys.stdout.write("\r[" + "=" * (times_run / increment) +  " " * ((total_accounts - times_run) / increment) + "]" +  str(times_run / point) + "%")
         sys.stdout.flush()
 
-    # loop through account dictionaries
     username = account['username']
     password = account['password']
 
@@ -63,9 +62,8 @@ for account in accounts:
 
 print "\nCracked %d passwords" % cracked_passwords
 print "Couldn't crack %d passwords" % uncracked_passwords
-print total_accounts
-success_rate = float(cracked_passwords / total_accounts * 100)
-print "Success rate:", success_rate
+success_rate = 100 * float(cracked_passwords) / float(total_accounts)
+print "Success rate:", str(success_rate) + '%'
 
 
 common_file.close()
