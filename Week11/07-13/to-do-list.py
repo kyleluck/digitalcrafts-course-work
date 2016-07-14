@@ -43,12 +43,20 @@ def remove_task(task_to_delete):
     tasks = read_contents()
     list_file = open('tasks.txt', 'w')
 
+    # variable to see if task was indeed removed
+    removed = False
+
     for task in tasks:
         if task != task_to_delete:
             list_file.write(task + '\n')
+        else:
+            removed = True
 
     list_file.close()
-    return
+    if removed:
+        return True
+    else:
+        return False
 
 def move_task(moves):
     "move a task in the list by deleting and inserting at proper position"
@@ -98,10 +106,13 @@ def complete_action(response):
         print "Task has been added!"
         start()
     elif response == 3:
-        print "Please type the task you want to remove:"
+        print "Please type the task number you want to remove:"
         task_to_remove = raw_input("> ")
-        remove_task(task_to_remove)
-        print "Task has been removed."
+        removed = remove_task(task_to_remove)
+        if removed:
+            print "Task has been removed."
+        else:
+            print "Task not found."
         start()
     elif response == 4:
         print "Enter the task you want to move followed by the place to move it to. Ex: 1 3"
