@@ -34,5 +34,16 @@ for word in words:
     current_tally += 1
     tally[word] = current_tally
 
+entries = tally.items()
+
+def key_func(entry):
+    return entry[1]
+
+entries.sort(key=key_func, reverse=True)
+top_2 = entries[0:2]
+
+for word, count in top_2:
+    print word, ": ", count
+    
 print tally
 the_file.close()
