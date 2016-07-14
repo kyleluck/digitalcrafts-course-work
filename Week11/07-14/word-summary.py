@@ -40,10 +40,13 @@ def key_func(entry):
     return entry[1]
 
 entries.sort(key=key_func, reverse=True)
+# or use lambda
+# entries.sort(key=lambda entry: entry[1], reverse=True)
+
 top_2 = entries[0:2]
 
 for word, count in top_2:
     print word, ": ", count
-    
+
 print tally
 the_file.close()
