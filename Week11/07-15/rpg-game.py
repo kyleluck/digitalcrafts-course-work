@@ -218,10 +218,10 @@ class Tonic(object):
     name = 'tonic'
     def apply(self, character):
         if 'tonic' in character.items:
-            num_tonic = character.items['tonic'] + 1
+            character.items['tonic'] += 1
             ####character.items.append({'name': 'tonic', 'num': character.items['name'] == 'tonic': 1})
         character.health += 2
-        print "%s's health increased to %d." % (character.name, character.health)
+        print bcolors.OKGREEN + "%s's health increased to %d." % (character.name, character.health) + bcolors.ENDC
 
 # SuperTonic restores hero's health to 10.
 class SuperTonic(object):
@@ -229,28 +229,28 @@ class SuperTonic(object):
     name = 'supertonic'
     def apply(self, character):
         character.health = 10
-        print "%s's heath restored to %d." % (character.name, character.health)
+        print bcolors.OKGREEN + "%s's heath restored to %d." % (character.name, character.health) + bcolors.ENDC
 
 class Sword(object):
     cost = 10
     name = 'sword'
     def apply(self, character):
         character.power += 2
-        print "%s's power increased to %d." % (character.name, character.power)
+        print bcolors.OKGREEN + "%s's power increased to %d." % (character.name, character.power) + bcolors.ENDC
 
 class Armor(object):
     cost = 20
     name = 'armor'
     def apply(self, character):
         character.armor += 2
-        print "%s's armor increased to %d." % (character.name, character.armor)
+        print bcolors.OKGREEN + "%s's armor increased to %d." % (character.name, character.armor) + bcolors.ENDC
 
 class Evade(object):
     cost = 25
     name = 'evade'
     def apply(self, character):
         character.evade += 2
-        print "%s's evade points increased to %d." % (character.name, character.evade)
+        print bcolors.OKGREEN + "%s's evade points increased to %d." % (character.name, character.evade) + bcolors.ENDC
 
 class Shopping(object):
     items = [Tonic, Sword, SuperTonic, Armor]
