@@ -109,7 +109,7 @@ class Wizard(Character):
 class Medic(Character):
     def __init__(self):
         self.name = 'medic'
-        self.health = 4
+        self.health = 10
         self.power = 2
         self.prize = 20
 
