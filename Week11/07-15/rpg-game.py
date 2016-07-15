@@ -1,16 +1,10 @@
-"""
-Added a store. The hero can now buy a tonic or a sword. A tonic will add 2 to the hero's health wherease a sword will add 2 power.
-"""
 import random
 import time
 
-# make a class named Character that inherits object
 class Character(object):
-    # class Character has a method alive that takes self as a parameter
     def alive(self):
         return self.health > 0
 
-    # class Character has a method attach that takes self and enemy as parameters
     def attack(self, enemy):
         if not self.alive():
             return
@@ -18,54 +12,53 @@ class Character(object):
         enemy.receive_damage(self.power)
         time.sleep(1.5)
 
-    # class Character has a method receive_damage that takes self and points as parameters
     def receive_damage(self, points):
         self.health -= points
         print "%s received %d damage." % (self.name, points)
         if self.health <= 0:
             print "%s is dead." % self.name
 
-    # class Character has a method print_status that takes self as a parameter
     def print_status(self):
         print "%s has %d health and %d power." % (self.name, self.health, self.power)
 
-# make a class named Hero that inherits Character
 class Hero(Character):
-    # class Hero has a dunder-init that takes self as a parameter
     def __init__(self):
         self.name = 'hero'
         self.health = 10
         self.power = 5
         self.coins = 20
 
-    # class Hero has a method named restore that takes self as a parameter
     def restore(self):
         self.health = 10
         print "Hero's heath is restored to %d!" % self.health
         time.sleep(1)
 
-    # class Hero has a method named buy that takes self and item as paramters
     def buy(self, item):
         self.coins -= item.cost
         item.apply(hero)
 
-# make a class named Goblin that inherits Character
+    def attack(self, enemy):
+        # make hero generate double damage points with a 20% probabilty
+        double_power = random.random() <= 0.2
+        if double_power:
+            self.power = self.power * 2
+            print "%s gets double power!" % self.name
+        super(Hero, self).attack(enemy)
+        if double_power:
+            self.power = 5
+
 class Goblin(Character):
-    # class Goblin has a dunder-init that takes self as a parameter
     def __init__(self):
         self.name = 'goblin'
         self.health = 6
         self.power = 2
 
-# make a class named Wizard that inherits Character
 class Wizard(Character):
-    # class Wizard has a dunder-init that takes self as a parameter
     def __init__(self):
         self.name = 'wizard'
         self.health = 8
         self.power = 1
 
-    # class Wizard has a method named attack that takes self and enemy as parameters
     def attack(self, enemy):
         swap_power = random.random() > 0.5
         if swap_power:
@@ -75,9 +68,42 @@ class Wizard(Character):
         if swap_power:
             self.power, enemy.power = enemy.power, self.power
 
-# make a class named Battle that interits object
+# make a new character called Medic that can sometimes recuperate 2 health points after being attacked with a probability of 20%
+class Medic(Character):
+    def __init__(self):
+        self.name = 'medic'
+        self.health = 4
+        self.power = 2
+
+    def receive_damage(self, points):
+        super(Medic, self).receive_damage(self.power)
+        recuperate = random.random() <= 0.2
+        if recuperate:
+            print "Medic recuperates 2 health points!"
+            self.health += 2
+
+# make a character called Shadow who has only 1 starting health but will only take damage about once out of every ten times he is attacked.
+class Shadow(Character):
+    def __init__(self):
+        self.name = 'shadow'
+        self.health = 1
+        self.power = 3
+
+        def receive_damage(self, points):
+            if random.random() <= 0.1:
+                super(Shadow, self).receive_damage(self.power)
+
+# make a Zombie character that doesn't die even if his health is below zero
+class Zombie(object):
+    def __init__(self):
+        self.name = 'zombie'
+        self.health = 0
+        self.power = 4
+
+    def alive(self):
+        return True
+
 class Battle(object):
-    # class Battle has a method named do_battle that takes self, hero, and enemy as parameters
     def do_battle(self, hero, enemy):
         print "====================="
         print "Hero faces the %s" % enemy.name
@@ -104,35 +130,29 @@ class Battle(object):
                 print "Invalid input %r" % input
                 continue
             enemy.attack(hero)
-        if hero.alive():
-            print "You defeated the %s" % enemy.name
-            return True
-        else:
-            print "YOU LOSE!"
-            return False
+            if hero.alive():
+                print "You defeated the %s" % enemy.name
+                return True
+            else:
+                print "YOU LOSE!"
+                return False
 
-# make a class named Tonic that inherits object
 class Tonic(object):
     cost = 5
     name = 'tonic'
-    # class Tonic has a method named apply that takes self and character as parameters
     def apply(self, character):
         character.health += 2
         print "%s's health increased to %d." % (character.name, character.health)
 
-# make a class named Sword that inherits object
 class Sword(object):
     cost = 10
     name = 'sword'
-    # class Sword has a method named apply that takes self and character as parameters
     def apply(self, character):
         character.power += 2
         print "%s's power increased to %d." % (character.name, character.power)
 
-# make a class named Shopping that inherits object
 class Shopping(object):
     items = [Tonic, Sword]
-    # class Shopping has a method named do_shopping that takes self and hero has parameters
     def do_shopping(self, hero):
         while True:
             print "====================="
@@ -151,13 +171,10 @@ class Shopping(object):
                 ItemToBuy = Shopping.items[input - 1]
                 item = ItemToBuy()
                 hero.buy(item)
-# set hero to an instance of class Hero
+
 hero = Hero()
-# set enemies to a list of instances of class Goblin and class Wizard
-enemies = [Goblin(), Wizard()]
-# set battle_engine to an instance of class Battle
+enemies = [Goblin(), Wizard(), Medic(), Zombie()]
 battle_engine = Battle()
-# set shopping_engine to an instance of class Shopping
 shopping_engine = Shopping()
 
 for enemy in enemies:
