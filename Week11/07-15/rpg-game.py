@@ -27,6 +27,7 @@ class Hero(Character):
         self.health = 10
         self.power = 5
         self.coins = 20
+        self.prize = 100
 
     def restore(self):
         self.health = 10
@@ -47,17 +48,32 @@ class Hero(Character):
         if double_power:
             self.power = 5
 
+class Kyle(Hero):
+    def __init__(self):
+        self.name = 'Kyle'
+        self.health = 10
+        self.power = 5
+        self.coins = 50
+        self.prize = 100
+
+    # Kyle doesnt receive damage, he gains strength!
+    def receive_damage(self, points):
+        self.power += points
+        print "%s got stronger by %s" % (self.name, points)
+
 class Goblin(Character):
     def __init__(self):
         self.name = 'goblin'
         self.health = 6
         self.power = 2
+        self.prize = 10
 
 class Wizard(Character):
     def __init__(self):
         self.name = 'wizard'
         self.health = 8
         self.power = 1
+        self.prize = 20
 
     def attack(self, enemy):
         swap_power = random.random() > 0.5
@@ -74,6 +90,7 @@ class Medic(Character):
         self.name = 'medic'
         self.health = 4
         self.power = 2
+        self.prize = 20
 
     def receive_damage(self, points):
         super(Medic, self).receive_damage(self.power)
@@ -88,20 +105,38 @@ class Shadow(Character):
         self.name = 'shadow'
         self.health = 1
         self.power = 3
+        self.prize = 30
 
         def receive_damage(self, points):
             if random.random() <= 0.1:
                 super(Shadow, self).receive_damage(self.power)
 
 # make a Zombie character that doesn't die even if his health is below zero
-class Zombie(object):
+class Zombie(Character):
     def __init__(self):
         self.name = 'zombie'
         self.health = 0
         self.power = 4
+        self.prize = 30
 
     def alive(self):
         return True
+
+# another character
+class King(Character):
+    def __init__(self):
+        self.name = 'king'
+        self.health = 15
+        self.power = 5
+        self.prize = 50
+
+    # the king is smart. he makes the enemy attack itself
+    def attack(self, enemy):
+        if not self.alive():
+            return
+        print "%s attacks %s" % (enemy.name, enemy.name)
+        enemy.receive_damage(enemy.power)
+        time.sleep(1.5)
 
 class Battle(object):
     def do_battle(self, hero, enemy):
@@ -132,6 +167,8 @@ class Battle(object):
             enemy.attack(hero)
             if hero.alive():
                 print "You defeated the %s" % enemy.name
+                print "You receive %d coins as a prize" % enemy.prize
+                hero.coins += enemy.prize
                 return True
             else:
                 print "YOU LOSE!"
@@ -144,6 +181,14 @@ class Tonic(object):
         character.health += 2
         print "%s's health increased to %d." % (character.name, character.health)
 
+# SuperTonic restores hero's health to 10.
+class SuperTonic(object):
+    cost = 15
+    name = 'supertonic'
+    def apply(self, character):
+        character.health = 10
+        print "%s's heath restored to %d." % (character.name, character.health)
+
 class Sword(object):
     cost = 10
     name = 'sword'
@@ -152,7 +197,7 @@ class Sword(object):
         print "%s's power increased to %d." % (character.name, character.power)
 
 class Shopping(object):
-    items = [Tonic, Sword]
+    items = [Tonic, Sword, SuperTonic]
     def do_shopping(self, hero):
         while True:
             print "====================="
@@ -173,7 +218,7 @@ class Shopping(object):
                 hero.buy(item)
 
 hero = Hero()
-enemies = [Goblin(), Wizard(), Medic(), Zombie()]
+enemies = [Goblin(), Wizard(), Medic(), Shadow(), Zombie(), King(), Kyle()]
 battle_engine = Battle()
 shopping_engine = Shopping()
 
