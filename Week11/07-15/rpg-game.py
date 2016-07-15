@@ -30,6 +30,7 @@ class Hero(Character):
         self.prize = 100
         self.armor = 0
         self.evade = 0
+        self.items = [{ 'name': 'tonic', 'num': 10 }, { 'name': 'test', 'num': 20 }]
 
     def restore(self):
         self.health = 10
@@ -46,6 +47,22 @@ class Hero(Character):
         if double_power:
             self.power = self.power * 2
             print "%s gets double power!" % self.name
+        # allow user to choose if they want to use an item during battle
+        print "Do you want to use an item for battle?"
+        input = raw_input("Yes or No? ")
+        if input == 'yes' or input =='Yes':
+            # options to use item
+            for i in xrange(0, len(self.items)):
+                print "%d: %s" % (i + 1, self.items[i]['name'])
+            battle_item_index = int(raw_input())
+            try:
+                battle_item = self.items[battle_item_index]
+            except IndexError:
+                print "Invalid input. Continuing..."
+        elif input =='no' or input == 'No':
+            pass
+        else:
+            print "Invalid input... continuing..."
         super(Hero, self).attack(enemy)
         if double_power:
             self.power = 5

@@ -20,9 +20,9 @@ Type out by hand rpg-5.py on your own. Take the time to say in english what each
 1. make a SuperTonic item to the store, it will restore the hero back to 10 health points.
 2. add an Armor item to the store. Buying an armor will add 2 armor points to the hero - you will add "armor" as a new attribute to hero. Every time the hero is attacked, the amount of hit points dealt to him will be reduced by the value of the armor attribute.
 3. add an Evade item to the store. Buying an "evade" will add 2 evade points to the hero - another new attribute on the Hero object. The more evade he has, the more probable that he will evade an enemy attack unscathed. For example: 2 evade points: 10% probably of avoiding attack, 4 evade points: 15% probability of avoiding attack. It should never be possible to reach 100% evasion though.
-4. come up with at least two other items with their unique characteristics and implement them. You can add more attributes to the hero or the characters.
+### 4. come up with at least two other items with their unique characteristics and implement them. You can add more attributes to the hero or the characters.
 
 ## Bonus
 
 1. allow items to be used on the battle field. The hero can carry the items with him, and you have the option of choosing to use a tonic at any turn in a battle.
-2.
+2. make a Swap item, which when used on a battle field, will swap the power values of the two characters for one turn.
