@@ -29,6 +29,7 @@ class Hero(Character):
         self.coins = 20
         self.prize = 100
         self.armor = 0
+        self.evade = 0
 
     def restore(self):
         self.health = 10
@@ -51,8 +52,17 @@ class Hero(Character):
 
     # when the hero is attacked, he receives points - value of armor damage
     def receive_damage(self, points):
+        # hero's probability of evading an attack
+        # is based on his number of evade points
+        probability_to_evade = self.evade * 0.03
+        # probability to evade cannot exceed 95%
+        probability_to_evade = min(probability_to_evade, 0.95)
+        if random.random() <= probability_to_evade:
+            print "%s evaded the attack!" % self.name
+            return
+
         # damage can't be a negative number
-        # or the hero would gain health because of armor 
+        # or the hero would gain health because of armor
         damage = max(0, points - self.armor)
         self.health -= damage
         print "%s received %d damage." % (self.name, damage)
@@ -213,6 +223,13 @@ class Armor(object):
     def apply(self, character):
         character.armor += 2
         print "%s's armor increased to %d." % (character.name, character.armor)
+
+class Evade(object):
+    cost = 25
+    name = 'evade'
+    def apply(self, character):
+        character.evade += 2
+        print "%s's evade points increased to %d." % (character.name, character.evade)
 
 class Shopping(object):
     items = [Tonic, Sword, SuperTonic, Armor]
