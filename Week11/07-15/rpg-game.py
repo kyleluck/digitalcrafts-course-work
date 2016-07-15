@@ -8,15 +8,15 @@ class Character(object):
     def attack(self, enemy):
         if not self.alive():
             return
-        print "%s attacks %s" % (self.name, enemy.name)
+        print bcolors.WARNING + "%s attacks %s" % (self.name, enemy.name) + bcolors.ENDC
         enemy.receive_damage(self.power)
         time.sleep(1.5)
 
     def receive_damage(self, points):
         self.health -= points
-        print "%s received %d damage." % (self.name, points)
+        print bcolors.FAIL + "%s received %d damage." % (self.name, points) + bcolors.ENDC
         if self.health <= 0:
-            print "%s is dead." % self.name
+            print bcolors.OKGREEN + "%s is dead." % self.name + bcolors.ENDC
 
     def print_status(self):
         print "%s has %d health and %d power." % (self.name, self.health, self.power)
@@ -30,7 +30,7 @@ class Hero(Character):
         self.prize = 100
         self.armor = 0
         self.evade = 0
-        self.items = [{ 'name': 'tonic', 'num': 10 }, { 'name': 'test', 'num': 20 }]
+        self.items = [{ 'tonic': 10 }, { 'test': 20 }]
 
     def restore(self):
         self.health = 10
@@ -46,23 +46,24 @@ class Hero(Character):
         double_power = random.random() <= 0.2
         if double_power:
             self.power = self.power * 2
-            print "%s gets double power!" % self.name
+            print bcolors.UNDERLINE + "%s gets double power!" % self.name + bcolors.ENDC
         # allow user to choose if they want to use an item during battle
         print "Do you want to use an item for battle?"
         input = raw_input("Yes or No? ")
         if input == 'yes' or input =='Yes':
             # options to use item
             for i in xrange(0, len(self.items)):
+
                 print "%d: %s" % (i + 1, self.items[i]['name'])
             battle_item_index = int(raw_input())
             try:
                 battle_item = self.items[battle_item_index]
             except IndexError:
-                print "Invalid input. Continuing..."
+                print bcolors.WARNING + "Invalid input. Continuing..." + bcolors.ENDC
         elif input =='no' or input == 'No':
             pass
         else:
-            print "Invalid input... continuing..."
+            print bcolors.WARNING + "Invalid input... continuing..." + bcolors.ENDC
         super(Hero, self).attack(enemy)
         if double_power:
             self.power = 5
@@ -75,16 +76,16 @@ class Hero(Character):
         # probability to evade cannot exceed 95%
         probability_to_evade = min(probability_to_evade, 0.95)
         if random.random() <= probability_to_evade:
-            print "%s evaded the attack!" % self.name
+            print bcolors.OKBLUE + "%s evaded the attack!" % self.name + bcolors.ENDC
             return
 
         # damage can't be a negative number
         # or the hero would gain health because of armor
         damage = max(0, points - self.armor)
         self.health -= damage
-        print "%s received %d damage." % (self.name, damage)
+        print bcolors.FAIL + "%s received %d damage." % (self.name, damage) + bcolors.ENDC
         if self.health <= 0:
-            print "%s is dead." % self.name
+            print bcolors.FAIL + "%s is dead." % self.name + bcolors.ENDC
 
 class Kyle(Hero):
     def __init__(self):
@@ -97,7 +98,7 @@ class Kyle(Hero):
     # Kyle doesnt receive damage, he gains strength!
     def receive_damage(self, points):
         self.power += points
-        print "%s got stronger by %s" % (self.name, points)
+        print bcolors.UNDERLINE + "%s got stronger by %s" % (self.name, points) + bcolors.ENDC
 
 class Goblin(Character):
     def __init__(self):
@@ -116,7 +117,7 @@ class Wizard(Character):
     def attack(self, enemy):
         swap_power = random.random() > 0.5
         if swap_power:
-            print "%s swaps power with %s during attack" % (self.name, enemy.name)
+            print bcolors.UNDERLINE + "%s swaps power with %s during attack" % (self.name, enemy.name) + bcolors.ENDC
             self.power, enemy.power = enemy.power, self.power
         super(Wizard, self).attack(enemy)
         if swap_power:
@@ -134,7 +135,7 @@ class Medic(Character):
         super(Medic, self).receive_damage(self.power)
         recuperate = random.random() <= 0.2
         if recuperate:
-            print "Medic recuperates 2 health points!"
+            print bcolors.UNDERLINE + "Medic recuperates 2 health points!" + bcolors.ENDC
             self.health += 2
 
 # make a character called Shadow who has only 1 starting health but will only take damage about once out of every ten times he is attacked.
@@ -172,14 +173,14 @@ class King(Character):
     def attack(self, enemy):
         if not self.alive():
             return
-        print "%s attacks %s" % (enemy.name, enemy.name)
+        print bcolors.FAIL + "%s attacks %s" % (enemy.name, enemy.name) + bcolors.ENDC
         enemy.receive_damage(enemy.power)
         time.sleep(1.5)
 
 class Battle(object):
     def do_battle(self, hero, enemy):
         print "====================="
-        print "Hero faces the %s" % enemy.name
+        print bcolors.HEADER + "Hero faces the %s" % enemy.name + bcolors.ENDC
         print "====================="
         while hero.alive() and enemy.alive():
             hero.print_status()
@@ -197,25 +198,28 @@ class Battle(object):
             elif input == 2:
                 pass
             elif input == 3:
-                print "Goodbye."
+                print bcolors.BOLD + "Goodbye." + bcolors.ENDC
                 exit(0)
             else:
-                print "Invalid input %r" % input
+                print bcolors.WARNING + "Invalid input %r" % input + bcolors.ENDC
                 continue
             enemy.attack(hero)
             if hero.alive():
-                print "You defeated the %s" % enemy.name
-                print "You receive %d coins as a prize" % enemy.prize
+                print bcolors.OKBLUE + "You defeated the %s" % enemy.name + bcolors.ENDC
+                print bcolors.OKGREEN + "You receive %d coins as a prize" % enemy.prize + bcolors.ENDC
                 hero.coins += enemy.prize
                 return True
             else:
-                print "YOU LOSE!"
+                print bcolors.FAIL + "YOU LOSE!" + bcolors.ENDC
                 return False
 
 class Tonic(object):
     cost = 5
     name = 'tonic'
     def apply(self, character):
+        if 'tonic' in character.items:
+            num_tonic = character.items['tonic'] + 1
+            ####character.items.append({'name': 'tonic', 'num': character.items['name'] == 'tonic': 1})
         character.health += 2
         print "%s's health increased to %d." % (character.name, character.health)
 
@@ -253,7 +257,7 @@ class Shopping(object):
     def do_shopping(self, hero):
         while True:
             print "====================="
-            print "Welcome to the store!"
+            print bcolors.HEADER + "Welcome to the store!" + bcolors.ENDC
             print "====================="
             print "You have %d coins." % hero.coins
             print "What do you want to do?"
@@ -268,6 +272,16 @@ class Shopping(object):
                 ItemToBuy = Shopping.items[input - 1]
                 item = ItemToBuy()
                 hero.buy(item)
+
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
 
 hero = Hero()
 enemies = [Goblin(), Wizard(), Medic(), Shadow(), Zombie(), King(), Kyle()]
