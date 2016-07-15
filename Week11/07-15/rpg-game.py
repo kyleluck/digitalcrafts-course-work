@@ -28,6 +28,7 @@ class Hero(Character):
         self.power = 5
         self.coins = 20
         self.prize = 100
+        self.armor = 0
 
     def restore(self):
         self.health = 10
@@ -47,6 +48,16 @@ class Hero(Character):
         super(Hero, self).attack(enemy)
         if double_power:
             self.power = 5
+
+    # when the hero is attacked, he receives points - value of armor damage
+    def receive_damage(self, points):
+        # damage can't be a negative number
+        # or the hero would gain health because of armor 
+        damage = max(0, points - self.armor)
+        self.health -= damage
+        print "%s received %d damage." % (self.name, damage)
+        if self.health <= 0:
+            print "%s is dead." % self.name
 
 class Kyle(Hero):
     def __init__(self):
@@ -196,8 +207,15 @@ class Sword(object):
         character.power += 2
         print "%s's power increased to %d." % (character.name, character.power)
 
+class Armor(object):
+    cost = 20
+    name = 'armor'
+    def apply(self, character):
+        character.armor += 2
+        print "%s's armor increased to %d." % (character.name, character.armor)
+
 class Shopping(object):
-    items = [Tonic, Sword, SuperTonic]
+    items = [Tonic, Sword, SuperTonic, Armor]
     def do_shopping(self, hero):
         while True:
             print "====================="
