@@ -8,7 +8,8 @@ class Character(object):
     def attack(self, enemy):
         if not self.alive():
             return
-        print bcolors.WARNING + "%s attacks %s" % (self.name, enemy.name) + bcolors.ENDC
+        #print self.color + "%s attacks %s" % (self.name, enemy.name) + bcolors.ENDC
+        print self.color + self.name + bcolors.ENDC + " attacks " + enemy.color + enemy.name + bcolors.ENDC
         enemy.receive_damage(self.power)
         time.sleep(1.5)
 
@@ -31,6 +32,7 @@ class Hero(Character):
         self.armor = 0
         self.evade = 0
         self.items = [{ 'tonic': 10 }, { 'test': 20 }]
+        self.color = bcolors.UNDERLINE
 
     def restore(self):
         self.health = 10
@@ -53,8 +55,10 @@ class Hero(Character):
         if input == 'yes' or input =='Yes':
             # options to use item
             for i in xrange(0, len(self.items)):
-
-                print "%d: %s" % (i + 1, self.items[i]['name'])
+                # Looping through a dictionary
+                for item, num_of_item in self.item[i].items():
+                    print "You have %d %ss" % (num_of_item, item)
+                #print "%d: %s" % (i + 1, self.items[i]['name'])
             battle_item_index = int(raw_input())
             try:
                 battle_item = self.items[battle_item_index]
@@ -94,6 +98,7 @@ class Kyle(Hero):
         self.power = 5
         self.coins = 50
         self.prize = 100
+        self.color = bcolors.FAIL
 
     # Kyle doesnt receive damage, he gains strength!
     def receive_damage(self, points):
@@ -106,6 +111,7 @@ class Goblin(Character):
         self.health = 6
         self.power = 2
         self.prize = 10
+        self.color = bcolors.HEADER
 
 class Wizard(Character):
     def __init__(self):
@@ -113,6 +119,7 @@ class Wizard(Character):
         self.health = 8
         self.power = 1
         self.prize = 20
+        self.color = bcolors.OKBLUE
 
     def attack(self, enemy):
         swap_power = random.random() > 0.5
@@ -130,6 +137,7 @@ class Medic(Character):
         self.health = 10
         self.power = 2
         self.prize = 20
+        self.color = bcolors.OKGREEN
 
     def receive_damage(self, points):
         super(Medic, self).receive_damage(self.power)
@@ -145,6 +153,7 @@ class Shadow(Character):
         self.health = 1
         self.power = 3
         self.prize = 30
+        self.color = bcolors.WARNING
 
         def receive_damage(self, points):
             if random.random() <= 0.1:
@@ -157,6 +166,7 @@ class Zombie(Character):
         self.health = 0
         self.power = 4
         self.prize = 30
+        self.color = bcolors.FAIL
 
     def alive(self):
         return True
@@ -168,6 +178,7 @@ class King(Character):
         self.health = 15
         self.power = 5
         self.prize = 50
+        self.color = bcolors.BOLD
 
     # the king is smart. he makes the enemy attack itself
     def attack(self, enemy):
