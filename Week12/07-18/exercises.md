@@ -5,11 +5,18 @@
 Determine the "Big O" for the problems below:
 
 1. double each number in an array of n numbers.
+    O(n) # must loop through each number in the array
 2. given a number between 0 to 6, return Sunday for 0, Monday for 1, Tuesday for 2, Wednesday for 3, Thursday for 4, Friday for 5, and Saturday for 6.
+    O(1)
 3. find the result of multiplying each number in an array of n numbers.
+    O(n)
 4. calculate the multiplication table for the numbers between 0 to n.
+    O(n^2)
 5. given an array of basketball players that are sorted by average points per game, find the player who scored exactly 10 points per game, if he exists.
+    O(logn)
 6. find the player in an array whose first name is "LeBron".
+    O(n)
+
 
 ## Array Sorting
 

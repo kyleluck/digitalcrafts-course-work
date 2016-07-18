@@ -1,9 +1,9 @@
 # BigO Notation
 in order of speed
 O(1)
-O(logn)
+O(logn) # binary search algorithm
 O(n)
-O(nlogn) # binary search algorithm
+O(nlogn)
 O(n^2)
 O(2^n)
 O(n!)
