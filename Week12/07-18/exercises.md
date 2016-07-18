@@ -16,16 +16,17 @@ Determine the "Big O" for the problems below:
     O(logn)
 6. find the player in an array whose first name is "LeBron".
     O(n)
-
+7. we have 2 arrays, want the product of each element
+    O(n * m) because second array could have more or less elements
 
 ## Array Sorting
 
 Choose one of the array sorting algorithms:
 
-* bubble sort
-* selection sort
-* merge sort
-* quick sort
+* bubble sort -    O(n^2)
+* selection sort - O(n^2) - technically more efficient than bubble sort, but is still O(n^2)
+* merge sort -     O(nlogn)
+* quick sort -     O(n^2)
 
 and implement it. You will use Python's lists and pretend they are arrays but you are not allow to use:
 
