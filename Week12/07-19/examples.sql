@@ -101,7 +101,8 @@ CREATE TABLE student (
 * date
 * timestamp
 * boolean
-
+** arrays
+** json
 */
 
 
