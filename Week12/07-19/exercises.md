@@ -41,11 +41,20 @@ $ psql restaurant_db < restaurant_data.sql
 Write queries to get
 
 1. The names of the restaurants that you gave a 5 stars to
+  select name from restaurant where stars = 5;
 2. The favorite dishes of all 5-star restaurants
+  select favorite_dish from restaurant where stars = 5;
 3. The the id of a restaurant by a specific restaurant name, say 'NaanStop'
+  select id from restaurant where name = 'NaanStop';
 4. restaurants in the category of 'BBQ'
+  select name from restaurant where category = 'BBQ'
 5. restaurants that do take out
+  select name from restaurant where takeout = TRUE;
 6. restaurants that do take out and is in the category of 'BBQ'
+  select name from restaurant where takeout = true and category = 'BBQ'
 7. restaurants within 2 miles
+  select name from restaurant where distance <= 2
 8. restaurants you haven't ate at in the last week
+  select name from restaurant where last_time_there <= current_date - interval '1 week'
 9. restaurants you haven't ate at in the last week and has 5 stars
+  select name from restaurant where last_time_there <= '2016-07-12' and stars = 5;
