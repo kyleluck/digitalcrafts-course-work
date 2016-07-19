@@ -87,7 +87,7 @@ CREATE TABLE student (
   graduated boolean DEFAULT FALSE,
   -- links to the ID column in the cohort table
   -- REFERENCES constraint forces cohort_id to point to a valid ID in the cohort table
-  cohort_id integer REFERENCES student (id)
+  cohort_id integer REFERENCES cohort (id)
 );
 
 
@@ -161,7 +161,7 @@ CREATE TABLE student (
   graduated boolean DEFAULT FALSE,
   -- links to the ID column in the cohort table
   -- REFERENCES constraint forces cohort_id to point to a valid ID in the cohort table
-  cohort_id integer REFERENCES student (id)
+  cohort_id integer REFERENCES cohort (id)
 );
 
 CREATE TABLE project (
@@ -181,4 +181,27 @@ insert into project values (default, 'Sportakus', 7);
 insert into project values (default, 'Rate the Throne', 7);
 
 
-insert into project_participation values (...);
+insert into project_participation values (1, 1);
+insert into project_participation values (2, 1);
+
+select
+  student.name as student,
+  project.name as project
+from
+  student,
+  project,
+  project_participation
+where
+  student.id = project_participation.student_id and
+  project.id = project_participation.project_id;
+
+-- or with inner join syntax
+select
+  student.name as student,
+  project.name as project
+from
+  student
+inner join
+  project_participation on student.id = project_participation.student_id
+inner join
+  project on project.id = project_participation.project_id;
