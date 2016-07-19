@@ -389,7 +389,8 @@ select * from student where github_username ilike '%thompson%';
 
 
 
-
+-- get data about a table:
+\d student
 
 
 -- FIN
