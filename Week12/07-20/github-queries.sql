@@ -1,0 +1,152 @@
+-------------------------------------------------------------
+-- * How popular is this project (based on number of stars)?
+--select stars from repo where name = 'the-transcluders';
+-------------------------------------------------------------
+-- * How many projects does this user have?
+--select 
+--	count(user_id) 
+--from 
+--	repo 
+--left outer join
+--	user_table on repo.user_id = user_table.id
+--where 
+--	user_table.fullname = 'Kyle Luck';
+-------------------------------------------------------------
+-- * List this user's projects.
+--select
+--	repo.name
+--from
+--	repo
+--inner join -- or left outer join will work
+--	user_table on repo.user_id = user_table.id
+--where
+--	user_table.username = 'kyleluck';
+-------------------------------------------------------------
+-- * What are this user's top 3 projects based on number of stars?
+--select
+--  repo.name, repo.stars
+--from 
+--  repo
+--inner join 
+--  user_table on repo.user_id = user_table.id
+--where
+--  user_table.username = 'kyleluck'
+--order by
+--  repo.stars desc
+--limit 3;
+-------------------------------------------------------------
+-- * What are the top 3 projects overall based on the number of tech used?
+--select
+--  repo.name, count(tech.id) as number_of_technologies_used
+--from
+--  repo
+--left outer join
+--  tech_in_repo on repo.id = tech_in_repo.repo_id
+--left outer join
+--  tech on tech_in_repo.tech_id = tech.id
+--group by
+--  repo.name
+--order by
+--  number_of_technologies_used desc
+--limit 3;
+-------------------------------------------------------------
+-- * Are there more than one project with the same name?
+--select
+--  count(lower(repo.name)) as number_projects, count(distinct lower(repo.name)) as distinct_projects
+--from
+--  repo
+-------------------------------------------------------------
+-- * How many contributors does each project have (include even projects that have no contributors)?
+-------------------------------------------------------------
+-- * How many projects does each user have (include even users that have no projects)?
+--select
+--  user_table.fullname, count(repo.name) as number_projects
+--from
+--  repo
+--left outer join
+--  user_table on repo.user_id = user_table.id
+--group by
+--  user_table.fullname
+--order by
+--  number_projects desc
+-------------------------------------------------------------
+-- * What is the average number of commits on a project?
+--select
+--  project_name, avg(number_commits) as avg_number_commits
+--from 
+--  (select repo.name as project_name, count(commit_id) as number_commits
+--   from
+--     repo
+--   left outer join
+--     commits_in_repo on repo.id = commits_in_repo.repo_id
+--   group by
+--     repo.name) as commits
+--group by
+--  project_name
+--order by avg_number_commits desc
+-------------------------------------------------------------
+-- * What is the average number of contributors on a project?
+-------------------------------------------------------------
+-- * What is the average number of stars on a project?
+-- this query is pointless because my database only has stars per project.. so average = actual...
+--select
+--  name, avg(stars) as avg_number_of_stars
+--from
+--  repo
+--group by
+--  name
+--order by
+--  avg_number_of_stars desc
+-------------------------------------------------------------
+-- * Who are the contributors to this project?
+-------------------------------------------------------------
+-- * Who made the most PRs (pull requests) to this project?
+--select
+--  user_table.fullname, count(author) as num_pull_requests
+--from 
+--  pull_requests
+--left outer join
+--  user_table on pull_requests.author = user_table.id
+--group by
+--  user_table.fullname
+--order by
+--  num_pull_requests desc
+--limit 1
+-------------------------------------------------------------
+-- * What is this user's PR acceptence rate (ratio of PRs merged vs PRs unmerged)?
+-------------------------------------------------------------
+-- * What tech does this project use?
+--select
+--  tech.name, repo.name
+--from
+--  tech
+--left outer join
+--  tech_in_repo on tech.id = tech_in_repo.tech_id
+--left outer join
+--  repo on tech_in_repo.repo_id = repo.id
+--where
+--  repo.name = 'the-transcluders'
+-------------------------------------------------------------
+-- * What tech does this user know - based on the tech used in his projects?
+select
+  distinct on (tech.name, repo.user_id) user_table.fullname, tech.name
+from
+  repo
+left outer join
+  tech_in_repo on repo.id = tech_in_repo.repo_id	
+left outer join
+  tech on tech_in_repo.tech_id = tech.id
+left outer join
+  user_table on repo.user_id = user_table.id
+where
+  user_table.fullname = 'Kyle Luck'
+-------------------------------------------------------------
+-- * Who are the top 3 contributors to this project based on number of commits?
+
+-------------------------------------------------------------
+-- * What are this user's top 3 projects based on number of commits?
+-------------------------------------------------------------
+-- * Write a query to enable plotting a project's commit activity by date.
+-------------------------------------------------------------
+-- * Write a query to enable plotting a user's number of commits by date.
+-------------------------------------------------------------
