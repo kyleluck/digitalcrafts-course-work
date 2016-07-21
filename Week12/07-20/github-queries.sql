@@ -57,6 +57,15 @@
 --  repo
 -------------------------------------------------------------
 -- * How many contributors does each project have (include even projects that have no contributors)?
+--select
+--  repo.name, count(distinct commit_table.contributor_id) as contributors
+--from
+--  repo
+--left outer join
+--  commits_in_repo on repo.id = commits_in_repo.repo_id
+--left outer join
+--  commit_table on commits_in_repo.commit_id = commit_table.id
+--group by repo.name
 -------------------------------------------------------------
 -- * How many projects does each user have (include even users that have no projects)?
 --select
@@ -86,6 +95,33 @@
 --order by avg_number_commits desc
 -------------------------------------------------------------
 -- * What is the average number of contributors on a project?
+-- average number of contributors including projects with 0 contributors
+--select
+--  avg(contributors)
+--from
+--	(select
+--	  repo.name, count(distinct commit_table.contributor_id) as contributors
+--	from
+--	  repo
+--	left outer join
+--	  commits_in_repo on repo.id = commits_in_repo.repo_id
+--	left outer join
+--	  commit_table on commits_in_repo.commit_id = commit_table.id
+--	group by repo.name) as contributors_by_repo
+
+-- average number of contributors excluding projects with 0 contributors
+select
+  avg(contributors)
+from
+	(select
+	  repo.name, count(distinct commit_table.contributor_id) as contributors
+	from
+	  repo
+	right outer join -- right join instead of left join
+	  commits_in_repo on repo.id = commits_in_repo.repo_id
+	left outer join
+	  commit_table on commits_in_repo.commit_id = commit_table.id
+	group by repo.name) as contributors_by_repo
 -------------------------------------------------------------
 -- * What is the average number of stars on a project?
 -- this query is pointless because my database only has stars per project.. so average = actual...
@@ -128,25 +164,62 @@
 --  repo.name = 'the-transcluders'
 -------------------------------------------------------------
 -- * What tech does this user know - based on the tech used in his projects?
-select
-  distinct on (tech.name, repo.user_id) user_table.fullname, tech.name
-from
-  repo
-left outer join
-  tech_in_repo on repo.id = tech_in_repo.repo_id	
-left outer join
-  tech on tech_in_repo.tech_id = tech.id
-left outer join
-  user_table on repo.user_id = user_table.id
-where
-  user_table.fullname = 'Kyle Luck'
+--select
+--  distinct on (tech.name, repo.user_id) user_table.fullname, tech.name
+--from
+--  repo
+--left outer join
+--  tech_in_repo on repo.id = tech_in_repo.repo_id	
+--left outer join
+--  tech on tech_in_repo.tech_id = tech.id
+--left outer join
+--  user_table on repo.user_id = user_table.id
+--where
+--  user_table.fullname = 'Kyle Luck'
 -------------------------------------------------------------
 -- * Who are the top 3 contributors to this project based on number of commits?
-
+--select 
+--  count(commit_table.id) as num_commits, fullname
+--from 
+--  commit_table
+--right outer join
+--  user_table on contributor_id = user_table.id
+--group by contributor_id, fullname
+--order by num_commits desc
+--limit 3
 -------------------------------------------------------------
 -- * What are this user's top 3 projects based on number of commits?
+--select 
+--  count(commits_in_repo.commit_id) as num_commits, repo.name
+--from 
+--  commits_in_repo
+--left outer join
+--  repo on commits_in_repo.repo_id = repo.id
+--group by repo_id, repo.name
+--order by num_commits desc
+--limit 3
 -------------------------------------------------------------
 -- * Write a query to enable plotting a project's commit activity by date.
+--select 
+--  repo.name, commit_table.timestamp, commit_table.title
+--from 
+--  commit_table
+--left outer join
+--  commits_in_repo on commit_table.id = commits_in_repo.commit_id
+--left outer join
+--  repo on commits_in_repo.repo_id = repo.id
+--group by repo.name, commit_table.timestamp, commit_table.title
+--order by repo.name, timestamp desc
 -------------------------------------------------------------
 -- * Write a query to enable plotting a user's number of commits by date.
+--select
+--  user_table.fullname, count(*) as num_commits, commit_table.timestamp::date 
+--from
+--  commit_table
+--left outer join
+--  user_table on commit_table.contributor_id = user_table.id
+--where
+--  user_table.fullname = 'Kyle Luck'
+--group by
+--  commit_table.timestamp::date, user_table.fullname
 -------------------------------------------------------------
