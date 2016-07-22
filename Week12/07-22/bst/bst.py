@@ -1,3 +1,20 @@
+## Binary Search Trees
+
+# Make a copy of bst.py and work with that. In in a BTreeNode class is defined which represents a node in a binary search tree. Two functions have also been defined for you:
+#
+# * bst_insert(tree_node, new_node) - inserts a new node into the tree will keeping the tree in an order state
+# * bst_pre_order_traversal(tree_node) - performs a pre-order traversal of the tree to print out all the nodes of the tree
+#
+# 1. Write a bst_lookup(tree_node, target) function that searches for a node within the tree which matches the target. Assume the target is an ordered type and can be compared using < or > (both numbers and strings will work).
+# 2. Write a bst_in_order_traversal(tree_node) function that traverses the tree in the right order, such that if you use the traversal to print the elements the tree, for example, you would print the elements in ascending order.
+# 3. Write a bst_min(tree_node) function that returns the smallest node of the tree (the one all the way to the left).
+
+### Bonus Problems
+# 4. Write a bst_find_gt(tree_node, data) function which returns a list of nodes whose value is greater that data.
+# 5. Write a bst_delete(tree_node, target) function to delete the target node from the tree.
+# 6. Write a bst_n_min(tree_node, n) function that returns the smallest n nodes of the tree.
+
+
 import random
 
 # A class representing a binary tree node
@@ -64,3 +81,67 @@ def printit(node, level):
     print node.data
 
 bst_pre_order_traverse(root_node, printit)
+
+# 1. Write a bst_lookup(tree_node, target) function that searches for a node within the tree which matches the target. Assume the target is an ordered type and can be compared using < or > (both numbers and strings will work).
+def bst_lookup(tree_node, target):
+    if tree_node.data == target:
+        #print "matching node is: %r" % tree_node
+        return tree_node
+    elif tree_node.left and target < tree_node.data:
+        return bst_lookup(tree_node.left, target)
+    elif tree_node.right and target > tree_node.data:
+        return bst_lookup(tree_node.right, target)
+
+print "---------------------------"
+print "Searching for target 95 from %r" % root_node
+print bst_lookup(root_node, 95)
+
+# 2. Write a bst_in_order_traversal(tree_node) function that traverses the tree in the right order, such that if you use the traversal to print the elements the tree, for example, you would print the elements in ascending order.
+def bst_in_order_traversal(tree_node):
+    if tree_node.left:
+        bst_in_order_traversal(tree_node.left)
+    elif tree_node.right:
+        bst_in_order_traversal(tree_node.right)
+    print tree_node.data
+
+print "---------------------------"
+print "Traversing BST in order from %r" % root_node
+bst_in_order_traversal(root_node)
+
+# 3. Write a bst_min(tree_node) function that returns the smallest node of the tree (the one all the way to the left).
+def bst_min(tree_node):
+    if tree_node.left:
+        bst_min(tree_node.left)
+    else:
+        print tree_node
+
+print "---------------------------"
+print "Finding min node from %r" % root_node
+bst_min(root_node)
+
+# 4. Write a bst_find_gt(tree_node, data) function which returns a list of nodes whose value is greater that data.
+def bst_find_gt(tree_node, data):
+    if tree_node.right:
+        data.append(tree_node.right)
+        bst_find_gt(tree_node.right, data)
+        if tree_node.right.left:
+            data.append(tree_node.right.left)
+            bst_find_gt(tree_node.right.left, data)
+        else:
+            print data
+
+print "---------------------------"
+print "Finding nodes larget than BTreeNode(6)"
+bst_find_gt(root_node, [])
+
+# 5. Write a bst_delete(tree_node, target) function to delete the target node from the tree.
+def bst_delete(tree_node, target):
+    if tree_node.data == target:
+        tree_node
+    elif tree_node.left and target < tree_node.data:
+        bst_lookup(tree_node.left, target)
+    elif tree_node.right and target > tree_node.data:
+        bst_lookup(tree_node.right, target)
+
+# 6. Write a bst_n_min(tree_node, n) function that returns the smallest n nodes of the tree.
+#def bst_n_min(tree_node, n):
