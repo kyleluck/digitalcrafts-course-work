@@ -1,0 +1,47 @@
+## Linked Lists
+
+# Given this LLNode definition:
+#
+# class LLNode(object):
+#     def __init__(self, data):
+#         self.data = data
+#         self.next = None
+#
+# And some setup code to create a linked list, for example:
+#
+# one = LLNode(1)
+# two = LLNode(2)
+# one.next = two
+# three = LLNode(3)
+# two.next = three
+# four = LLNode(4)
+# three.next = four
+#
+# 1. Write a function ll_lookup(node, target) that returns a LLNode whose data equals target. For example, given the above setup, ll_lookup(one, 3) should return the LLNode associated with 3, while ll_lookup(one, 5) should return None, and ll_lookup(three, 1) should return None.
+
+class LLNode(object):
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+one = LLNode(1)
+two = LLNode(2)
+one.next = two
+three = LLNode(3)
+two.next = three
+four = LLNode(4)
+three.next = four
+
+def ll_lookup(node, target):
+    print "node data is: %r" % node.data
+    if node.data == target:
+        print "returning %r" % node
+        return node
+    elif node:
+        return ll_lookup(node.next, target)
+    else:
+        return None
+
+returned_node = ll_lookup(one, 3)
+print "node data returned is %r" % returned_node.data
+#print "The node equal to target is %r" % ll_lookup(one, 3)

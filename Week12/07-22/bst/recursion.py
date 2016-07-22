@@ -186,29 +186,10 @@ print_items([1, 2, 3])
 
 
 
-
-
-
-
-
-
-
-
 class LLNode(object):
     def __init__(self, data):
         self.data = data
         self.next = None
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -222,11 +203,6 @@ three.next = four
 
 
 
-
-
-
-
-
 def ll_print_items_loop(llnode):
     curr_node = llnode
     while curr_node:
@@ -234,13 +210,6 @@ def ll_print_items_loop(llnode):
         curr_node = curr_node.next
 
 ll_print_items_loop(one)
-
-
-
-
-
-
-
 
 
 
@@ -275,30 +244,11 @@ class BTreeNode(object):
 
 
 
-
-
-
-
-
-
-
-
-
 two = BTreeNode(2)
 one = BTreeNode(1)
 three = BTreeNode(3)
 two.left = one
 two.right = three
-
-
-
-
-
-
-
-
-
-
 
 
 
