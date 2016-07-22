@@ -24,6 +24,9 @@ class LLNode(object):
         self.data = data
         self.next = None
 
+    def __repr__(self):
+        return "LLNode(%r)" % self.data
+
 one = LLNode(1)
 two = LLNode(2)
 one.next = two
@@ -33,15 +36,11 @@ four = LLNode(4)
 three.next = four
 
 def ll_lookup(node, target):
-    print "node data is: %r" % node.data
     if node.data == target:
-        print "returning %r" % node
         return node
     elif node:
         return ll_lookup(node.next, target)
     else:
         return None
 
-returned_node = ll_lookup(one, 3)
-print "node data returned is %r" % returned_node.data
-#print "The node equal to target is %r" % ll_lookup(one, 3)
+print "The node equal to target is %r" % ll_lookup(one, 3)
