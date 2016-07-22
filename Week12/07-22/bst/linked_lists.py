@@ -36,11 +36,13 @@ four = LLNode(4)
 three.next = four
 
 def ll_lookup(node, target):
-    if node.data == target:
-        return node
-    elif node:
-        return ll_lookup(node.next, target)
-    else:
-        return None
+    if node:
+        if node.data == target:
+            return node
+        elif node:
+            return ll_lookup(node.next, target)
 
-print "The node equal to target is %r" % ll_lookup(one, 3)
+print "result for ll_lookup(one, 3) is %r" % ll_lookup(one, 3)
+print "result for ll_lookup(three, 1) is %r" % ll_lookup(three, 1)
+print "result for ll_lookup(one, 5) is %r" % ll_lookup(one, 5)
+print "result for ll_lookup(two, 4) is %r" % ll_lookup(two, 4)
