@@ -84,13 +84,13 @@ bst_pre_order_traverse(root_node, printit)
 
 # 1. Write a bst_lookup(tree_node, target) function that searches for a node within the tree which matches the target. Assume the target is an ordered type and can be compared using < or > (both numbers and strings will work).
 def bst_lookup(tree_node, target):
-    if tree_node.data == target:
-        #print "matching node is: %r" % tree_node
-        return tree_node
-    elif tree_node.left and target < tree_node.data:
-        return bst_lookup(tree_node.left, target)
-    elif tree_node.right and target > tree_node.data:
-        return bst_lookup(tree_node.right, target)
+    if tree_node:
+        if tree_node.data == target:
+            return tree_node
+        elif target < tree_node.data:
+            return bst_lookup(tree_node.left, target)
+        elif target > tree_node.data:
+            return bst_lookup(tree_node.right, target)
 
 print "---------------------------"
 print "Searching for target 95 from %r" % root_node
@@ -100,9 +100,9 @@ print bst_lookup(root_node, 95)
 def bst_in_order_traversal(tree_node):
     if tree_node.left:
         bst_in_order_traversal(tree_node.left)
-    elif tree_node.right:
-        bst_in_order_traversal(tree_node.right)
     print tree_node.data
+    if tree_node.right:
+        bst_in_order_traversal(tree_node.right)
 
 print "---------------------------"
 print "Traversing BST in order from %r" % root_node
@@ -120,14 +120,18 @@ print "Finding min node from %r" % root_node
 print bst_min(root_node)
 
 # 4. Write a bst_find_gt(tree_node, data) function which returns a list of nodes whose value is greater that data.
-def bst_find_gt(tree_node, data, list = []):
+def bst_find_gt(tree_node, data, gtr = []):
     if tree_node.data > data:
-        list.append(tree_node)
+        print "appending %r" % tree_node
+        gtr.append(tree_node)
     if tree_node.right:
-        bst_find_gt(tree_node.right, data, list)
+        print "tree_node.right is %r" % tree_node.right
+        return bst_find_gt(tree_node.right, data, gtr)
     if tree_node.left:
-        bst_find_gt(tree_node.left, data, list)
-        
+        print "tree_node.left is %r" % tree_node.left
+        return bst_find_gt(tree_node.left, data, gtr)
+    return gtr
+
     # if tree_node.right.data > data:
     #     list.append(tree_node.right)
     #     bst_find_gt(tree_node.right, data, list)
@@ -139,7 +143,7 @@ def bst_find_gt(tree_node, data, list = []):
 
 print "---------------------------"
 print "Finding nodes larger than BTreeNode(65)"
-bst_find_gt(root_node, 65)
+print bst_find_gt(root_node, 65)
 
 # 5. Write a bst_delete(tree_node, target) function to delete the target node from the tree.
 # def bst_delete(tree_node, target):
