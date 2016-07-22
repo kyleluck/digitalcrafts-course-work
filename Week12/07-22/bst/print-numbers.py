@@ -3,8 +3,7 @@
 def print_numbers(n, i = 1):
     if i <= n:
         print i
-        i += 1
-        print_numbers(n, i)
+        print_numbers(n, i + 1)
 
 print "printing numbers:"
-print_numbers(5)
+print_numbers(10)
