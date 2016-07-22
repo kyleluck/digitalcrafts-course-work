@@ -95,14 +95,17 @@ def bst_lookup(tree_node, target):
 print "---------------------------"
 print "Searching for target 95 from %r" % root_node
 print bst_lookup(root_node, 95)
+print "Searching for target 100 that doesn't exist from %r" % root_node
+print bst_lookup(root_node, 100)
 
 # 2. Write a bst_in_order_traversal(tree_node) function that traverses the tree in the right order, such that if you use the traversal to print the elements the tree, for example, you would print the elements in ascending order.
 def bst_in_order_traversal(tree_node):
-    if tree_node.left:
-        bst_in_order_traversal(tree_node.left)
-    print tree_node.data
-    if tree_node.right:
-        bst_in_order_traversal(tree_node.right)
+    if tree_node:
+        if tree_node.left:
+            bst_in_order_traversal(tree_node.left)
+        print tree_node.data
+        if tree_node.right:
+            bst_in_order_traversal(tree_node.right)
 
 print "---------------------------"
 print "Traversing BST in order from %r" % root_node
@@ -110,10 +113,11 @@ bst_in_order_traversal(root_node)
 
 # 3. Write a bst_min(tree_node) function that returns the smallest node of the tree (the one all the way to the left).
 def bst_min(tree_node):
-    if tree_node.left:
-        return bst_min(tree_node.left)
-    else:
-        return tree_node
+    if tree_node:
+        if tree_node.left:
+            return bst_min(tree_node.left)
+        else:
+            return tree_node
 
 print "---------------------------"
 print "Finding min node from %r" % root_node
