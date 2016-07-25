@@ -1,5 +1,6 @@
 {% extends "github-layout.html" %}
 {% block body %}
+<span>Logged in as {{ user }}</span>
 <a href="/login" class="logout">Logout</a>
 
 <form method="POST" action="/save">

@@ -14,13 +14,14 @@ def display_form():
 
         # get projects for user logged in:
         username = session['name']
-        useridquery = db.query("select id from user_table where username = '%s' limit 1" % username)
+        useridquery = db.query("select id, username from user_table where username = '%s' limit 1" % username)
         user = useridquery.namedresult()
 
         projects = db.query("select name from repo where user_id = '%s' order by name asc" % user[0].id)
 
         return render_template('github-insert-form.html',
                 title="GitHub",
+                user = user[0].username,
                 users = users.namedresult(),
                 projects = projects.namedresult())
     else:
