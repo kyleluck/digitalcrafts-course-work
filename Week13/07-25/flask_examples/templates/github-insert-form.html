@@ -1,0 +1,14 @@
+{% extends "github-layout.html" %}
+{% block body %}
+<form method="POST" action="/save">
+  <label for="project">Enter a project name:</label>
+  <input type="text" name="project" id="project">
+  <label for="user">Select a master user:</label>
+  <select name="user">
+    {% for user in users %}
+    <option value="{{ user.username }}">{{ user.fullname }}</option>
+    {% endfor %}
+  </select>
+  <button type="submit">Save</button>
+</form>
+{% endblock %}

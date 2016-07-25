@@ -30,7 +30,7 @@ def display_tech_user_knows():
     # to the browser
     return render_template(
         'tech-known.html',
-        title='Tech Known',
+        title='Kyle knows:',
         techs=tech_known.namedresult())
 
 # Start the server if this file is run as a script on the command line

@@ -1,0 +1,18 @@
+body {
+  box-sizing: border-box;
+  font-family: 'Poiret One', cursive;
+  margin: 30px;
+}
+li {
+  color: #58A4B0;
+}
+input {
+  padding: 10px;
+}
+button {
+  padding: 10px;
+}
+form input, button, select {
+  display: block;
+  margin-bottom: 15px;
+}
