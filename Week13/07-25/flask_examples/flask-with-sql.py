@@ -31,6 +31,7 @@ def display_tech_user_knows():
     html += "</ul>"
     return html
 
+
 # Start the server if this file is run as a script on the command line
 if __name__ == '__main__':
     # run the server in debug mode, which will automatically
