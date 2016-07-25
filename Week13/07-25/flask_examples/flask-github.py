@@ -8,15 +8,41 @@ app = Flask('MyApp')
 @app.route('/')
 def display_form():
     # get possible user names from db for dropdown
-    users = db.query("select username, fullname from user_table order by username asc")
+    users = db.query("select id, fullname from user_table order by username asc")
+    projects = db.query("select name from repo order by name asc")
+
     return render_template('github-insert-form.html',
             title="GitHub",
-            users = users.namedresult())
+            users = users.namedresult(),
+            projects = projects.namedresult())
 
 @app.route('/save', methods=['POST'])
 def save_project():
     project = request.form['project']
-    return "<h1>%s</h1>" % project
+    user = request.form['user']
+    db.insert('repo', name=project, user_id=user)
+    return redirect('/')
+
+@app.route('/know', methods=['POST'])
+def find_user_knows():
+    user = int(request.form['userknow'])
+    find_query = '''
+        select
+          distinct on (tech.name, repo.user_id) user_table.fullname, tech.name
+        from
+          repo
+        inner join
+          tech_in_repo on repo.id = tech_in_repo.repo_id
+        inner join
+          tech on tech_in_repo.tech_id = tech.id
+        inner join
+          user_table on repo.user_id = user_table.id
+        where
+          user_table.id = %d
+      ''' % user
+    result = db.query(find_query)
+    return render_template('user-knows.html',
+        techs = result.namedresult())
 
 if __name__ == "__main__":
     app.run(debug=True)

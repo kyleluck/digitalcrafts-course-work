@@ -6,9 +6,29 @@
   <label for="user">Select a master user:</label>
   <select name="user">
     {% for user in users %}
-    <option value="{{ user.username }}">{{ user.fullname }}</option>
+    <option value="{{ user.id }}">{{ user.fullname }}</option>
     {% endfor %}
   </select>
   <button type="submit">Save</button>
 </form>
+
+<hr>
+
+<form method="POST" action="/know">
+  <label for="userknow">Find out what Tech a user knows:</label>
+  <select name="userknow">
+    {% for user in users %}
+    <option value="{{ user.id }}">{{ user.fullname }}</option>
+    {% endfor %}
+  </select>
+  <button type="submit">Search</button>
+</form>
+
+<h3>Current projects:</h3>
+<ul>
+  {% for project in projects %}
+  <li>{{ project.name }}</li>
+  {% endfor %}
+</ul>
+
 {% endblock %}

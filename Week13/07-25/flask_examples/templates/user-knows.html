@@ -1,0 +1,9 @@
+{% extends "github-layout.html" %}
+{% block body %}
+<ul>
+{% for tech in techs %}
+<li>{{ tech.name }}</li>
+{% endfor %}
+</ul>
+<a href="/">Go Back</a>
+{% endblock %}
