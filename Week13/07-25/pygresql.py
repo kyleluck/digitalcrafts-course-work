@@ -167,3 +167,6 @@ db.update(table_name, dictionary)
 db.update('coder', {'id': 1, 'name': 'Matt'})
 
 # The above code will update the user with id = 1 and update his name to 'Matt'
+
+# Delete a row from the database
+db.delete('table_name', {'id', 1})
