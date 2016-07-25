@@ -34,6 +34,12 @@ Install virtualenvwrapper
 
 pip install virtualenvwrapper
 
+## Step 5
+
+export WORKON_HOME=~/VirtualEnvs
+source /usr/local/bin/virtualenvwrapper.sh
+
+
 ## How to Use VirtualEnvWrapper
 
 To create a new virtual environment with VirtualEnvWrapper to use with a project, you use the `mkvirtualenv` command:
@@ -47,3 +53,11 @@ workon MY_PROJECT
 When you are "working on" the virtual environment associated with a project, certain environment variables are set up in your shell for you. You will also see the name of that environment in your shell prompt. If you want to deactivate these environment variables because you are no longer working on that project, do:
 
 deactivate
+
+# Remove virtualenv
+rmvirtualenv PROJECT_NAME
+
+## Two Package We Need
+
+* flask
+* PyGreSQL
