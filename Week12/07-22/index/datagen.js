@@ -12,7 +12,7 @@ time node --max-old-space-size=2048 datagen.js reviewer 100 |psql my-yelp
 
 To generate 100 reviews, where 200 is the current max ID for restaurants and 300 is the current max ID for reviewers:
 
-time node --max-old-space-size=2048 datagen.js review 10 100 300 |psql my-yelp
+time node --max-old-space-size=2048 datagen.js review 100 200 300 |psql my-yelp
 
 */
 

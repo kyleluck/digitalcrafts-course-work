@@ -1,0 +1,87 @@
+# before index
+Seq Scan on restaurant  (cost=0.00..19217.00 rows=16 width=23)
+  Filter: ((name)::text = 'Marks and Sons'::text)
+
+# after index
+Bitmap Heap Scan on restaurant  (cost=4.55..66.41 rows=16 width=23)
+  Recheck Cond: ((name)::text = 'Marks and Sons'::text)
+  ->  Bitmap Index Scan on restaurant_name_idx  (cost=0.00..4.54 rows=16 width=0)
+        Index Cond: ((name)::text = 'Marks and Sons'::text)
+
+#--------------------------------------------------------------------------------
+# before index
+Limit  (cost=34521.29..34521.31 rows=10 width=23)
+  ->  Sort  (cost=34521.29..36773.79 rows=901000 width=23)
+        Sort Key: karma DESC
+        ->  Seq Scan on reviewer  (cost=0.00..15051.00 rows=901000 width=23)
+
+# after index on karma
+Limit  (cost=0.42..0.95 rows=10 width=23)
+  ->  Index Scan Backward using reviewer_karma_idx on reviewer  (cost=0.42..47222.22 rows=901000 width=23)
+
+#--------------------------------------------------------------------------------
+
+select
+  restaurant.name, review.title
+from
+  restaurant
+inner join
+  review on restaurant.id = review.restaurant_id
+where
+  restaurant.name = 'Mayert LLC';
+
+# before index
+  Hash Join  (cost=66.61..47872.65 rows=16 width=64)
+    Hash Cond: (review.restaurant_id = restaurant.id)
+    ->  Seq Scan on review  (cost=0.00..44055.10 rows=1000210 width=49)
+    ->  Hash  (cost=66.41..66.41 rows=16 width=23)
+          ->  Bitmap Heap Scan on restaurant  (cost=4.55..66.41 rows=16 width=23)
+                Recheck Cond: ((name)::text = 'Mayert LLC'::text)
+                ->  Bitmap Index Scan on restaurant_name_idx  (cost=0.00..4.54 rows=16 width=0)
+                      Index Cond: ((name)::text = 'Mayert LLC'::text)
+
+# after index
+Nested Loop  (cost=4.97..266.09 rows=16 width=64)
+  ->  Bitmap Heap Scan on restaurant  (cost=4.55..66.41 rows=16 width=23)
+        Recheck Cond: ((name)::text = 'Mayert LLC'::text)
+        ->  Bitmap Index Scan on restaurant_name_idx  (cost=0.00..4.54 rows=16 width=0)
+              Index Cond: ((name)::text = 'Mayert LLC'::text)
+  ->  Index Scan using review_restaurant_id_idx on review  (cost=0.42..12.46 rows=2 width=49)
+        Index Cond: (restaurant_id = restaurant.id)
+
+
+
+
+#--------------------------------------------------------------------------------
+select
+  restaurant.name, avg(stars) as avg_stars
+from
+  restaurant
+inner join
+  review on restaurant.id = review.restaurant_id
+where
+  restaurant.name = 'Mayert LLC'
+group by
+  restaurant.name;
+
+# before index
+GroupAggregate  (cost=66.61..47872.75 rows=1 width=23)
+  Group Key: restaurant.name
+  ->  Hash Join  (cost=66.61..47872.65 rows=16 width=23)
+        Hash Cond: (review.restaurant_id = restaurant.id)
+        ->  Seq Scan on review  (cost=0.00..44055.10 rows=1000210 width=8)
+        ->  Hash  (cost=66.41..66.41 rows=16 width=23)
+              ->  Bitmap Heap Scan on restaurant  (cost=4.55..66.41 rows=16 width=23)
+                    Recheck Cond: ((name)::text = 'Mayert LLC'::text)
+                    ->  Bitmap Index Scan on restaurant_name_idx  (cost=0.00..4.54 rows=16 width=0)
+                          Index Cond: ((name)::text = 'Mayert LLC'::text)
+# after index
+GroupAggregate  (cost=4.97..266.18 rows=1 width=23)
+  Group Key: restaurant.name
+  ->  Nested Loop  (cost=4.97..266.09 rows=16 width=23)
+        ->  Bitmap Heap Scan on restaurant  (cost=4.55..66.41 rows=16 width=23)
+              Recheck Cond: ((name)::text = 'Mayert LLC'::text)
+              ->  Bitmap Index Scan on restaurant_name_idx  (cost=0.00..4.54 rows=16 width=0)
+                    Index Cond: ((name)::text = 'Mayert LLC'::text)
+        ->  Index Scan using review_restaurant_id_idx on review  (cost=0.42..12.46 rows=2 width=8)
+              Index Cond: (restaurant_id = restaurant.id)
