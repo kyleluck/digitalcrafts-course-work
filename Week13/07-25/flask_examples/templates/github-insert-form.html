@@ -1,5 +1,7 @@
 {% extends "github-layout.html" %}
 {% block body %}
+<a href="/login" class="logout">Logout</a>
+
 <form method="POST" action="/save">
   <label for="project">Enter a project name:</label>
   <input type="text" name="project" id="project">
@@ -24,7 +26,9 @@
   <button type="submit">Search</button>
 </form>
 
-<h3>Current projects:</h3>
+<hr>
+
+<h3>My projects:</h3>
 <ul>
   {% for project in projects %}
   <li>{{ project.name }}</li>
