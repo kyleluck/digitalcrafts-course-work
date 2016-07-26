@@ -14,10 +14,10 @@ def display_form():
 
         # get projects for user logged in:
         username = session['name']
-        useridquery = db.query("select id, username from user_table where username = '%s' limit 1" % username)
+        useridquery = db.query("select id, username from user_table where username = $1 limit 1", username)
         user = useridquery.namedresult()
 
-        projects = db.query("select name from repo where user_id = '%s' order by name asc" % user[0].id)
+        projects = db.query("select name from repo where user_id = $1 order by name asc", user[0].id)
 
         return render_template('github-insert-form.html',
                 title="GitHub",
@@ -39,7 +39,7 @@ def login_form():
 def handle_login():
     username = request.form['username']
     # check to see if username is in db
-    check = db.query("select * from user_table where username = '%s' LIMIT 1" % username)
+    check = db.query("select * from user_table where username = $1 LIMIT 1", username)
     if check.namedresult():
         session['name'] = username
         return redirect('/')
@@ -56,7 +56,7 @@ def save_project():
 @app.route('/know', methods=['POST'])
 def find_user_knows():
     user = int(request.form['userknow'])
-    find_query = '''
+    result = db.query('''
         select
           distinct on (tech.name, repo.user_id) user_table.fullname, tech.name
         from
@@ -68,9 +68,8 @@ def find_user_knows():
         inner join
           user_table on repo.user_id = user_table.id
         where
-          user_table.id = %d
-      ''' % user
-    result = db.query(find_query)
+          user_table.id = $1
+      ''', user)
     return render_template('user-knows.html',
         techs = result.namedresult())
 
